@@ -11,7 +11,7 @@
 
 body {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
   background-image: url('./img/desert.png');
   background-position: center;
@@ -21,16 +21,52 @@ body {
   font-family: 'zabras', Arial, 'Helvetica Neue', Helvetica;
 }
 
+.wrapper {
+  width: 100%;
+  max-width: 770px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 8px;
+}
+
 h1 {
-  font-size: 64px;
+  font-size: clamp(32px, 8vw, 88px);
   letter-spacing: 3px;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.user-interaction {
+  width: 100%;
+  /* max-width: 770px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.start-container {
+  background-image: url('./img/9_intro_outro_screens/start/startscreen_1.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  /* max-width: 740px; */
+  height: 480px;
+  display: block;
+  margin: 0 auto;
 }
 
 canvas {
   background-color: black;
   display: block;
+  width: 100%;
+  height: 480px;
 }
+
 
 
 @media only screen and (max-width: 720px) {

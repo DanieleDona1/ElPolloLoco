@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
     <title>Document</title>
+    <script src="./template/startscreen.js"></script>
+    <script src="./main.js"></script>
     <script src="./models/drawable-object.class.js"></script>
     <script src="./models/movable-object-class.js"></script>
     <script src="./models/keyboard.class.js"></script>
@@ -21,11 +23,19 @@
     <script src="./levels/level1.js"></script>
     <script src="./js/game.js"></script>
   </head>
-  <body onload="init()">
-    <h1 class="canvas-title">EL POLLO LOCO</h1>
+  <body onload="onload()">
 
-    <canvas id="canvas" width="720" height="480">
-      <!-- <canvas id="canvas" width="480" height="320"> -->
-    </canvas>
+    <div class="wrapper">
+      <h1 class="canvas-title">EL POLLO LOCO</h1>
+      <section id="userInteraction" class="user-interaction">
+
+        <div class='start-container'>
+
+
+        </div>
+      <!-- <canvas id="canvas" width="720" height="480"></canvas> -->
+
+      </section>
+    </div>
   </body>
 </html>
