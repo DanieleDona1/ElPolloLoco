@@ -13,7 +13,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-image: url('./img/desert.jpg');
+  background-image: url('./img/desert.png');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -37,7 +37,8 @@ canvas {
   canvas {
       width: 100%;
   }
-};
+}
+
 
 @media only screen and (max-height: 480px) {
   canvas {
@@ -47,4 +48,4 @@ canvas {
   .canvas-title {
     display: none;
   }
-};
+}
