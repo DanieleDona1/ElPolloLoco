@@ -13,7 +13,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url('./img/desert.png');
+  background-image: url('./img/start_screen/desert.png');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -41,6 +41,7 @@ h1 {
 }
 
 .user-interaction {
+  position: relative;
   width: 100%;
   /* max-width: 770px; */
   display: flex;
@@ -54,10 +55,37 @@ h1 {
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
-  /* max-width: 740px; */
   height: 480px;
-  display: block;
-  margin: 0 auto;
+  /* display: block; */
+  /* margin: 0 auto; */
+}
+
+.start-container img{
+  cursor: pointer;
+}
+
+.start-screen-container {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+}
+
+.start-screen-container img {
+  width: 48px;
+  gap: 8px;
+  padding: 4px;
+}
+
+.start-screen-container img:hover {
+  transform: scale(1.1);
+}
+
+.play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 96px;
 }
 
 canvas {
@@ -67,18 +95,15 @@ canvas {
   height: 480px;
 }
 
-
-
 @media only screen and (max-width: 720px) {
   canvas {
-      width: 100%;
+    width: 100%;
   }
 }
 
-
 @media only screen and (max-height: 480px) {
   canvas {
-      height: 100vh;
+    height: 100vh;
   }
 
   .canvas-title {
