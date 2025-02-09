@@ -4,6 +4,10 @@ const level1 = new Level( //class create Objects
     new Chicken(),
     new Chicken(),
     new Endboss(),
+    new ChickenSmall(),
+    new ChickenSmall(),
+    new ChickenSmall(),
+    new ChickenSmall(),
   ],
   [
     new Cloud()
