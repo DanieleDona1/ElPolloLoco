@@ -67,7 +67,7 @@ class Character extends MovableObject {
 
       // console.log('this.speedY ', this.speedY );
       // Pepe soll springen, geschwindigkeit verändert
-      if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+      if (this.world.keyboard.UP && !this.isAboveGround()) {
         this.jump();
       }
 

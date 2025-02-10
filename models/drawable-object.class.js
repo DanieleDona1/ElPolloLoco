@@ -26,7 +26,7 @@ class DrawableObject {
 
 
   drawFrame(ctx) {
-    if (this instanceof Character || this instanceof Chicken) { //Nur border bei bestimmten Instanzen
+    if (this instanceof Character || this instanceof Chicken || this instanceof ChickenSmall || this instanceof Endboss) { //Nur border bei bestimmten Instanzen
       ctx.beginPath();
       ctx.lineWidth = '5';
       ctx.strokeStyle = 'blue';

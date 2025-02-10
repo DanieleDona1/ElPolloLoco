@@ -54,6 +54,8 @@ class World { //Game logic
     this.ctx.translate(this.camera_x, 0);
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addObjectsToMap(this.level.clouds);
+    this.addObjectsToMap(this.level.items);
+    // this.addObjectsToMap(this.level.bottle);
 
 
     this.ctx.translate(-this.camera_x, 0);
