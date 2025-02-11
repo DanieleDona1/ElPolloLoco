@@ -19,7 +19,7 @@ class DrawableObject {
     } catch(e) {
       console.warn('Error hier:', e);
       console.warn('Error this img:', this.img);
-      console.warn('Error src:', this.img.src);
+      // console.warn('Error src:', this.img.src);
     }
 
   }
@@ -63,4 +63,6 @@ class DrawableObject {
           return 0;
       }
   }
+
+
 }

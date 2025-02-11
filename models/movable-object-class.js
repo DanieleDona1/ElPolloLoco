@@ -6,6 +6,8 @@ class MovableObject extends DrawableObject {
   acceleration = 2.5;
   energy = 100;
   lastHit = 0;
+  wallet = 0;
+  bottleBox = 0;
 
   applyGravity() {
     setInterval(() => {
@@ -42,6 +44,23 @@ class MovableObject extends DrawableObject {
       this.lastHit = new Date().getTime();
     }
   }
+  collectItem() {
+    this.wallet += 20;
+
+    if (this.wallet >= 100) {
+      this.wallet = 100;
+    }
+
+    console.log('wallet: ', this.wallet);
+
+  }
+  collectBottle() {
+    this.bottleBox += 20;
+
+    if (this.bottleBox >= 100) {
+      this.bottleBox = 100;
+    }
+}
   isHurt() {
     let timepassed = new Date().getTime() - this.lastHit; //Differenz ms
     timepassed = timepassed / 1000; //Differenz sec

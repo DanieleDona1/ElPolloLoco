@@ -33,13 +33,10 @@ class Character extends MovableObject {
     './img/2_character_pepe/5_dead/D-57.png',
   ];
 
-  IMAGES_HURT = [
-    './img/2_character_pepe/4_hurt/H-41.png',
-    './img/2_character_pepe/4_hurt/H-42.png',
-    './img/2_character_pepe/4_hurt/H-43.png',
-  ];
+  IMAGES_HURT = ['./img/2_character_pepe/4_hurt/H-41.png', './img/2_character_pepe/4_hurt/H-42.png', './img/2_character_pepe/4_hurt/H-43.png'];
 
   world;
+
   constructor() {
     super().loadImage('./img/2_character_pepe/2_walk/W-21.png');
     this.loadImages(this.IMAGES_WALKING);
@@ -75,7 +72,6 @@ class Character extends MovableObject {
     }, 1000 / 60);
 
     setInterval(() => {
-
       if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
       } else if (this.isHurt()) {

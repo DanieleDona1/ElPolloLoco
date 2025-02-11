@@ -26,7 +26,8 @@ class World { //Game logic
   run() {
     setInterval(() => {
 
-      this.checkCollisions();
+      this.checkCollisionsEnemies();
+      this.checkCollisionsItems();
       this.checkThrowObjects();
 
     }, 200);
@@ -40,7 +41,7 @@ class World { //Game logic
   }
 
 
-  checkCollisions() {
+  checkCollisionsEnemies() {
     this.level.enemies.forEach(enemy => {
       if(this.character.isColliding(enemy)) {
         this.character.hit();
@@ -48,6 +49,24 @@ class World { //Game logic
       }
     });
   }
+  checkCollisionsItems() {
+    this.level.items.forEach(i => {
+        if(this.character.isColliding(i)) {
+            // Check if the item is a Coin
+            if (i instanceof Coin) {
+                this.character.collectItem();
+                this.coinStatusBar.setPercentage(this.character.wallet);
+              }
+              // Check if the item is a Bottle
+              else if (i instanceof Bottle) {
+                    this.character.collectBottle();
+                this.bottleStatusBar.setPercentage(this.character.bottleBox);
+            }
+        }
+    });
+}
+
+
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
