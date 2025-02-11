@@ -33,7 +33,7 @@ class World { //Game logic
   }
 
   checkThrowObjects() {
-    if (this.keyboard.D) {
+    if (this.keyboard.SPACE) {
       let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
       this.throwableObjects.push(bottle);
     }
@@ -104,7 +104,7 @@ class World { //Game logic
     this.ctx.scale(-1, 1);
     mo.x = mo.x * -1;
   }
-
+ f
   flipImageBack(mo) {
     mo.x = mo.x * -1;
     this.ctx.restore();
