@@ -34,6 +34,15 @@ function getSettingsPopupTemplate() {
           <li><strong>Up Arrow:</strong> Jump</li>
           <li><strong>Spacebar:</strong> Throw Bottle</li>
         </ul>
+
+        <h2>Game Instructions</h2>
+        <ul>
+            <li><strong>To eliminate large and small chickens:</strong> Jump on them or throw a bottle at them.</li>
+            <li><strong>To collect bottles and coins:</strong> Simply touch them.</li>
+            <li><strong>If you come into contact with an enemy:</strong> You will lose a percentage of your health.</li>
+            <li><strong>To restore health:</strong> Collect coins amounting to more than 100% of your health.</li>
+            <li><strong>To defeat the final boss:</strong> Throw bottles at him.</li>
+        </ul>
       </div>
     </div>
   `;
