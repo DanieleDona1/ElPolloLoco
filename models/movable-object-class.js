@@ -51,12 +51,13 @@ class MovableObject extends DrawableObject {
     }
     this.world.level.items.splice(index, 1);
   }
-  collectBottle() {
+  collectBottle(index) {
     this.bottleBox += 20;
 
     if (this.bottleBox >= 100) {
       this.bottleBox = 100;
     }
+    this.world.level.items.splice(index, 1);
 }
   isHurt() {
     let timepassed = new Date().getTime() - this.lastHit; //Differenz ms

@@ -63,6 +63,4 @@ class DrawableObject {
           return 0;
       }
   }
-
-
 }

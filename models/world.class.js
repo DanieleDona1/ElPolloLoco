@@ -8,6 +8,7 @@ class World { //Game logic
   healthStatusBar = new HealthStatusBar();
   coinStatusBar = new CoinStatusBar();
   bottleStatusBar = new BottleStatusBar();
+  endbossHealthStatusBar = new EndbossHealthStatusBar();
   throwableObjects = [];
 
   constructor(canvas, keyboard) { //Hier werden function regelmäßig wiederholt
@@ -56,15 +57,10 @@ class World { //Game logic
             if (i instanceof Coin) {
                 this.character.collectItem(index);
                 this.coinStatusBar.setPercentage(this.character.wallet);
-
-                // Remove the coin from the items array
             }
-            // Check if the item is a Bottle
             else if (i instanceof Bottle) {
-                this.character.collectBottle();
+                this.character.collectBottle(index);
                 this.bottleStatusBar.setPercentage(this.character.bottleBox);
-                // Optionally, remove the bottle from the items array as well
-                this.level.items.splice(index, 1); // This will remove the bottle from the level.items array
             }
         }
     });
@@ -87,6 +83,7 @@ class World { //Game logic
     this.addToMap(this.healthStatusBar);
     this.addToMap(this.coinStatusBar);
     this.addToMap(this.bottleStatusBar);
+    this.addToMap(this.endbossHealthStatusBar);
     this.ctx.translate(this.camera_x, 0);
 
 
