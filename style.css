@@ -21,6 +21,76 @@ body {
   font-family: 'zabras', Arial, 'Helvetica Neue', Helvetica;
 }
 
+/* Settings Popup */
+.settings-popup {
+  position: absolute;
+  top: -10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 400px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  display: none;
+  z-index: 2;
+  transition: top 0.5s ease;
+}
+
+.settings-popup-content {
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  font-size: 24px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.settings-popup h2 {
+  font-size: 24px;
+  margin-bottom: 16px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.settings-popup ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.settings-popup li {
+  font-size: 24px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  margin-bottom: 8px;
+}
+
+.settings-popup li strong {
+  color: #ffcc00;
+}
+
+/* Popup animation */
+@keyframes slideDown {
+  0% {
+    top: 0%;
+  }
+  100% {
+    top: 50%;
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    top: 50%;
+  }
+  100% {
+    top: -40%;
+  }
+}
+
 .wrapper {
   width: 100%;
   max-width: 770px;
@@ -56,6 +126,7 @@ h1 {
   background-size: cover;
   width: 100%;
   height: 480px;
+  /* hier 100vh wenn querkant mobile version TODO  */
   /* display: block; */
   /* margin: 0 auto; */
 }

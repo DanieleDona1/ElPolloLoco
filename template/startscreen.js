@@ -5,14 +5,36 @@ gameSound.loop = true; // Der Sound wird wiederholt abgespielt
 // Funktion zum Startbildschirm laden
 function loadStartScreen() {
   let startScreen = document.getElementById('userInteraction');
-  startScreen.innerHTML = /*html*/ `
+  startScreen.innerHTML = getStartScreenTemplate();
+  startScreen.innerHTML += getSettingsPopupTemplate();
+}
+
+function getStartScreenTemplate() {
+  return /*html*/ `
     <div class='start-container'>
       <div class='start-screen-container'>
-        <img src="./img/start_screen/settings.svg" alt="settings">
+        <img src="./img/start_screen/settings.svg" alt="settings" onclick="toggleSettings()">
         <img id="sound-icon" src="./img/start_screen/sound_off.svg" alt="sound-on" onclick="toggleSound()">
         <img src="./img/start_screen/fullscreen-enter.svg" alt="fullscreen">
       </div>
       <img onclick="playGame();" class="play-icon" src="./img/start_screen/play-btn.svg" alt="play-button">
+    </div>
+  `;
+}
+
+function getSettingsPopupTemplate() {
+  return /*html*/ `
+    <div id="settingsPopup" class="settings-popup">
+      <div class="settings-popup-content">
+        <span class="close-btn" onclick="closeSettings()">Back</span>
+        <h2>Game Controls</h2>
+        <ul>
+          <li><strong>Left Arrow:</strong> Move Left</li>
+          <li><strong>Right Arrow:</strong> Move Right</li>
+          <li><strong>Up Arrow:</strong> Jump</li>
+          <li><strong>Spacebar:</strong> Throw Bottle</li>
+        </ul>
+      </div>
     </div>
   `;
 }
@@ -22,12 +44,39 @@ function toggleSound() {
   let soundIcon = document.getElementById('sound-icon');
   if (isBackgroundSoundOn) {
     gameSound.play();
-    soundIcon.src = "./img/start_screen/sound_on.svg";
+    soundIcon.src = './img/start_screen/sound_on.svg';
   } else {
     // Stoppe den Sound
     gameSound.pause();
     gameSound.currentTime = 0;
-    soundIcon.src = "./img/start_screen/sound_off.svg";
+    soundIcon.src = './img/start_screen/sound_off.svg';
   }
   isBackgroundSoundOn = !isBackgroundSoundOn;
+}
+
+// Funktion zum Öffnen und Schließen des Settings-Popups
+function toggleSettings() {
+  const popup = document.getElementById('settingsPopup');
+
+  if (popup.style.display === 'block') {
+    closeSettings();
+  } else {
+    openSettings();
+  }
+}
+
+// Funktion zum Öffnen des Settings-Popups
+function openSettings() {
+  const popup = document.getElementById('settingsPopup');
+  popup.style.display = 'block';
+  popup.style.animation = 'slideDown 0.5s forwards';
+}
+
+// Funktion zum Schließen des Settings-Popups
+function closeSettings() {
+  const popup = document.getElementById('settingsPopup');
+  popup.style.animation = 'slideUp 0.5s forwards'; // Slide-up-Animation
+  setTimeout(() => {
+    popup.style.display = 'none';
+  }, 250); // Warten, bis die Animation abgeschlossen ist
 }
