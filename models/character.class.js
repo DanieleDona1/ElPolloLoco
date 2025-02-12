@@ -68,6 +68,10 @@ class Character extends MovableObject {
         this.jump();
       }
 
+      // if (this.energy == 0) {
+      //   this.fallToDeath();
+      // }
+
       this.world.camera_x = -this.x + 100;
     }, 1000 / 60);
 
@@ -88,5 +92,10 @@ class Character extends MovableObject {
   }
   jump() {
     this.speedY = 30;
+  }
+  fallToDeath() {
+    setInterval(() => {
+        this.y += 0.5;
+    }, 1000 / 20);
   }
 }

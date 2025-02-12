@@ -30,6 +30,7 @@ class World { //Game logic
       this.checkCollisionsEnemies();
       this.checkCollisionsItems();
       this.checkThrowObjects();
+      this.checkCollisionsBottle();
 
     }, 200);
   }
@@ -52,6 +53,8 @@ class World { //Game logic
   }
   checkCollisionsItems() {
     this.level.items.forEach((i, index) => {
+      // console.log('this.character', this.level);
+
         if (this.character.isColliding(i)) {
             // Check if the item is a Coin
             if (i instanceof Coin) {
@@ -65,6 +68,23 @@ class World { //Game logic
         }
     });
 }
+// TODO
+checkCollisionsBottle() {
+  this.throwableObjects.forEach((bottle) => {
+      // Überprüfe Kollision mit Feinden
+      this.level.enemies.forEach((enemy) => {
+          if (bottle.isColliding(enemy)) {
+              console.log('Enemies hurt');
+          }
+      });
+
+      // Überprüfe Kollision mit dem Endboss
+      if (bottle.isColliding(this.level.endboss)) {
+          console.log('Endboss hurt');
+      }
+  });
+}
+
 
 
 
@@ -83,7 +103,11 @@ class World { //Game logic
     this.addToMap(this.healthStatusBar);
     this.addToMap(this.coinStatusBar);
     this.addToMap(this.bottleStatusBar);
-    this.addToMap(this.endbossHealthStatusBar);
+    if (this.endbossHealthStatusBar.otherDirection) {
+      this.endbossHealthStatusBar.flipImage(); // Spiegeln, wenn andere Richtung
+    } else {
+      this.addToMap(this.endbossHealthStatusBar); // Normal zeichnen, wenn nicht gespiegelt
+    }
     this.ctx.translate(this.camera_x, 0);
 
 

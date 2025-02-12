@@ -47,6 +47,8 @@ class DrawableObject {
     this.percentage = percentage;
     let path = this.IMAGES[this.resolveImageIndex()];
     this.img = this.imageCache[path];
+    console.log(this.percentage);
+
   }
     resolveImageIndex(){
       if (this.percentage == 100) {

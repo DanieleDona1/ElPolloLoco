@@ -19,4 +19,12 @@ class EndbossHealthStatusBar extends DrawableObject {
     this.height = 60;
     this.setPercentage(100);
   }
+
+  flipImage() {
+    this.ctx.save(); // Speichern des aktuellen Zustands des Canvas
+    this.ctx.translate(this.x + this.width, this.y); // Verschiebung des Koordinatensystems
+    this.ctx.scale(-1, 1); // Spiegeln des Bildes entlang der x-Achse
+    this.ctx.drawImage(this.image, -this.width, 0, this.width, this.height); // Bild spiegeln
+    this.ctx.restore(); // Zurücksetzen des Canvas-Zustands
+  }
 }
