@@ -44,15 +44,12 @@ class MovableObject extends DrawableObject {
       this.lastHit = new Date().getTime();
     }
   }
-  collectItem() {
+  collectItem(index) {
     this.wallet += 20;
-
     if (this.wallet >= 100) {
       this.wallet = 100;
     }
-
-    console.log('wallet: ', this.wallet);
-
+    this.world.level.items.splice(index, 1);
   }
   collectBottle() {
     this.bottleBox += 20;

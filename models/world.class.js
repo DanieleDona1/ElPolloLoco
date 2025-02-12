@@ -50,21 +50,26 @@ class World { //Game logic
     });
   }
   checkCollisionsItems() {
-    this.level.items.forEach(i => {
-        if(this.character.isColliding(i)) {
+    this.level.items.forEach((i, index) => {
+        if (this.character.isColliding(i)) {
             // Check if the item is a Coin
             if (i instanceof Coin) {
-                this.character.collectItem();
+                this.character.collectItem(index);
                 this.coinStatusBar.setPercentage(this.character.wallet);
-              }
-              // Check if the item is a Bottle
-              else if (i instanceof Bottle) {
-                    this.character.collectBottle();
+
+                // Remove the coin from the items array
+            }
+            // Check if the item is a Bottle
+            else if (i instanceof Bottle) {
+                this.character.collectBottle();
                 this.bottleStatusBar.setPercentage(this.character.bottleBox);
+                // Optionally, remove the bottle from the items array as well
+                this.level.items.splice(index, 1); // This will remove the bottle from the level.items array
             }
         }
     });
 }
+
 
 
 
