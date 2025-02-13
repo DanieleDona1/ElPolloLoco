@@ -164,10 +164,19 @@ h1 {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 96px;
+  animation: pulse 2s infinite; /* Animation hinzufügen */
 }
 
-.play-icon:hover {
-  width: 100px;
+@keyframes pulse {
+  0% {
+    width: 96px;
+  }
+  50% {
+    width: 110px; /* Maximalgröße */
+  }
+  100% {
+    width: 96px; /* Ursprüngliche Größe */
+  }
 }
 
 /* canvas css */
@@ -213,3 +222,17 @@ canvas {
   flex-direction: column;
 }
 
+.in-game-nav .play-pause-icon {
+  width: 32px;
+}
+
+.fullscreen-btn {
+  position: absolute;
+  right: 15px;
+  bottom: 10px;
+  width: 40px;
+}
+
+.fullscreen-btn:hover {
+  transform: scale(1.1);
+}
