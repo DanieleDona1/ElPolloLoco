@@ -14,7 +14,6 @@ class Endboss extends MovableObject {
     './img/4_enemie_boss_chicken/2_alert/G12.png',
   ];
 
-
   constructor() {
     super().loadImage(this.IMAGES_WALKING[0]);
     this.loadImages(this.IMAGES_WALKING);
@@ -23,8 +22,8 @@ class Endboss extends MovableObject {
   }
 
   animate() {
-    // this.moveLeft();
-    setInterval(() => {
+    // Animationsintervall für das Abspielen der Gehen-Animation des Endbosses
+    setStoppableInterval(() => {
       this.playAnimation(this.IMAGES_WALKING);
     }, 200);
   }

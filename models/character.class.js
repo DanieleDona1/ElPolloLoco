@@ -48,34 +48,27 @@ class Character extends MovableObject {
   }
 
   animate() {
-    setInterval(() => {
-      // this.walking_sound.pause();
+    // Animationsintervall für Bewegung
+    setStoppableInterval(() => {
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
         this.moveRight();
         this.otherDirection = false;
-        // this.walking_sound.play();
       }
 
       if (this.world.keyboard.LEFT && this.x > 0) {
         this.moveLeft();
         this.otherDirection = true;
-        // this.walking_sound.play();
       }
 
-      // console.log('this.speedY ', this.speedY );
-      // Pepe soll springen, geschwindigkeit verändert
       if (this.world.keyboard.UP && !this.isAboveGround()) {
         this.jump();
       }
 
-      // if (this.energy == 0) {
-      //   this.fallToDeath();
-      // }
-
       this.world.camera_x = -this.x + 100;
     }, 1000 / 60);
 
-    setInterval(() => {
+    // Animationsintervall für das Abspielen von Bildern
+    setStoppableInterval(() => {
       if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
       } else if (this.isHurt()) {
@@ -84,18 +77,19 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_JUMPING);
       } else {
         if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-          // walk animation
           this.playAnimation(this.IMAGES_WALKING);
         }
       }
     }, 50);
   }
+
   jump() {
     this.speedY = 30;
   }
+
   fallToDeath() {
-    setInterval(() => {
-        this.y += 0.5;
+    setStoppableInterval(() => {
+      this.y += 0.5;
     }, 1000 / 20);
   }
 }

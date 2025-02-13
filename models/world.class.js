@@ -25,15 +25,15 @@ class World { //Game logic
   }
 
   run() {
-    setInterval(() => {
-
+    // Intervall für das Überprüfen von Kollisionen und anderen Funktionen
+    setStoppableInterval(() => {
       this.checkCollisionsEnemies();
       this.checkCollisionsItems();
       this.checkThrowObjects();
       this.checkCollisionsBottle();
-
     }, 200);
   }
+
 
   checkThrowObjects() {
     if (this.keyboard.SPACE) {

@@ -10,14 +10,16 @@ class MovableObject extends DrawableObject {
   bottleBox = 0;
 
   applyGravity() {
-    setInterval(() => {
-      // nur wenn wir uns über Boden befinden, springt erstellen y verändert
+    // Intervall für die Schwerkraftanwendung
+    setStoppableInterval(() => {
+      // nur wenn wir uns über dem Boden befinden oder die Geschwindigkeit positiv ist (nach oben fliegen)
       if (this.isAboveGround() || this.speedY > 0) {
-        this.y -= this.speedY;
-        this.speedY -= this.acceleration;
+        this.y -= this.speedY; // Y-Position ändern
+        this.speedY -= this.acceleration; // Geschwindigkeit verringern
       }
     }, 1000 / 25);
   }
+
 
   isAboveGround() {
     if (this instanceof ThrowableObject) { //always fall

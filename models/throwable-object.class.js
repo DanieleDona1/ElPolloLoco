@@ -1,4 +1,4 @@
-class ThrowableObject extends MovableObject{
+class ThrowableObject extends MovableObject {
   constructor(x, y) {
     super();
     this.loadImage('./img/6_salsa_bottle/1_salsa_bottle_on_ground.png');
@@ -9,11 +9,13 @@ class ThrowableObject extends MovableObject{
     this.throw();
   }
 
-  throw() { //je nachdem wo der character steht
+  throw() {
     this.speedY = 30; //nach oben fliegt
     this.applyGravity();
-    setInterval(() => {
-      this.x += 10;
+
+    // Intervall für das Bewegen nach rechts
+    setStoppableInterval(() => {
+      this.x += 10; // Charakter nach rechts bewegen
     }, 25);
   }
 }
