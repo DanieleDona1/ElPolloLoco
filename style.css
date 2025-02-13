@@ -213,14 +213,3 @@ canvas {
   flex-direction: column;
 }
 
-.fullscreen-btn {
-  position: absolute;
-  z-index: 5;
-  width: 40px;
-  right: 16px;
-  bottom: 10px;
-}
-
-.fullscreen-btn:hover {
-  transform: scale(1.1);
-}

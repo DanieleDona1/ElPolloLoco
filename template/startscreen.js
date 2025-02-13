@@ -29,18 +29,11 @@ function getInGameNavigation() {
           <img src="./img/start_screen/info.svg" alt="info" onclick="toggleSettings()">
           <img id="sound-icon" src="./img/start_screen/sound_off.svg" alt="sound-on" onclick="toggleSound()">
         </div>
-        <img onclick="toggleFullscreen();" class="fullscreen-btn" src="./img/start_screen/fullscreen-enter.svg" alt="fullscreen">
     </div>
   `;
 }
 
-function toggleFullscreen() {
-  if (!document.fullscreenElement) {
-    canvas.requestFullscreen(); // geht in den Fullscreen
-  } else {
-    document.exitFullscreen(); // verlässt den Fullscreen
-  }
-}
+
 
 
 function getSettingsPopupTemplate() {
