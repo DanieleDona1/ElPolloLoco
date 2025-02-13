@@ -13,7 +13,7 @@ function getStartScreenTemplate() {
   return /*html*/ `
     <div class='start-container'>
       <div class='start-screen-container'>
-        <img src="./img/start_screen/settings.svg" alt="settings" onclick="toggleSettings()">
+        <img src="./img/start_screen/info.svg" alt="settings" onclick="toggleSettings()">
         <img id="sound-icon" src="./img/start_screen/sound_off.svg" alt="sound-on" onclick="toggleSound()">
         <img src="./img/start_screen/fullscreen-enter.svg" alt="fullscreen">
       </div>
@@ -22,11 +22,25 @@ function getStartScreenTemplate() {
   `;
 }
 
+// musik beenden, spiel stoppen und spielanleitung
+function getInGameNavigation() {
+  return /*html*/ `
+    <div class='start-container'>
+      <div class='start-screen-container in-game-nav'>
+        <img src="./img/start_screen/info.svg" alt="info" onclick="toggleSettings()">
+        <img id="sound-icon" src="./img/start_screen/sound_off.svg" alt="sound-on" onclick="toggleSound()">
+        <!-- <img src="./img/start_screen/fullscreen-enter.svg" alt="fullscreen"> -->
+      </div>
+      <!-- <img onclick="playGame();" class="play-icon" src="./img/start_screen/play-btn.svg" alt="play-button"> -->
+    </div>
+  `;
+}
+
 function getSettingsPopupTemplate() {
   return /*html*/ `
     <div id="settingsPopup" class="settings-popup">
       <div class="settings-popup-content">
-        <span class="close-btn" onclick="closeSettings()">Back</span>
+        <span class="close-btn" onclick="closeSettings()"></span>
         <h2>Game Controls</h2>
         <ul>
           <li><strong>Left Arrow:</strong> Move Left</li>

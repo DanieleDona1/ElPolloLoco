@@ -9,6 +9,7 @@ function playGame() {
   // toggleSound(); //TODO entkommentiere beide Zeilen, damit sound starten wenn user auf play icon drückt
   let startScreen = document.getElementById('userInteraction');
   startScreen.innerHTML = `<canvas id="canvas" width="720" height="480"></canvas>`;
+  startScreen.innerHTML += getInGameNavigation();
   startScreen.innerHTML += getSettingsPopupTemplate();
   init();
 }
