@@ -30,53 +30,10 @@ function getInGameNavigation() {
           <img id="sound-icon" src="./img/start_screen/sound_off.svg" alt="sound-on" onclick="toggleSound()">
           <img class="play-pause-icon" id="play-icon" src="./img/start_screen/play.svg" alt="play-button" onclick="togglePlayPauseGame()">
         </div>
-        <img id="fullscreenBtn" onclick="toggleFullscreen();" class="fullscreen-btn" src="./img/start_screen/fullscreen-enter.svg" alt="fullscreen">
     </div>
   `;
 }
 
-function toggleFullscreen() {
-  const fullscreenButton = document.getElementById('fullscreenBtn');
-  const userInteractionElement = document.getElementById('userInteraction');
-
-  if (!document.fullscreenElement) {
-    // Vollbildmodus aktivieren
-    if (userInteractionElement.requestFullscreen) {
-      userInteractionElement.requestFullscreen();
-    } else if (userInteractionElement.mozRequestFullScreen) { // Firefox
-      userInteractionElement.mozRequestFullScreen();
-    } else if (userInteractionElement.webkitRequestFullscreen) { // Chrome, Safari und Opera
-      userInteractionElement.webkitRequestFullscreen();
-    } else if (userInteractionElement.msRequestFullscreen) { // IE/Edge
-      userInteractionElement.msRequestFullscreen();
-    }
-    // Ändere das Bild auf das Fullscreen Exit Symbol
-    fullscreenButton.src = './img/start_screen/fullscreen-exit.svg';
-
-    // Icons sichtbar halten, auch im Fullscreen-Modus
-    fullscreenButton.style.position = 'fixed';
-    fullscreenButton.style.top = '20px';
-    fullscreenButton.style.right = '20px';
-  } else {
-    // Verlasse den Vollbildmodus
-    if (document.exitFullscreen) {
-      document.exitFullscreen();
-    } else if (document.mozCancelFullScreen) { // Firefox
-      document.mozCancelFullScreen();
-    } else if (document.webkitExitFullscreen) { // Chrome, Safari und Opera
-      document.webkitExitFullscreen();
-    } else if (document.msExitFullscreen) { // IE/Edge
-      document.msExitFullscreen();
-    }
-    // Ändere das Bild auf das Fullscreen Enter Symbol
-    fullscreenButton.src = './img/start_screen/fullscreen-enter.svg';
-
-    // Position zurücksetzen
-    fullscreenButton.style.position = '';
-    fullscreenButton.style.top = '';
-    fullscreenButton.style.right = '';
-  }
-}
 
 
 
