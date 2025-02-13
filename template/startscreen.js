@@ -15,7 +15,6 @@ function getStartScreenTemplate() {
       <div class='start-screen-container'>
         <img src="./img/start_screen/info.svg" alt="settings" onclick="toggleSettings()">
         <img id="sound-icon" src="./img/start_screen/sound_off.svg" alt="sound-on" onclick="toggleSound()">
-        <img src="./img/start_screen/fullscreen-enter.svg" alt="fullscreen">
       </div>
       <img onclick="playGame();" class="play-icon" src="./img/start_screen/play-btn.svg" alt="play-button">
     </div>
@@ -27,14 +26,22 @@ function getInGameNavigation() {
   return /*html*/ `
     <div class='start-container'>
       <div class='start-screen-container in-game-nav'>
-        <img src="./img/start_screen/info.svg" alt="info" onclick="toggleSettings()">
-        <img id="sound-icon" src="./img/start_screen/sound_off.svg" alt="sound-on" onclick="toggleSound()">
-        <!-- <img src="./img/start_screen/fullscreen-enter.svg" alt="fullscreen"> -->
-      </div>
-      <!-- <img onclick="playGame();" class="play-icon" src="./img/start_screen/play-btn.svg" alt="play-button"> -->
+          <img src="./img/start_screen/info.svg" alt="info" onclick="toggleSettings()">
+          <img id="sound-icon" src="./img/start_screen/sound_off.svg" alt="sound-on" onclick="toggleSound()">
+        </div>
+        <img onclick="toggleFullscreen();" class="fullscreen-btn" src="./img/start_screen/fullscreen-enter.svg" alt="fullscreen">
     </div>
   `;
 }
+
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    canvas.requestFullscreen(); // geht in den Fullscreen
+  } else {
+    document.exitFullscreen(); // verlässt den Fullscreen
+  }
+}
+
 
 function getSettingsPopupTemplate() {
   return /*html*/ `
