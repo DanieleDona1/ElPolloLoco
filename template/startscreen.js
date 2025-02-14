@@ -28,7 +28,7 @@ function getInGameNavigation() {
       <div class='start-screen-container in-game-nav'>
           <img src="./img/start_screen/info.svg" alt="info" onclick="toggleSettings()">
           <img id="sound-icon" src="./img/start_screen/sound_off.svg" alt="sound-on" onclick="toggleSound()">
-          <img class="play-pause-icon" id="play-icon" src="./img/start_screen/play.svg" alt="play-button" onclick="togglePlayPauseGame()">
+          <img class="play-pause-icon" id="play-pause-icon" src="./img/start_screen/pause.svg" alt="pause-button" onclick="togglePlayPauseBtn();"> 
         </div>
     </div>
   `;
