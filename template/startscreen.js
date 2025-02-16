@@ -14,7 +14,7 @@ function getStartScreenTemplate() {
     <div class='start-container'>
       <div class='start-screen-container'>
         <img src="./img/start_screen/info.svg" alt="settings" onclick="toggleSettings()">
-        <img id="sound-icon" src="./img/start_screen/sound_off.svg" alt="sound-on" onclick="toggleSound()">
+        <img id="sound-icon" src="./img/start_screen/sound-off.svg" alt="sound-on" onclick="toggleSound()">
       </div>
       <img onclick="playGame();" class="play-icon" src="./img/start_screen/play-btn.svg" alt="play-button">
     </div>
@@ -26,11 +26,22 @@ function getInGameNavigation() {
   return /*html*/ `
     <div  id="startContainer" class='start-container'>
       <div class='start-screen-container in-game-nav'>
-          <img src="./img/start_screen/info.svg" alt="info" onclick="toggleSettings()">
-          <img id="sound-icon" src="./img/start_screen/sound_off.svg" alt="sound-on" onclick="toggleSound()">
-          <img class="play-pause-icon" id="play-pause-icon" src="./img/start_screen/pause.svg" alt="pause-button" onclick="togglePlayPauseBtn();">
+          <img class="info-img" src="./img/start_screen/info.svg" alt="info" onclick="toggleSettings()">
+          <img class="sound-img" id="sound-icon" src="./img/start_screen/sound-off.svg" alt="sound-on" onclick="toggleSound()">
+          <img class="play-pause-icon play-pause-img" id="play-pause-icon" src="./img/start_screen/pause.svg" alt="pause-button" onclick="togglePlayPauseBtn();">
+      </div>
+
+      <div class="panel-mobile">
+        <div class="panel-group">
+          <img id="btnLeft" src="./img/in_game_navigation/arrow-left-move.svg" alt="move-left">
+          <img id="btnRight" src="./img/in_game_navigation/arrow-right-move.svg" alt="">
         </div>
-    </div>
+
+        <div class="panel-group">
+          <img id="btnJump" src="./img/in_game_navigation/arrow-top-jump.svg" alt="move-left">
+          <img id="btnThrowBottle" src="./img/in_game_navigation/bottle-throw.svg" alt=""></div>
+        </div>
+      </div>
   `;
 }
 
@@ -65,12 +76,12 @@ function toggleSound() {
   let soundIcon = document.getElementById('sound-icon');
   if (isBackgroundSoundOn) {
     gameSound.play();
-    soundIcon.src = './img/start_screen/sound_on.svg';
+    soundIcon.src = './img/start_screen/sound-on.svg';
   } else {
     // Stoppe den Sound
     gameSound.pause();
     gameSound.currentTime = 0;
-    soundIcon.src = './img/start_screen/sound_off.svg';
+    soundIcon.src = './img/start_screen/sound-off.svg';
   }
   isBackgroundSoundOn = !isBackgroundSoundOn;
 }
@@ -90,13 +101,13 @@ function toggleSettings() {
 function openSettings() {
   const popup = document.getElementById('settingsPopup');
   popup.style.display = 'block';
-  popup.style.animation = 'slideDown 0.5s forwards';
+  popup.style.animation = 'slideDown 400ms forwards';
 }
 
 // Funktion zum Schließen des Settings-Popups
 function closeSettings() {
   const popup = document.getElementById('settingsPopup');
-  popup.style.animation = 'slideUp 0.5s forwards'; // Slide-up-Animation
+  popup.style.animation = 'slideUp 400ms forwards'; // Slide-up-Animation
   setTimeout(() => {
     popup.style.display = 'none';
   }, 250); // Warten, bis die Animation abgeschlossen ist

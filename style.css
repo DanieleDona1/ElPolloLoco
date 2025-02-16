@@ -81,7 +81,7 @@ body {
 
 @keyframes slideDown {
   0% {
-    top: 0%;
+    top: 30%;
   }
   100% {
     top: 50%;
@@ -93,7 +93,7 @@ body {
     top: 50%;
   }
   100% {
-    top: -40%;
+    top: 30%;
   }
 }
 /* setting pop up END  */
@@ -127,6 +127,7 @@ h1 {
 }
 
 .start-container {
+  position: absolute;
   background-image: url('./img/9_intro_outro_screens/start/startscreen_1.png');
   background-position: center;
   background-repeat: no-repeat;
@@ -199,10 +200,75 @@ canvas {
 }
 
 
+
+/* inGame css start  */
+.in-game-nav {
+  /* position: absolute; */
+  top: 70px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+/* .start-container img {
+  width: 33px;
+} */
+
+.in-game-nav .info-img {
+  width: 36px;
+}
+
+.in-game-nav .sound-img {
+  width: 33px;
+}
+
+.in-game-nav .play-pause-img {
+  width: 32px;
+}
+
+.settings-btn {
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-mobile {
+  position: absolute;
+  display: none;
+  justify-content: space-between;
+  bottom: 0;
+  width: 100%;
+  padding: 8px 16px;
+}
+
+.panel-group {
+  display: flex;
+  gap: 10px;
+}
+
+.panel-group:nth-of-type(2) {
+  gap: 16px;
+}
+
+.panel-mobile img {
+  width: 40px;
+}
+
+.d-none {
+  display: none;
+}
+
+@media only screen and (max-width: 1024px) {
+  .panel-mobile {
+    display: flex;
+  }
+}
+
 @media only screen and (max-width: 720px) {
   canvas {
     width: 100%;
   }
+
 }
 
 @media only screen and (max-width: 510px) {
@@ -212,7 +278,18 @@ canvas {
   .turn-device-warning {
     display: block;
   }
+  .start-container {
+    height: 100vh;
+  }
 }
+
+@media only screen and (max-height: 510px) {
+  .start-container {
+    height: 100vh;
+    max-width: 720px;
+  }
+}
+
 @media only screen and (max-height: 480px) {
   canvas {
     height: 100vh;
@@ -221,27 +298,4 @@ canvas {
   .canvas-title {
     display: none;
   }
-}
-
-/* inGame css start  */
-.in-game-nav {
-  position: absolute;
-  top: 70px;
-  right: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-
-.in-game-nav img {
-  width: 40px;
-}
-
-.settings-btn {
-  display: flex;
-  flex-direction: column;
-}
-
-.in-game-nav .play-pause-icon {
-  width: 32px;
 }

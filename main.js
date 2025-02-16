@@ -5,8 +5,8 @@ let isGamePaused = false;
 
 function onload() {
   loadStartScreen();
-  toggleSound(); //TODO entkommentiere und lösche playGame() Zeile 4
-  // playGame();
+  // toggleSound(); //TODO entkommentiere und lösche playGame() Zeile 4
+  playGame();
 }
 
 function playGame() {
@@ -18,7 +18,8 @@ function playGame() {
   startScreen.innerHTML += getInGameNavigation();
   startScreen.innerHTML += getSettingsPopupTemplate();
 
-  document.getElementById('startContainer').style.display = 'none'; //TODO später wieder display flex
+  document.getElementById('startContainer').style.backgroundImage = 'none';
+  // //TODO später wieder display flex document.getElementById('startContainer').style.backgroundImage = 'url("./img/9_intro_outro_screens/start/startscreen_1.png")';
   init();
 }
 
