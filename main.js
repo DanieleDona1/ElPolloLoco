@@ -17,6 +17,8 @@ function playGame() {
   // initLevel(); kann raus weil reingerendert wird
   startScreen.innerHTML += getInGameNavigation();
   startScreen.innerHTML += getSettingsPopupTemplate();
+
+  document.getElementById('startContainer').style.display = 'none'; //TODO später wieder display flex
   init();
 }
 

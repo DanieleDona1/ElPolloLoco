@@ -7,7 +7,7 @@ class MovableObject extends DrawableObject {
   energy = 100;
   lastHit = 0;
   wallet = 0;
-  bottleBox = 0;
+  collectedBottle = 0;
 
   applyGravity() {
     // Intervall für die Schwerkraftanwendung
@@ -54,10 +54,11 @@ class MovableObject extends DrawableObject {
     this.world.level.items.splice(index, 1);
   }
   collectBottle(index) {
-    this.bottleBox += 20;
-
-    if (this.bottleBox >= 100) {
-      this.bottleBox = 100;
+    this.collectedBottle += 1;
+    console.log('this.collectedBottle:', this.collectedBottle);
+    
+    if (this.collectedBottle >= 5) {
+      this.collectedBottle = 5;
     }
     this.world.level.items.splice(index, 1);
 }

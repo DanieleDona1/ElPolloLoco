@@ -24,19 +24,15 @@ function getStartScreenTemplate() {
 // musik beenden, spiel stoppen und spielanleitung
 function getInGameNavigation() {
   return /*html*/ `
-    <div class='start-container'>
+    <div  id="startContainer" class='start-container'>
       <div class='start-screen-container in-game-nav'>
           <img src="./img/start_screen/info.svg" alt="info" onclick="toggleSettings()">
           <img id="sound-icon" src="./img/start_screen/sound_off.svg" alt="sound-on" onclick="toggleSound()">
-          <img class="play-pause-icon" id="play-pause-icon" src="./img/start_screen/pause.svg" alt="pause-button" onclick="togglePlayPauseBtn();"> 
+          <img class="play-pause-icon" id="play-pause-icon" src="./img/start_screen/pause.svg" alt="pause-button" onclick="togglePlayPauseBtn();">
         </div>
     </div>
   `;
 }
-
-
-
-
 
 function getSettingsPopupTemplate() {
   return /*html*/ `

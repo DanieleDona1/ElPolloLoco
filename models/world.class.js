@@ -10,6 +10,7 @@ class World { //Game logic
   bottleStatusBar = new BottleStatusBar();
   endbossHealthStatusBar = new EndbossHealthStatusBar();
   throwableObjects = [];
+  reloadBottle = true;
 
   constructor(canvas, keyboard) { //Hier werden function regelmäßig wiederholt
     this.ctx = canvas.getContext('2d'); //Werkzeug Stift-2D
@@ -36,9 +37,16 @@ class World { //Game logic
 
 
   checkThrowObjects() {
-    if (this.keyboard.SPACE) {
-      let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+    if (this.keyboard.SPACE && this.character.collectedBottle !== 0 && this.reloadBottle) {
+      this.reloadBottle = false;
+      setTimeout(() => this.reloadBottle = true, 750);
+      this.bottleStatusBar.setPercentage(this.character.collectedBottle * 20);
+      this.character.collectedBottle -= 1;
+      console.log('this.character.collectBottle', this.character.collectedBottle);
+
+      let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.character.otherDirection);
       this.throwableObjects.push(bottle);
+      // console.log('this.character.collectBottle / 20', this.character.collectBottle / 20);
     }
   }
 
@@ -52,18 +60,21 @@ class World { //Game logic
     });
   }
   checkCollisionsItems() {
-    this.level.items.forEach((i, index) => {
+    this.level.items.forEach((item, index) => {
       // console.log('this.character', this.level);
 
-        if (this.character.isColliding(i)) {
+        if (this.character.isColliding(item)) {
             // Check if the item is a Coin
-            if (i instanceof Coin) {
+            if (item instanceof Coin) {
                 this.character.collectItem(index);
                 this.coinStatusBar.setPercentage(this.character.wallet);
             }
-            else if (i instanceof Bottle) {
+            else if (item instanceof Bottle) {
                 this.character.collectBottle(index);
-                this.bottleStatusBar.setPercentage(this.character.bottleBox);
+                console.log('this.character.collectBottle * 20:', this.character.collectedBottle);
+
+                this.bottleStatusBar.setPercentage(this.character.collectedBottle * 20);
+
             }
         }
     });
@@ -149,7 +160,7 @@ checkCollisionsBottle() {
     this.ctx.scale(-1, 1);
     mo.x = mo.x * -1;
   }
- f
+
   flipImageBack(mo) {
     mo.x = mo.x * -1;
     this.ctx.restore();
