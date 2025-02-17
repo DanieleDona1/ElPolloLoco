@@ -56,7 +56,7 @@ class MovableObject extends DrawableObject {
   collectBottle(index) {
     this.collectedBottle += 1;
     console.log('this.collectedBottle:', this.collectedBottle);
-    
+
     if (this.collectedBottle >= 5) {
       this.collectedBottle = 5;
     }
@@ -89,5 +89,12 @@ class MovableObject extends DrawableObject {
   }
   jump() {
     this.speedY = 30;
+  }
+  fallToDeath() {
+    setStoppableInterval(() => {
+      if (this.y < 1000) {
+        this.y += 2;
+      }
+    }, 1000 / 20);
   }
 }

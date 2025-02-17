@@ -1,14 +1,3 @@
-let isBackgroundSoundOn = false;
-let gameSound = new Audio('audio/game_sound.mp3'); // Lade die Audiodatei
-gameSound.loop = true; // Der Sound wird wiederholt abgespielt
-
-// Funktion zum Startbildschirm laden
-function loadStartScreen() {
-  let startScreen = document.getElementById('userInteraction');
-  startScreen.innerHTML = getStartScreenTemplate();
-  startScreen.innerHTML += getSettingsPopupTemplate();
-}
-
 function getStartScreenTemplate() {
   return /*html*/ `
     <div class='start-container'>
@@ -71,44 +60,3 @@ function getSettingsPopupTemplate() {
   `;
 }
 
-// Funktion, um den Sound ein- oder auszuschalten
-function toggleSound() {
-  let soundIcon = document.getElementById('sound-icon');
-  if (isBackgroundSoundOn) {
-    gameSound.play();
-    soundIcon.src = './img/start_screen/sound-on.svg';
-  } else {
-    // Stoppe den Sound
-    gameSound.pause();
-    gameSound.currentTime = 0;
-    soundIcon.src = './img/start_screen/sound-off.svg';
-  }
-  isBackgroundSoundOn = !isBackgroundSoundOn;
-}
-
-// Funktion zum Öffnen und Schließen des Settings-Popups
-function toggleSettings() {
-  const popup = document.getElementById('settingsPopup');
-
-  if (popup.style.display === 'block') {
-    closeSettings();
-  } else {
-    openSettings();
-  }
-}
-
-// Funktion zum Öffnen des Settings-Popups
-function openSettings() {
-  const popup = document.getElementById('settingsPopup');
-  popup.style.display = 'block';
-  popup.style.animation = 'slideDown 400ms forwards';
-}
-
-// Funktion zum Schließen des Settings-Popups
-function closeSettings() {
-  const popup = document.getElementById('settingsPopup');
-  popup.style.animation = 'slideUp 400ms forwards'; // Slide-up-Animation
-  setTimeout(() => {
-    popup.style.display = 'none';
-  }, 250); // Warten, bis die Animation abgeschlossen ist
-}

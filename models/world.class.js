@@ -56,6 +56,9 @@ class World { //Game logic
       if(this.character.isColliding(enemy)) {
         this.character.hit();
         this.healthStatusBar.setPercentage(this.character.energy);
+        //TODO if (this.character.energy === 0) {
+        //   this.character.fallToDeath();
+        // }
       }
     });
   }
@@ -79,7 +82,7 @@ class World { //Game logic
         }
     });
 }
-// TODO
+//TODO
 checkCollisionsBottle() {
   this.throwableObjects.forEach((bottle) => {
       // Überprüfe Kollision mit Feinden
@@ -95,10 +98,6 @@ checkCollisionsBottle() {
       }
   });
 }
-
-
-
-
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);

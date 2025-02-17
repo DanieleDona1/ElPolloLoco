@@ -134,7 +134,7 @@ h1 {
   background-size: cover;
   width: 100%;
   height: 480px;
-  /* hier 100vh wenn querkant mobile version TODO  */
+  /*TODO hier 100vh wenn querkant mobile version */
   /* display: block; */
   /* margin: 0 auto; */
 }
