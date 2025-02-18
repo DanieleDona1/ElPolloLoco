@@ -277,6 +277,18 @@ canvas {
   width: 40px;
 }
 
+.body-legal-info {
+  padding: 0 clamp(16px, 5vw + 16px, 100px);
+  /* background-color: rgba(255, 255, 255, 0.3); */
+  font-size: 20px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.body-legal-info button{
+  background-color: rgb(223, 222, 221);
+  padding: 8px;
+}
+
 .d-none {
   display: none;
 }
