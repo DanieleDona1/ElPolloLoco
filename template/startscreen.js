@@ -6,6 +6,10 @@ function getStartScreenTemplate() {
         <img id="sound-icon" src="./img/start_screen/sound-off.svg" alt="sound-on" onclick="toggleSound()">
       </div>
       <img onclick="playGame();" class="play-icon" src="./img/start_screen/play-btn.svg" alt="play-button">
+      <div class="legal-info-container">
+        <a href="./privacy.html">Privacy</a>
+        <a href="./impressum.html">Impressum</a>
+      </div>
     </div>
   `;
 }
@@ -52,11 +56,10 @@ function getSettingsPopupTemplate() {
             <li><strong>To eliminate large and small chickens:</strong> Jump on them or throw a bottle at them.</li>
             <li><strong>To collect bottles and coins:</strong> Simply touch them.</li>
             <li><strong>If you come into contact with an enemy:</strong> You will lose a percentage of your health.</li>
-            <li><strong>To restore health:</strong> Collect coins amounting to more than 100% of your health.</li>
-            <li><strong>To defeat the final boss:</strong> Throw bottles at him.</li>
+            <li><strong>To get more bottles:</strong>Collect coins, 5 coins are worth one bottle.</li>
+            <li><strong>To defeat the final boss:</strong>Throw bottles at him.</li>
         </ul>
       </div>
     </div>
   `;
 }
-
