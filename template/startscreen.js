@@ -56,8 +56,8 @@ function getSettingsPopupTemplate() {
             <li><strong>To eliminate large and small chickens:</strong> Jump on them or throw a bottle at them.</li>
             <li><strong>To collect bottles and coins:</strong> Simply touch them.</li>
             <li><strong>If you come into contact with an enemy:</strong> You will lose a percentage of your health.</li>
-            <li><strong>To get more bottles:</strong>Collect coins, 5 coins are worth one bottle.</li>
-            <li><strong>To defeat the final boss:</strong>Throw bottles at him.</li>
+            <li><strong>To restore health:</strong> Collect coins.</li>
+            <li><strong>To defeat the final boss:</strong> Throw bottles at him.</li>
         </ul>
       </div>
     </div>

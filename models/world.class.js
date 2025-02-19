@@ -1,4 +1,5 @@
-class World { //Game logic
+class World {
+  //Game logic
   character = new Character();
   level = level1;
   canvas;
@@ -12,7 +13,8 @@ class World { //Game logic
   throwableObjects = [];
   reloadBottle = true;
 
-  constructor(canvas, keyboard) { //Hier werden function regelmäßig wiederholt
+  constructor(canvas, keyboard) {
+    //Hier werden function regelmäßig wiederholt
     this.ctx = canvas.getContext('2d'); //Werkzeug Stift-2D
     this.canvas = canvas;
     this.keyboard = keyboard;
@@ -31,15 +33,14 @@ class World { //Game logic
       this.checkCollisionsEnemies();
       this.checkCollisionsItems();
       this.checkThrowObjects();
-      this.checkCollisionsBottle();
+      // this.checkCollisionsBottle();
     }, 200);
   }
-
 
   checkThrowObjects() {
     if (this.keyboard.SPACE && this.character.collectedBottle !== 0 && this.reloadBottle) {
       this.reloadBottle = false;
-      setTimeout(() => this.reloadBottle = true, 750);
+      setTimeout(() => (this.reloadBottle = true), 750);
       this.bottleStatusBar.setPercentage(this.character.collectedBottle * 20);
       this.character.collectedBottle -= 1;
       console.log('this.character.collectBottle', this.character.collectedBottle);
@@ -50,10 +51,9 @@ class World { //Game logic
     }
   }
 
-
   checkCollisionsEnemies() {
-    this.level.enemies.forEach(enemy => {
-      if(this.character.isColliding(enemy)) {
+    this.level.enemies.forEach((enemy) => {
+      if (this.character.isColliding(enemy)) {
         this.character.hit();
         this.healthStatusBar.setPercentage(this.character.energy);
         //TODO if (this.character.energy === 0) {
@@ -66,38 +66,38 @@ class World { //Game logic
     this.level.items.forEach((item, index) => {
       // console.log('this.character', this.level);
 
-        if (this.character.isColliding(item)) {
-            // Check if the item is a Coin
-            if (item instanceof Coin) {
-                this.character.collectItem(index);
-                this.coinStatusBar.setPercentage(this.character.wallet);
-            }
-            else if (item instanceof Bottle) {
-                this.character.collectBottle(index);
-                console.log('this.character.collectBottle * 20:', this.character.collectedBottle);
+      if (this.character.isColliding(item)) {
+        // Check if the item is a Coin
+        if (item instanceof Coin) {
+          this.character.collectItem(index);
+          this.coinStatusBar.setPercentage(this.character.wallet * 20);
+          
+        this.healthStatusBar.setPercentage(this.character.energy);
+        } else if (item instanceof Bottle) {
+          this.character.collectBottle(index);
+          console.log('this.character.collectBottle * 20:', this.character.collectedBottle);
 
-                this.bottleStatusBar.setPercentage(this.character.collectedBottle * 20);
-
-            }
+          this.bottleStatusBar.setPercentage(this.character.collectedBottle * 20);
         }
+      }
     });
-}
-//TODO
-checkCollisionsBottle() {
-  this.throwableObjects.forEach((bottle) => {
+  }
+  //TODO
+  checkCollisionsBottle() {
+    this.throwableObjects.forEach((bottle) => {
       // Überprüfe Kollision mit Feinden
       this.level.enemies.forEach((enemy) => {
-          if (bottle.isColliding(enemy)) {
-              console.log('Enemies hurt');
-          }
+        if (bottle.isColliding(enemy)) {
+          console.log('Enemies hurt');
+        }
       });
 
       // Überprüfe Kollision mit dem Endboss
       if (bottle.isColliding(this.level.endboss)) {
-          console.log('Endboss hurt');
+        console.log('Endboss hurt');
       }
-  });
-}
+    });
+  }
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -106,7 +106,6 @@ checkCollisionsBottle() {
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.items);
     // this.addObjectsToMap(this.level.bottle);
-
 
     this.ctx.translate(-this.camera_x, 0);
     // Space for fixed objects
@@ -119,7 +118,6 @@ checkCollisionsBottle() {
       this.addToMap(this.endbossHealthStatusBar); // Normal zeichnen, wenn nicht gespiegelt
     }
     this.ctx.translate(this.camera_x, 0);
-
 
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.throwableObjects);

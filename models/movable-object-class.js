@@ -9,6 +9,7 @@ class MovableObject extends DrawableObject {
   wallet = 0;
   collectedBottle = 0;
 
+
   applyGravity() {
     // Intervall für die Schwerkraftanwendung
     setStoppableInterval(() => {
@@ -47,9 +48,10 @@ class MovableObject extends DrawableObject {
     }
   }
   collectItem(index) {
-    this.wallet += 20;
-    if (this.wallet >= 100) {
-      this.wallet = 100;
+    this.wallet += 1;
+    if (this.wallet >= 5) {
+      this.wallet = 5;
+      this.energy += 20;
     }
     this.world.level.items.splice(index, 1);
   }
@@ -58,6 +60,8 @@ class MovableObject extends DrawableObject {
     console.log('this.collectedBottle:', this.collectedBottle);
 
     if (this.collectedBottle >= 5) {
+      console.log('test');
+
       this.collectedBottle = 5;
     }
     this.world.level.items.splice(index, 1);

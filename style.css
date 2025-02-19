@@ -9,7 +9,11 @@
   box-sizing: border-box;
 }
 
-body {
+html {
+  background-color: rgb(234, 95, 0);
+}
+
+.body {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -169,12 +173,12 @@ h1 {
     width: 100%;
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 16px;
 }
 
 .legal-info-container a{
   text-decoration: none;
-  color: black;
+  color: rgb(58, 58, 58);
   font-size: 20px;
 }
 
@@ -278,7 +282,7 @@ canvas {
 }
 
 .body-legal-info {
-  padding: 0 clamp(16px, 5vw + 16px, 100px);
+  padding: 24px clamp(16px, 10vw + 16px, 200px);
   /* background-color: rgba(255, 255, 255, 0.3); */
   font-size: 20px;
   font-family: 'Times New Roman', Times, serif;
@@ -286,7 +290,7 @@ canvas {
 
 .body-legal-info button{
   background-color: rgb(223, 222, 221);
-  padding: 8px;
+  padding: 8px 16px;
 }
 
 .d-none {
