@@ -71,8 +71,9 @@ class World {
         if (item instanceof Coin) {
           this.character.collectItem(index);
           this.coinStatusBar.setPercentage(this.character.wallet * 20);
+
+          this.healthStatusBar.setPercentage(this.character.energy);
           
-        this.healthStatusBar.setPercentage(this.character.energy);
         } else if (item instanceof Bottle) {
           this.character.collectBottle(index);
           console.log('this.character.collectBottle * 20:', this.character.collectedBottle);
