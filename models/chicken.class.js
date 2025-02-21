@@ -13,18 +13,7 @@ class Chicken extends MovableObject {
     this.loadImages(this.IMAGES_WALKING);
     this.x = 300 + Math.random() * 600;
     this.speed = 0.15 + Math.random() * 0.25;
-    this.animate();
-  }
-
-  animate() {
-    // Intervall für das Bewegen nach links
-    setStoppableInterval(() => {
-      this.moveLeft();
-    }, 1000 / 60);
-
-    // Intervall für das Abspielen der Geh-Animation
-    setStoppableInterval(() => {
-      this.playAnimation(this.IMAGES_WALKING);
-    }, 200);
+    this.animateMoveLeft();
+    this.animatePlayAnimation(this.IMAGES_WALKING);
   }
 }

@@ -30,7 +30,7 @@ class World {
   run() {
     // Intervall für das Überprüfen von Kollisionen und anderen Funktionen
     setStoppableInterval(() => {
-      this.checkCollisionsEnemies();
+      this.checkCollision();
       this.checkCollisionsItems();
       this.checkThrowObjects();
       // this.checkCollisionsBottle();
@@ -51,32 +51,50 @@ class World {
     }
   }
 
-  checkCollisionsEnemies() {
-    this.level.enemies.forEach((enemy) => {
-      if (this.character.isColliding(enemy)) {
-        this.character.hit();
-        this.healthStatusBar.setPercentage(this.character.energy);
-        //TODO if (this.character.energy === 0) {
-        //   this.character.fallToDeath();
-        // }
-      }
+  checkCollision() {
+    this.level.enemies.forEach((enemy, index) => {
+      this.characterCollision(enemy, index);
+
+      //TODO if (this.character.energy === 0) {
+      //   this.character.fallToDeath();
+      // }
     });
   }
+
+  characterCollision(enemy, index) {
+    if (this.character.isColliding(enemy)) {
+      if (this.character.isAboveGround() && !(enemy instanceof Endboss)) {
+        this.stompEnemy(enemy, index);
+
+        console.log('hello');
+    }
+      this.character.hit();
+      this.healthStatusBar.setPercentage(this.character.energy);
+    }
+  }
+
+  stompEnemy(enemy, index) {
+    console.log('enemy', enemy, 'index', index);
+    clearInterval(enemy.movingLeftIntervall);
+    clearInterval(enemy.playAnimationId);
+
+    // this.stopIntervals();clearIntervals()
+
+
+  }
+
   checkCollisionsItems() {
     this.level.items.forEach((item, index) => {
-      // console.log('this.character', this.level);
 
       if (this.character.isColliding(item)) {
-        // Check if the item is a Coin
         if (item instanceof Coin) {
           this.character.collectItem(index);
           this.coinStatusBar.setPercentage(this.character.wallet * 20);
 
           this.healthStatusBar.setPercentage(this.character.energy);
-          
+
         } else if (item instanceof Bottle) {
           this.character.collectBottle(index);
-          console.log('this.character.collectBottle * 20:', this.character.collectedBottle);
 
           this.bottleStatusBar.setPercentage(this.character.collectedBottle * 20);
         }
@@ -89,13 +107,13 @@ class World {
       // Überprüfe Kollision mit Feinden
       this.level.enemies.forEach((enemy) => {
         if (bottle.isColliding(enemy)) {
-          console.log('Enemies hurt');
+          // console.log('Enemies hurt');
         }
       });
 
       // Überprüfe Kollision mit dem Endboss
       if (bottle.isColliding(this.level.endboss)) {
-        console.log('Endboss hurt');
+        // console.log('Endboss hurt');
       }
     });
   }

@@ -8,7 +8,8 @@ class MovableObject extends DrawableObject {
   lastHit = 0;
   wallet = 0;
   collectedBottle = 0;
-
+  movingLeftIntervallId;
+  playAnimationId;
 
   applyGravity() {
     // Intervall für die Schwerkraftanwendung
@@ -21,9 +22,9 @@ class MovableObject extends DrawableObject {
     }, 1000 / 25);
   }
 
-
   isAboveGround() {
-    if (this instanceof ThrowableObject) { //always fall
+    if (this instanceof ThrowableObject) {
+      //always fall
       return true;
     } else {
       return this.y < 150;
@@ -57,7 +58,7 @@ class MovableObject extends DrawableObject {
   }
   collectBottle(index) {
     this.collectedBottle += 1;
-    console.log('this.collectedBottle:', this.collectedBottle);
+    // console.log('this.collectedBottle:', this.collectedBottle);
 
     if (this.collectedBottle >= 5) {
       console.log('test');
@@ -65,7 +66,7 @@ class MovableObject extends DrawableObject {
       this.collectedBottle = 5;
     }
     this.world.level.items.splice(index, 1);
-}
+  }
   isHurt() {
     let timepassed = new Date().getTime() - this.lastHit; //Differenz ms
     timepassed = timepassed / 1000; //Differenz sec
@@ -100,5 +101,18 @@ class MovableObject extends DrawableObject {
         this.y += 2;
       }
     }, 1000 / 20);
+  }
+
+  animateMoveLeft() {
+    // Animationsintervall für Bewegung
+    this.movingLeftIntervallId = setStoppableInterval(() => {
+      this.moveLeft();
+    }, 1000 / 60);
+  }
+  animatePlayAnimation(img) {
+    // Animationsintervall für Bewegung
+    this.playAnimationId = setStoppableInterval(() => {
+      this.playAnimation(img);
+    }, 200);
   }
 }

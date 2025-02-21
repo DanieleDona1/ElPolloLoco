@@ -58,4 +58,3 @@ let level1 = new Level( //class create Objects
     new Bottle(),
   ]
 );
-

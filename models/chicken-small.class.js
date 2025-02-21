@@ -14,18 +14,7 @@ class ChickenSmall extends MovableObject {
 
     this.x = 900 + Math.random() * 1600;
     this.speed = 0.15 + Math.random() * 0.25;
-    this.animate();
-  }
-
-  animate() {
-    // Animationsintervall für Bewegung
-    setStoppableInterval(() => {
-      this.moveLeft();
-    }, 1000 / 60);
-
-    // Animationsintervall für das Abspielen der Gehen-Animation
-    setStoppableInterval(() => {
-      this.playAnimation(this.IMAGES_WALKING);
-    }, 200);
+    this.animateMoveLeft();
+    this.animatePlayAnimation(this.IMAGES_WALKING);
   }
 }

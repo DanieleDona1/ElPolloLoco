@@ -36,11 +36,16 @@ function setStoppableInterval(fn, time) {
   let id = setInterval(fn, time);
   intervalIds.push(id);
   intervalDetails.push({ fn: fn, time: time }); // Speichere die Details des Intervalls
+  return id;
+  // console.log('intervalIds gepusht', intervalIds);
+  // console.log('intervalDetails gepusht', intervalDetails);
 }
 
 // Funktion zum Pausieren aller Intervalle
 function pauseGame() {
   intervalIds.forEach(clearInterval);
+  // console.log('Pause/Clear', intervalIds);
+
 }
 
 // Funktion zum Fortsetzen der Intervalle
@@ -48,8 +53,12 @@ function resumeGame() {
   intervalDetails.forEach((detail) => {
     let id = setInterval(detail.fn, detail.time);
     intervalIds.push(id);
+    // console.log('intervalIds spiel wieder fortsetzen', intervalIds);
+    // console.log('intervallDetails', intervalDetails);
   });
 }
+
+
 
 function togglePlayPauseBtn() {
   let playPauseIcon = document.getElementById('play-pause-icon');
