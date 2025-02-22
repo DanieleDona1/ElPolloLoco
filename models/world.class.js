@@ -6,6 +6,7 @@ class World {
   ctx; //der Stift
   keyboard;
   camera_x = 0;
+  enemyIsDead = false;
   healthStatusBar = new HealthStatusBar();
   coinStatusBar = new CoinStatusBar();
   bottleStatusBar = new BottleStatusBar();
@@ -31,10 +32,9 @@ class World {
     // Intervall für das Überprüfen von Kollisionen und anderen Funktionen
     setStoppableInterval(() => {
       this.checkCollision();
-      this.checkCollisionsItems();
       this.checkThrowObjects();
-      // this.checkCollisionsBottle();
-    }, 200);
+      this.checkCollisionsItems();
+    }, 100);
   }
 
   checkThrowObjects() {
@@ -45,8 +45,10 @@ class World {
       this.character.collectedBottle -= 1;
       console.log('this.character.collectBottle', this.character.collectedBottle);
 
-      let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.character.otherDirection);
+      let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
       this.throwableObjects.push(bottle);
+      console.log('this.throwableObjects', this.throwableObjects);
+
       this.bottleStatusBar.setPercentage(this.character.collectedBottle * 20);
 
       // console.log('this.character.collectBottle / 20', this.character.collectBottle / 20);
@@ -56,6 +58,7 @@ class World {
   checkCollision() {
     this.level.enemies.forEach((enemy, index) => {
       this.characterCollision(enemy, index);
+      this.bottleCollision(enemy, index);
 
       //TODO if (this.character.energy === 0) {
       //   this.character.fallToDeath();
@@ -67,38 +70,60 @@ class World {
     if (this.character.isColliding(enemy)) {
       if (this.character.isAboveGround() && !(enemy instanceof Endboss)) {
         this.stompEnemy(enemy, index);
-    }
-      this.character.hurt();
-      this.healthStatusBar.setPercentage(this.character.energy);
+      } else if (!this.enemyIsDead) {
+        this.character.hurt();
+        // TODO GameOverScreen wenn this.character.energy == 0
+        this.healthStatusBar.setPercentage(this.character.energy);
+      }
     }
   }
 
   stompEnemy(enemy, index) {
+    this.enemyIsDead = true;
     console.log('enemy', enemy, 'index', index);
     clearInterval(enemy.movingLeftIntervallId);
     clearInterval(enemy.playAnimationId);
     enemy.playAnimation(enemy.IMAGES_DEAD);
     enemy.fallToDeath(4);
     setTimeout(() => {
-      this.level.enemies.splice(index, 1)}
-      , 1000);
-
+      this.level.enemies.splice(index, 1);
+    }, 1000);
+    setTimeout(() => {
+      this.enemyIsDead = false;
+    }, 500);
     // this.stopIntervals();clearIntervals()
   }
 
+  bottleCollision(enemy, index) {
+    // console.log('bottle #COllision');
+    console.log('status', this.throwableObjects.length > 0);
+
+    if (this.throwableObjects.length > 0) {
+      this.throwableObjects.forEach((bottle) => {
+        if (bottle.isColliding(enemy)) {
+          if (enemy instanceof Endboss) {
+            console.log('hit Endboss');
+          } else {
+            this.stompEnemy(enemy, index);
+            console.log('hit enemy');
+          }
+        }
+      });
+    }
+  }
+
+
+
   checkCollisionsItems() {
     this.level.items.forEach((item, index) => {
-
       if (this.character.isColliding(item)) {
         if (item instanceof Coin) {
           this.character.collectItem(index);
           this.coinStatusBar.setPercentage(this.character.wallet * 20);
 
           this.healthStatusBar.setPercentage(this.character.energy);
-
         } else if (item instanceof Bottle) {
           this.character.collectBottle(index);
-
           this.bottleStatusBar.setPercentage(this.character.collectedBottle * 20);
         }
       }

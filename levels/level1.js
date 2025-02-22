@@ -1,9 +1,9 @@
 let level1 = new Level( //class create Objects
   [
-    new Chicken(),
-    new Chicken(),
-    new Chicken(),
     new Endboss(),
+    new Chicken(),
+    new Chicken(),
+    new Chicken(),
     new ChickenSmall(),
     new ChickenSmall(),
     new ChickenSmall(),
