@@ -28,6 +28,7 @@ class MovableObject extends DrawableObject {
       return true;
     } else {
       return this.y < 150;
+
     }
   }
 
@@ -40,7 +41,7 @@ class MovableObject extends DrawableObject {
     );
   }
 
-  hit() {
+  hurt() {
     this.energy -= 20;
     if (this.energy < 0) {
       this.energy = 0;
@@ -95,22 +96,20 @@ class MovableObject extends DrawableObject {
   jump() {
     this.speedY = 30;
   }
-  fallToDeath() {
+  fallToDeath(speedValue) {
     setStoppableInterval(() => {
       if (this.y < 1000) {
-        this.y += 2;
+        this.y += speedValue;
       }
     }, 1000 / 20);
   }
 
   animateMoveLeft() {
-    // Animationsintervall für Bewegung
     this.movingLeftIntervallId = setStoppableInterval(() => {
       this.moveLeft();
     }, 1000 / 60);
   }
   animatePlayAnimation(img) {
-    // Animationsintervall für Bewegung
     this.playAnimationId = setStoppableInterval(() => {
       this.playAnimation(img);
     }, 200);

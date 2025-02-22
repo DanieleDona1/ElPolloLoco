@@ -17,11 +17,10 @@ class DrawableObject {
     try {
       ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     } catch(e) {
-      console.warn('Error hier:', e);
-      console.warn('Error this img:', this.img);
-      // console.warn('Error src:', this.img.src);
+      console.log('Error hier:', e);
+      console.log('Error not load this img:', this.img);
+    //   console.warn('Error src:', this.img.src);
     }
-
   }
 
 

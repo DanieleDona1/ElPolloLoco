@@ -40,13 +40,15 @@ class World {
   checkThrowObjects() {
     if (this.keyboard.SPACE && this.character.collectedBottle !== 0 && this.reloadBottle) {
       this.reloadBottle = false;
-      setTimeout(() => (this.reloadBottle = true), 750);
+      setTimeout(() => (this.reloadBottle = true), 500);
       this.bottleStatusBar.setPercentage(this.character.collectedBottle * 20);
       this.character.collectedBottle -= 1;
       console.log('this.character.collectBottle', this.character.collectedBottle);
 
       let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.character.otherDirection);
       this.throwableObjects.push(bottle);
+      this.bottleStatusBar.setPercentage(this.character.collectedBottle * 20);
+
       // console.log('this.character.collectBottle / 20', this.character.collectBottle / 20);
     }
   }
@@ -65,22 +67,23 @@ class World {
     if (this.character.isColliding(enemy)) {
       if (this.character.isAboveGround() && !(enemy instanceof Endboss)) {
         this.stompEnemy(enemy, index);
-
-        console.log('hello');
     }
-      this.character.hit();
+      this.character.hurt();
       this.healthStatusBar.setPercentage(this.character.energy);
     }
   }
 
   stompEnemy(enemy, index) {
     console.log('enemy', enemy, 'index', index);
-    clearInterval(enemy.movingLeftIntervall);
+    clearInterval(enemy.movingLeftIntervallId);
     clearInterval(enemy.playAnimationId);
+    enemy.playAnimation(enemy.IMAGES_DEAD);
+    enemy.fallToDeath(4);
+    setTimeout(() => {
+      this.level.enemies.splice(index, 1)}
+      , 1000);
 
     // this.stopIntervals();clearIntervals()
-
-
   }
 
   checkCollisionsItems() {
