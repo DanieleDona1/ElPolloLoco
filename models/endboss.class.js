@@ -2,6 +2,8 @@ class Endboss extends MovableObject {
   height = 400;
   width = 250;
   y = 55;
+  introEndbossAnimationId;
+  hadFirstContact = false;
 
   IMAGES_WALKING = [
     './img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -50,18 +52,54 @@ class Endboss extends MovableObject {
 
   constructor() {
     super().loadImage(this.IMAGES_ALERT[0]);
-    this.loadImages(this.IMAGES_ALERT);
     this.loadImages(this.IMAGES_WALKING);
+    this.loadImages(this.IMAGES_ALERT);
+    this.loadImages(this.IMAGES_ATTACK);
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_DEAD);
     this.x = 2500;
     this.animate();
   }
 
+  // animate() {
+  //   // Animationsintervall für das Abspielen der Gehen-Animation des Endbosses
+  //   this.endbossAlertId = setStoppableInterval(() => {
+  //     this.playAnimation(this.IMAGES_ALERT);
+  //   }, 200);
+  // }
+
   animate() {
-    // Animationsintervall für das Abspielen der Gehen-Animation des Endbosses
-    setStoppableInterval(() => {
-      this.playAnimation(this.IMAGES_ALERT);
-    }, 200);
+    let i = 0;
+    this.introEndbossAnimationId = setStoppableInterval(() => {
+
+      if (i < 50) {
+        this.playAnimation(this.IMAGES_ALERT);
+
+      } else {
+        this.playAnimation(this.IMAGES_ATTACK);
+        this.x -= 10;
+      }
+      i++;
+
+      if (world.character.x > 2000 && !this.hadFirstContact) {
+        i = 0;
+        this.hadFirstContact = true;
+        console.log('test');
+
+      }
+      console.log('hhhh', world.character.x);
+
+      // console.log('das i:', i);
+
+
+        }, 200);
+
+
+
   }
+
+
+
+
+
 }

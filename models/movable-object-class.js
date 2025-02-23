@@ -43,12 +43,17 @@ class MovableObject extends DrawableObject {
 
   hit() {
     this.energy -= 20;
+    // if (this.energy === 10) {
+    //   this.energy = 0;
+    // }
+    // else
     if (this.energy < 0) {
       this.energy = 0;
     } else {
       this.lastHit = new Date().getTime();
     }
   }
+
   collectItem(index) {
     this.wallet += 1;
     if (this.wallet >= 5) {

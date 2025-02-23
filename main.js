@@ -21,9 +21,9 @@ function loadStartScreen() {
 function playGame() {
   let startScreen = document.getElementById('userInteraction');
   startScreen.innerHTML = /*html*/ `<canvas id="canvas" width="720" height="480"></canvas>`;
-  // initLevel(); kann raus weil reingerendert wird
   startScreen.innerHTML += getInGameNavigation();
   startScreen.innerHTML += getSettingsPopupTemplate();
+  initLevel();
   checkSoundStatus();
 
   document.getElementById('startContainer').style.backgroundImage = 'none';

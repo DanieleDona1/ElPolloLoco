@@ -105,8 +105,8 @@ class World {
             console.log('hit Endboss');
             this.level.enemies[0].hit();
             this.endbossHealthStatusBar.setPercentage(this.level.enemies[0].energy);
-            console.log('this.level.enemies[0].energy:', this.level.enemies[0].energy);
-            
+            clearInterval(enemy.endbossAlertId);
+            this.level.enemies[0].animatePlayAnimation(enemy.IMAGES_ATTACK);
           } else {
             this.stompEnemy(enemy, index);
             console.log('hit enemy');
@@ -115,8 +115,6 @@ class World {
       });
     }
   }
-
-
 
   checkCollisionsItems() {
     this.level.items.forEach((item, index) => {
