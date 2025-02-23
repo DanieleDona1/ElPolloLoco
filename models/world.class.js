@@ -71,7 +71,7 @@ class World {
       if (this.character.isAboveGround() && !(enemy instanceof Endboss)) {
         this.stompEnemy(enemy, index);
       } else if (!this.enemyIsDead) {
-        this.character.hurt();
+        this.character.hit();
         // TODO GameOverScreen wenn this.character.energy == 0
         this.healthStatusBar.setPercentage(this.character.energy);
       }
@@ -103,6 +103,10 @@ class World {
         if (bottle.isColliding(enemy)) {
           if (enemy instanceof Endboss) {
             console.log('hit Endboss');
+            this.level.enemies[0].hit();
+            this.endbossHealthStatusBar.setPercentage(this.level.enemies[0].energy);
+            console.log('this.level.enemies[0].energy:', this.level.enemies[0].energy);
+            
           } else {
             this.stompEnemy(enemy, index);
             console.log('hit enemy');
@@ -135,13 +139,13 @@ class World {
       // Überprüfe Kollision mit Feinden
       this.level.enemies.forEach((enemy) => {
         if (bottle.isColliding(enemy)) {
-          // console.log('Enemies hurt');
+          // console.log('Enemies hit');
         }
       });
 
       // Überprüfe Kollision mit dem Endboss
       if (bottle.isColliding(this.level.endboss)) {
-        // console.log('Endboss hurt');
+        // console.log('Endboss hit');
       }
     });
   }
