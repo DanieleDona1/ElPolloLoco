@@ -96,7 +96,7 @@ class World {
 
   bottleCollision(enemy, index) {
     // console.log('bottle #COllision');
-    console.log('status', this.throwableObjects.length > 0);
+    // console.log('status', this.throwableObjects.length > 0);
 
     if (this.throwableObjects.length > 0) {
       this.throwableObjects.forEach((bottle) => {

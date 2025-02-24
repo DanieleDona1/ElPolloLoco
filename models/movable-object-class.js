@@ -90,6 +90,13 @@ class MovableObject extends DrawableObject {
     this.currentImage++;
   }
 
+  playAnimationReverse(images) {
+    let i = (images.length - 1) - (this.currentImage % images.length);
+    let path = images[i];
+    this.img = this.imageCache[path];
+    this.currentImage++;
+  }
+
   moveRight() {
     this.x += this.speed;
     this.otherDirection = false;

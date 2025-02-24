@@ -22,13 +22,13 @@ function playGame() {
   let startScreen = document.getElementById('userInteraction');
   startScreen.innerHTML = /*html*/ `<canvas id="canvas" width="720" height="480"></canvas>`;
   startScreen.innerHTML += getInGameNavigation();
-  startScreen.innerHTML += getSettingsPopupTemplate();
-  initLevel();
   checkSoundStatus();
-
+  initLevel();
   document.getElementById('startContainer').style.backgroundImage = 'none';
-  //TODO später wieder display flex document.getElementById('startContainer').style.backgroundImage = 'url("./img/9_intro_outro_screens/start/startscreen_1.png")';
+  startScreen.innerHTML += getSettingsPopupTemplate();
   init();
+
+  //TODO später wieder display flex document.getElementById('startContainer').style.backgroundImage = 'url("./img/9_intro_outro_screens/start/startscreen_1.png")';
 }
 
 // Funktion zum Setzen eines stoppbaren Intervalls
@@ -43,9 +43,7 @@ function setStoppableInterval(fn, time) {
 function pauseGame() {
   intervalIds.forEach(clearInterval);
   // console.log('Pause/Clear', intervalIds);
-
 }
-
 
 // Funktion zum Fortsetzen der Intervalle
 function resumeGame() {
@@ -54,8 +52,6 @@ function resumeGame() {
     intervalIds.push(id);
   });
 }
-
-
 
 function togglePlayPauseBtn() {
   let playPauseIcon = document.getElementById('play-pause-icon');
