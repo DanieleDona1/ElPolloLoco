@@ -80,7 +80,7 @@ class World {
 
   stompEnemy(enemy, index) {
     this.enemyIsDead = true;
-    console.log('enemy', enemy, 'index', index);
+    // console.log('enemy', enemy, 'index', index);
     clearInterval(enemy.movingLeftIntervallId);
     clearInterval(enemy.playAnimationId);
     enemy.playAnimation(enemy.IMAGES_DEAD);
@@ -103,10 +103,16 @@ class World {
         if (bottle.isColliding(enemy)) {
           if (enemy instanceof Endboss) {
             console.log('hit Endboss');
+
             this.level.enemies[0].hit();
             this.endbossHealthStatusBar.setPercentage(this.level.enemies[0].energy);
-            clearInterval(enemy.endbossAlertId);
-            this.level.enemies[0].animatePlayAnimation(enemy.IMAGES_ATTACK);
+            console.log('this.level.enemies[0].energy', this.level.enemies[0].energy);
+            if (this.level.enemies[0].energy > 0) {
+              this.level.enemies[0].hitEndbossAnimation();
+            } else {
+              this.level.enemies[0].endbossDead();
+              this.character.playAnimation(this.character.IMAGES_WON);
+            }
           } else {
             this.stompEnemy(enemy, index);
             console.log('hit enemy');

@@ -67,7 +67,7 @@ class MovableObject extends DrawableObject {
     // console.log('this.collectedBottle:', this.collectedBottle);
 
     if (this.collectedBottle >= 5) {
-      console.log('test');
+      // console.log('test');
 
       this.collectedBottle = 5;
     }

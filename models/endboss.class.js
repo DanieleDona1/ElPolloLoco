@@ -3,7 +3,11 @@ class Endboss extends MovableObject {
   width = 250;
   y = 55;
   introEndbossAnimationId;
+  hitEndbossAnimationId;
+  alertEndbossAfterHitId;
   hadFirstContact = false;
+  walkedForward = false;
+  endbossAttackRange = 2300;
 
   IMAGES_WALKING = ['./img/4_enemie_boss_chicken/1_walk/G1.png', './img/4_enemie_boss_chicken/1_walk/G2.png', './img/4_enemie_boss_chicken/1_walk/G3.png', './img/4_enemie_boss_chicken/1_walk/G4.png'];
 
@@ -41,16 +45,18 @@ class Endboss extends MovableObject {
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_DEAD);
     this.x = 2500;
-    this.animate();
+    this.introEndbossAnimation();
   }
 
-  animate() {
+  introEndbossAnimation() {
+
     let i = 0;
     const walkingLength = this.IMAGES_WALKING.length;
     const alertLength = this.IMAGES_ALERT.length;
     const attackLength = this.IMAGES_ATTACK.length;
 
     this.introEndbossAnimationId = setStoppableInterval(() => {
+      // console.log('intro');
       if (i < alertLength) {
         this.playAnimation(this.IMAGES_ALERT);
       } else if (i >= alertLength && i < alertLength + attackLength) {
@@ -64,7 +70,7 @@ class Endboss extends MovableObject {
         this.playAnimation(this.IMAGES_WALKING);
         this.x += 15;
       } else {
-          this.playAnimation(this.IMAGES_ALERT);
+        this.playAnimation(this.IMAGES_ALERT);
       }
 
       if (world.character.x > 1950 && !this.hadFirstContact) {
@@ -73,7 +79,62 @@ class Endboss extends MovableObject {
       }
       i++;
 
-      console.log('x:', world.character.x, 'i:', i);
+      // console.log('x:', world.character.x, 'i:', i);
     }, 200);
   }
+
+  hitEndbossAnimation() {
+    clearInterval(this.hitEndbossAnimationId);
+
+    // console.log('test');
+
+    this.hitEndbossAnimationId = setStoppableInterval(() => {
+      // console.log('world.level.enemies[0].x > 2500', world.level.enemies[0].x > 2500);
+      // console.log('!this.walkedForward',  !this.walkedForward);
+
+      clearInterval(this.introEndbossAnimationId);
+      if (world.level.enemies[0].x > this.endbossAttackRange && !this.walkedForward) {
+        this.playAnimation(this.IMAGES_HURT);
+        this.x -= 30;
+        console.log('ATTACK');
+        this.endbossAttackRange -= 3;
+        // console.log('x:', this.x);
+      } else {
+        // console.log('Else block reached');
+        this.walkedForward = true;
+        if (world.level.enemies[0].x < 2600) {
+          this.playAnimation(this.IMAGES_ATTACK);
+          console.log('Defensive');
+
+          this.x += 50;
+        } else {
+          clearInterval(this.hitEndbossAnimationId);
+          clearInterval(this.alertEndbossAfterHitId);
+          this.alertEndbossAfterHit();
+          console.log('else');
+          this.walkedForward = false;
+        }
+      }
+      // world.level.enemies[0].x 2620
+      // console.log('x:', world.character.x, 'i:', i);
+    }, 200);
+  }
+
+  alertEndbossAfterHit() {
+    this.alertEndbossAfterHitId = setStoppableInterval(() => {
+      this.playAnimation(this.IMAGES_ALERT);
+      console.log('alertEndbossAfterHit');
+    }, 400);
+  }
+
+  endbossDead() {
+    clearInterval(this.hitEndbossAnimationId);
+    clearInterval(this.alertEndbossAfterHitId);
+    this.playAnimation(this.IMAGES_DEAD);
+
+    console.log('endbossDead');
+
+
+  }
+
 }
