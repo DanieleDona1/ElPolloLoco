@@ -6,16 +6,25 @@ class ThrowableObject extends MovableObject {
     this.y = y;
     this.height = 60;
     this.width = 50;
+    this.angle = 0;
     this.throw();
   }
 
   throw() {
-    this.speedY = 30; //nach oben fliegt
+    this.speedY = 30;
     this.applyGravity();
 
-    // Intervall für das Bewegen nach rechts
     setStoppableInterval(() => {
-      this.x += 10; // Charakter nach rechts bewegen
+      this.x += 10;
+      this.angle += 10;
     }, 25);
+  }
+
+  draw(ctx) {
+    ctx.save();
+    ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
+    ctx.rotate(this.angle * Math.PI / 180);
+    ctx.drawImage(this.img, -this.width / 2, -this.height / 2, this.width, this.height);
+    ctx.restore();
   }
 }

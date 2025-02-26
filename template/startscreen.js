@@ -14,30 +14,6 @@ function getStartScreenTemplate() {
   `;
 }
 
-// musik beenden, spiel stoppen und spielanleitung
-function getInGameNavigation() {
-  return /*html*/ `
-    <div  id="startContainer" class='start-container'>
-      <div class='start-screen-container in-game-nav'>
-          <img class="info-img" src="./img/start_screen/info.svg" alt="info" onclick="toggleSettings()">
-          <img class="sound-img" id="sound-icon" src="./img/start_screen/sound-off.svg" alt="sound-on" onclick="toggleSound()">
-          <img class="play-pause-icon play-pause-img" id="play-pause-icon" src="./img/start_screen/pause.svg" alt="pause-button" onclick="togglePlayPauseBtn();">
-      </div>
-
-      <div class="panel-mobile">
-        <div class="panel-group">
-          <img id="btnLeft" src="./img/in_game_navigation/arrow-left-move.svg" alt="move-left">
-          <img id="btnRight" src="./img/in_game_navigation/arrow-right-move.svg" alt="">
-        </div>
-
-        <div class="panel-group">
-          <img id="btnJump" src="./img/in_game_navigation/arrow-top-jump.svg" alt="move-left">
-          <img id="btnThrowBottle" src="./img/in_game_navigation/bottle-throw.svg" alt=""></div>
-        </div>
-      </div>
-  `;
-}
-
 function getSettingsPopupTemplate() {
   return /*html*/ `
     <div id="settingsPopup" class="settings-popup">
@@ -61,5 +37,29 @@ function getSettingsPopupTemplate() {
         </ul>
       </div>
     </div>
+  `;
+}
+
+// musik beenden, spiel stoppen und spielanleitung
+function getInGameNavigation() {
+  return /*html*/ `
+    <div  id="startContainer" class='start-container'>
+      <div class='start-screen-container in-game-nav'>
+          <img class="info-img" src="./img/start_screen/info.svg" alt="info" onclick="toggleSettings()">
+          <img class="sound-img" id="sound-icon" src="./img/start_screen/sound-off.svg" alt="sound-on" onclick="toggleSound()">
+          <img class="play-pause-icon play-pause-img" id="play-pause-icon" src="./img/start_screen/pause.svg" alt="pause-button" onclick="togglePlayPauseBtn();">
+      </div>
+
+      <div class="panel-mobile">
+        <div class="panel-group">
+          <img id="btnLeft" src="./img/in_game_navigation/arrow-left-move.svg" alt="move-left">
+          <img id="btnRight" src="./img/in_game_navigation/arrow-right-move.svg" alt="">
+        </div>
+
+        <div class="panel-group">
+          <img id="btnJump" src="./img/in_game_navigation/arrow-top-jump.svg" alt="move-left">
+          <img id="btnThrowBottle" src="./img/in_game_navigation/bottle-throw.svg" alt=""></div>
+        </div>
+      </div>
   `;
 }

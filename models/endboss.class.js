@@ -133,8 +133,5 @@ class Endboss extends MovableObject {
     this.playAnimation(this.IMAGES_DEAD);
 
     console.log('endbossDead');
-
-
   }
-
 }

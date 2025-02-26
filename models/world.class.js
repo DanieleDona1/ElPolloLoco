@@ -61,7 +61,7 @@ class World {
       this.bottleCollision(enemy, index);
 
       //TODO if (this.character.energy === 0) {
-      //   this.character.fallToDeath();
+      //   this.character.fallToDeath(5);
       // }
     });
   }
@@ -84,7 +84,7 @@ class World {
     clearInterval(enemy.movingLeftIntervallId);
     clearInterval(enemy.playAnimationId);
     enemy.playAnimation(enemy.IMAGES_DEAD);
-    enemy.fallToDeath(4);
+    enemy.fallToDeath(5);
     setTimeout(() => {
       this.level.enemies.splice(index, 1);
     }, 1000);

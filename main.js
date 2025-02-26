@@ -24,8 +24,8 @@ function playGame() {
   startScreen.innerHTML += getInGameNavigation();
   checkSoundStatus();
   initLevel();
-  document.getElementById('startContainer').style.backgroundImage = 'none';
   startScreen.innerHTML += getSettingsPopupTemplate();
+  document.getElementById('startContainer').style.backgroundImage = 'none';
   init();
 
   //TODO später wieder display flex document.getElementById('startContainer').style.backgroundImage = 'url("./img/9_intro_outro_screens/start/startscreen_1.png")';
@@ -68,37 +68,6 @@ function togglePlayPauseBtn() {
 
   // Den Zustand umschalten
   isGamePaused = !isGamePaused;
-}
-
-function checkSoundStatus() {
-  if (!localStorage.getItem('soundEnabled')) {
-    localStorage.setItem('soundEnabled', 'false');
-  }
-  let soundEnabled = JSON.parse(localStorage.getItem('soundEnabled'));
-
-  if (soundEnabled) {
-    backgroundSoundOn();
-  } else {
-    backgroundSoundOff();
-  }
-}
-
-function toggleSound() {
-  let soundEnabled = JSON.parse(localStorage.getItem('soundEnabled'));
-  localStorage.setItem('soundEnabled', !soundEnabled);
-  checkSoundStatus();
-}
-
-function backgroundSoundOn() {
-  let soundIcon = document.getElementById('sound-icon');
-  gameSound.play();
-  soundIcon.src = './img/start_screen/sound-on.svg';
-}
-function backgroundSoundOff() {
-  let soundIcon = document.getElementById('sound-icon');
-  gameSound.pause();
-  gameSound.currentTime = 0;
-  soundIcon.src = './img/start_screen/sound-off.svg';
 }
 
 // Funktion zum Öffnen und Schließen des Settings-Popups
