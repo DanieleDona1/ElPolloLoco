@@ -43,15 +43,9 @@ class World {
       setTimeout(() => (this.reloadBottle = true), 500);
       this.bottleStatusBar.setPercentage(this.character.collectedBottle * 20);
       this.character.collectedBottle -= 1;
-      console.log('this.character.collectBottle', this.character.collectedBottle);
-
       let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
       this.throwableObjects.push(bottle);
-      console.log('this.throwableObjects', this.throwableObjects);
-
       this.bottleStatusBar.setPercentage(this.character.collectedBottle * 20);
-
-      // console.log('this.character.collectBottle / 20', this.character.collectBottle / 20);
     }
   }
 
@@ -59,18 +53,6 @@ class World {
     this.level.enemies.forEach((enemy, index) => {
       this.characterCollision(enemy, index);
       this.bottleCollision(enemy, index);
-
-      if (this.character.energy === 0) {
-        this.character.fallToDeath(3);
-        document.getElementById('startContainer').style.backgroundImage = 'url(./img/9_intro_outro_screens/game_over/game_over.png)';
-        setTimeout(() => {
-          // togglePlayPauseBtn();
-          togglePlayPauseBtn();
-          // document.getElementById('playPauseIcon').click();
-          document.getElementById('playPauseIcon').style.display = 'none';
-          document.getElementById('restartBtn').classList.remove('d-none');
-        }, 350);
-      }
     });
   }
 
@@ -80,15 +62,23 @@ class World {
         this.stompEnemy(enemy, index);
       } else if (!this.enemyIsDead) {
         this.character.hit();
-        // TODO GameOverScreen wenn this.character.energy == 0
         this.healthStatusBar.setPercentage(this.character.energy);
+
+        if (this.character.energy === 0) {
+          this.character.fallToDeath(3);
+          document.getElementById('startContainer').style.backgroundImage = 'url(./img/9_intro_outro_screens/game_over/game_over.png)';
+          setTimeout(() => {
+            togglePlayPauseBtn();
+            document.getElementById('playPauseIcon').style.display = 'none';
+            document.getElementById('restartBtn').classList.remove('d-none');
+          }, 350);
+        }
       }
     }
   }
 
   stompEnemy(enemy, index) {
     this.enemyIsDead = true;
-    // console.log('enemy', enemy, 'index', index);
     clearInterval(enemy.movingLeftIntervallId);
     clearInterval(enemy.playAnimationId);
     enemy.playAnimation(enemy.IMAGES_DEAD);
@@ -99,31 +89,31 @@ class World {
     setTimeout(() => {
       this.enemyIsDead = false;
     }, 500);
-    // this.stopIntervals();clearIntervals()
   }
 
   bottleCollision(enemy, index) {
-    // console.log('bottle #COllision');
-    // console.log('status', this.throwableObjects.length > 0);
-
     if (this.throwableObjects.length > 0) {
       this.throwableObjects.forEach((bottle) => {
         if (bottle.isColliding(enemy)) {
           if (enemy instanceof Endboss) {
-            console.log('hit Endboss');
-
             this.level.enemies[0].hit();
             this.endbossHealthStatusBar.setPercentage(this.level.enemies[0].energy);
-            console.log('this.level.enemies[0].energy', this.level.enemies[0].energy);
             if (this.level.enemies[0].energy > 0) {
               this.level.enemies[0].hitEndbossAnimation();
             } else {
               this.level.enemies[0].endbossDead();
-              this.character.playAnimation(this.character.IMAGES_WON);
+              setTimeout(() => {
+                document.getElementById('startContainer').style.backgroundImage = 'url(./img/start_end_screen/win.png)';
+                document.getElementById('playPauseIcon').click();
+                this.character.playAnimation(this.character.IMAGES_WON);
+              }, 500);
+              setTimeout(() => {
+                document.getElementById('restartBtn').classList.remove('d-none');
+                document.getElementById('playPauseIcon').style.display = 'none';
+              }, 500);
             }
           } else {
             this.stompEnemy(enemy, index);
-            console.log('hit enemy');
           }
         }
       });
@@ -148,16 +138,11 @@ class World {
   //TODO
   checkCollisionsBottle() {
     this.throwableObjects.forEach((bottle) => {
-      // Überprüfe Kollision mit Feinden
       this.level.enemies.forEach((enemy) => {
         if (bottle.isColliding(enemy)) {
-          // console.log('Enemies hit');
         }
       });
-
-      // Überprüfe Kollision mit dem Endboss
       if (bottle.isColliding(this.level.endboss)) {
-        // console.log('Endboss hit');
       }
     });
   }
@@ -168,17 +153,15 @@ class World {
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.items);
-    // this.addObjectsToMap(this.level.bottle);
 
     this.ctx.translate(-this.camera_x, 0);
-    // Space for fixed objects
     this.addToMap(this.healthStatusBar);
     this.addToMap(this.coinStatusBar);
     this.addToMap(this.bottleStatusBar);
     if (this.endbossHealthStatusBar.otherDirection) {
-      this.endbossHealthStatusBar.flipImage(); // Spiegeln, wenn andere Richtung
+      this.endbossHealthStatusBar.flipImage();
     } else {
-      this.addToMap(this.endbossHealthStatusBar); // Normal zeichnen, wenn nicht gespiegelt
+      this.addToMap(this.endbossHealthStatusBar);
     }
     this.ctx.translate(this.camera_x, 0);
 
@@ -188,7 +171,6 @@ class World {
 
     this.ctx.translate(-this.camera_x, 0);
 
-    //Draw() wird immer wieder aufgerufen
     let self = this; //aktuelle Welt hier drinne nicht mehr kennt
     requestAnimationFrame(function () {
       self.draw();
@@ -215,7 +197,7 @@ class World {
   }
 
   flipImage(mo) {
-    this.ctx.save(); //Alle eigenschaft des this.ctx was der Stift gemacht hat
+    this.ctx.save();
     this.ctx.translate(mo.width, 0);
     this.ctx.scale(-1, 1);
     mo.x = mo.x * -1;

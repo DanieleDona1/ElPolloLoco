@@ -20,11 +20,11 @@ function toggleSound() {
 function backgroundSoundOn() {
   let soundIcon = document.getElementById('sound-icon');
   gameSound.play();
-  soundIcon.src = './img/start_screen/sound-on.svg';
+  soundIcon.src = './img/start_end_screen/sound-on.svg';
 }
 function backgroundSoundOff() {
   let soundIcon = document.getElementById('sound-icon');
   gameSound.pause();
   gameSound.currentTime = 0;
-  soundIcon.src = './img/start_screen/sound-off.svg';
+  soundIcon.src = './img/start_end_screen/sound-off.svg';
 }

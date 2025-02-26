@@ -17,7 +17,7 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url('./img/start_screen/desert.png');
+  background-image: url('./img/start_end_screen/desert.png');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -53,7 +53,7 @@ html {
   position: absolute;
   top: 5px;
   right: 10px;
-  background-image: url('./img/start_screen/xmark.svg');
+  background-image: url('./img/start_end_screen/xmark.svg');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;

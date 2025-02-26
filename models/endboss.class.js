@@ -56,7 +56,6 @@ class Endboss extends MovableObject {
     const attackLength = this.IMAGES_ATTACK.length;
 
     this.introEndbossAnimationId = setStoppableInterval(() => {
-      // console.log('intro');
       if (i < alertLength) {
         this.playAnimation(this.IMAGES_ALERT);
       } else if (i >= alertLength && i < alertLength + attackLength) {
@@ -79,51 +78,36 @@ class Endboss extends MovableObject {
       }
       i++;
 
-      // console.log('x:', world.character.x, 'i:', i);
     }, 200);
   }
 
   hitEndbossAnimation() {
     clearInterval(this.hitEndbossAnimationId);
-
-    // console.log('test');
-
     this.hitEndbossAnimationId = setStoppableInterval(() => {
-      // console.log('world.level.enemies[0].x > 2500', world.level.enemies[0].x > 2500);
-      // console.log('!this.walkedForward',  !this.walkedForward);
-
       clearInterval(this.introEndbossAnimationId);
       if (world.level.enemies[0].x > this.endbossAttackRange && !this.walkedForward) {
         this.playAnimation(this.IMAGES_HURT);
         this.x -= 30;
-        console.log('ATTACK');
-        this.endbossAttackRange -= 3;
-        // console.log('x:', this.x);
+        this.endbossAttackRange -= 2;
       } else {
-        // console.log('Else block reached');
         this.walkedForward = true;
         if (world.level.enemies[0].x < 2600) {
           this.playAnimation(this.IMAGES_ATTACK);
-          console.log('Defensive');
 
           this.x += 50;
         } else {
           clearInterval(this.hitEndbossAnimationId);
           clearInterval(this.alertEndbossAfterHitId);
           this.alertEndbossAfterHit();
-          console.log('else');
           this.walkedForward = false;
         }
       }
-      // world.level.enemies[0].x 2620
-      // console.log('x:', world.character.x, 'i:', i);
     }, 200);
   }
 
   alertEndbossAfterHit() {
     this.alertEndbossAfterHitId = setStoppableInterval(() => {
       this.playAnimation(this.IMAGES_ALERT);
-      console.log('alertEndbossAfterHit');
     }, 400);
   }
 
@@ -131,7 +115,5 @@ class Endboss extends MovableObject {
     clearInterval(this.hitEndbossAnimationId);
     clearInterval(this.alertEndbossAfterHitId);
     this.playAnimation(this.IMAGES_DEAD);
-
-    console.log('endbossDead');
   }
 }

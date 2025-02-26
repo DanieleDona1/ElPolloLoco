@@ -2,10 +2,10 @@ function getStartScreenTemplate() {
   return /*html*/ `
     <div class='start-container'>
       <div class='start-screen-container'>
-        <img src="./img/start_screen/info.svg" alt="settings" onclick="toggleSettings()">
-        <img id="sound-icon" src="./img/start_screen/sound-off.svg" alt="sound-on" onclick="toggleSound()">
+        <img src="./img/start_end_screen/info.svg" alt="settings" onclick="toggleSettings()">
+        <img id="sound-icon" src="./img/start_end_screen/sound-off.svg" alt="sound-on" onclick="toggleSound()">
       </div>
-      <img onclick="playGame();" class="play-icon" src="./img/start_screen/play-btn.svg" alt="play-button">
+      <img onclick="playGame();" class="play-icon" src="./img/start_end_screen/play-btn.svg" alt="play-button">
       <div class="legal-info-container">
         <a href="./privacy.html">Privacy</a>
         <a href="./impressum.html">Impressum</a>
@@ -44,11 +44,11 @@ function getSettingsPopupTemplate() {
 function getInGameNavigation() {
   return /*html*/ `
     <div  id="startContainer" class='start-container'>
-      <img id="restartBtn" class="restart-button d-none" onclick="restartGame();" src="./img/start_screen/restart.svg" alt="restart">
+      <img id="restartBtn" class="restart-button d-none" onclick="restartGame();" src="./img/start_end_screen/restart.svg" alt="restart">
       <div id="inGameNav" class='start-screen-container in-game-nav'>
-          <img class="info-img" src="./img/start_screen/info.svg" alt="info" onclick="toggleSettings()">
-          <img class="sound-img" id="sound-icon" src="./img/start_screen/sound-off.svg" alt="sound-on" onclick="toggleSound()">
-          <img id="playPauseIcon" class="play-pause-icon play-pause-img" src="./img/start_screen/pause.svg" alt="pause-button" onclick="togglePlayPauseBtn();">
+          <img class="info-img" src="./img/start_end_screen/info.svg" alt="info" onclick="toggleSettings()">
+          <img class="sound-img" id="sound-icon" src="./img/start_end_screen/sound-off.svg" alt="sound-on" onclick="toggleSound()">
+          <img id="playPauseIcon" class="play-pause-icon play-pause-img" src="./img/start_end_screen/pause.svg" alt="pause-button" onclick="togglePlayPauseBtn();">
       </div>
 
       <div class="panel-mobile">

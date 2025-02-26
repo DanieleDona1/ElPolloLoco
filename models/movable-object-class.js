@@ -28,7 +28,6 @@ class MovableObject extends DrawableObject {
       return true;
     } else {
       return this.y < 150;
-
     }
   }
 
@@ -64,11 +63,7 @@ class MovableObject extends DrawableObject {
   }
   collectBottle(index) {
     this.collectedBottle += 1;
-    // console.log('this.collectedBottle:', this.collectedBottle);
-
     if (this.collectedBottle >= 5) {
-      // console.log('test');
-
       this.collectedBottle = 5;
     }
     this.world.level.items.splice(index, 1);
@@ -91,7 +86,7 @@ class MovableObject extends DrawableObject {
   }
 
   playAnimationReverse(images) {
-    let i = (images.length - 1) - (this.currentImage % images.length);
+    let i = images.length - 1 - (this.currentImage % images.length);
     let path = images[i];
     this.img = this.imageCache[path];
     this.currentImage++;

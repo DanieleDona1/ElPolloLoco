@@ -58,11 +58,11 @@ function togglePlayPauseBtn() {
 
   if (isGamePaused) {
     // Spiel fortsetzen
-    playPauseIcon.src = './img/start_screen/pause.svg'; // Ändere Bild zu Pause
+    playPauseIcon.src = './img/start_end_screen/pause.svg'; // Ändere Bild zu Pause
     resumeGame(); // Fortsetzen der Intervalle
   } else {
     // Spiel pausieren
-    playPauseIcon.src = './img/start_screen/play.svg'; // Ändere Bild zu Play
+    playPauseIcon.src = './img/start_end_screen/play.svg'; // Ändere Bild zu Play
     pauseGame(); // Pausieren der Intervalle
   }
 
