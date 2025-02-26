@@ -192,18 +192,18 @@ html {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 96px;
-  animation: pulse 2s infinite; /* Animation hinzufügen */
+  animation: pulse 2s infinite;
 }
 
 @keyframes pulse {
   0% {
-    width: 96px;
+    width: 72px;
   }
   50% {
-    width: 110px; /* Maximalgröße */
+    width: 96px;
   }
   100% {
-    width: 96px; /* Ursprüngliche Größe */
+    width: 72px;
   }
 }
 
@@ -253,6 +253,17 @@ canvas {
 .in-game-nav .play-pause-img {
   width: 32px;
 }
+
+.restart-button {
+  position: absolute;
+  width: 72px;
+  /* height: 72px; */
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse 2s infinite;
+}
+
 
 .settings-btn {
   display: flex;

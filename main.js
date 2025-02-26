@@ -54,7 +54,7 @@ function resumeGame() {
 }
 
 function togglePlayPauseBtn() {
-  let playPauseIcon = document.getElementById('play-pause-icon');
+  let playPauseIcon = document.getElementById('playPauseIcon');
 
   if (isGamePaused) {
     // Spiel fortsetzen
@@ -68,6 +68,11 @@ function togglePlayPauseBtn() {
 
   // Den Zustand umschalten
   isGamePaused = !isGamePaused;
+}
+
+function restartGame() {
+  // document.getElementById('restartBtn').classList.add('d-none');
+  playGame();
 }
 
 // Funktion zum Öffnen und Schließen des Settings-Popups

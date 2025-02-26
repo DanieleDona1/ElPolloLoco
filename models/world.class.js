@@ -60,9 +60,17 @@ class World {
       this.characterCollision(enemy, index);
       this.bottleCollision(enemy, index);
 
-      //TODO if (this.character.energy === 0) {
-      //   this.character.fallToDeath(5);
-      // }
+      if (this.character.energy === 0) {
+        this.character.fallToDeath(3);
+        document.getElementById('startContainer').style.backgroundImage = 'url(./img/9_intro_outro_screens/game_over/game_over.png)';
+        setTimeout(() => {
+          // togglePlayPauseBtn();
+          togglePlayPauseBtn();
+          // document.getElementById('playPauseIcon').click();
+          document.getElementById('playPauseIcon').style.display = 'none';
+          document.getElementById('restartBtn').classList.remove('d-none');
+        }, 350);
+      }
     });
   }
 
