@@ -11,6 +11,10 @@ class MovableObject extends DrawableObject {
   movingLeftIntervallId;
   playAnimationId;
 
+  /**
+   * Applies gravity to the object by updating its position and speed over time.
+   * It decreases the vertical speed (`speedY`) and moves the object down if it's not above the ground.
+   */
   applyGravity() {
     setStoppableInterval(() => {
       if (this.isAboveGround() || this.speedY > 0) {
@@ -20,6 +24,10 @@ class MovableObject extends DrawableObject {
     }, 1000 / 25);
   }
 
+  /**
+   * Checks if the object is above the ground.
+   * @returns {boolean} True if the object is above the ground or it's an instance of `ThrowableObject`, otherwise false.
+   */
   isAboveGround() {
     if (this instanceof ThrowableObject) {
       return true;
@@ -28,10 +36,19 @@ class MovableObject extends DrawableObject {
     }
   }
 
+  /**
+   * Checks if the object is colliding with another object.
+   * @param {Object} mo - The other object to check for collision.
+   * @returns {boolean} True if the objects are colliding, otherwise false.
+   */
   isColliding(mo) {
     return this.x + this.width > mo.x && this.y + this.height > mo.y && this.x < mo.x && this.y < mo.y + mo.height;
   }
 
+  /**
+   * Reduces the object's energy by 20 and updates the time of the last hit.
+   * If the energy drops below 0, it is set to 0.
+   */
   hit() {
     this.energy -= 20;
     if (this.energy < 0) {
@@ -41,6 +58,12 @@ class MovableObject extends DrawableObject {
     }
   }
 
+  /**
+   * Collects an item from the world.
+   * Increases the wallet count and, if the wallet reaches 5, increases energy by 20.
+   * Removes the item from the world.
+   * @param {number} index - The index of the item in the world to be collected.
+   */
   collectItem(index) {
     this.wallet += 1;
     if (this.wallet >= 5) {
@@ -49,6 +72,13 @@ class MovableObject extends DrawableObject {
     }
     this.world.level.items.splice(index, 1);
   }
+
+  /**
+   * Collects a bottle from the world.
+   * Increases the collected bottle count up to a maximum of 5.
+   * Removes the bottle from the world.
+   * @param {number} index - The index of the bottle in the world to be collected.
+   */
   collectBottle(index) {
     this.collectedBottle += 1;
     if (this.collectedBottle >= 5) {
@@ -57,16 +87,28 @@ class MovableObject extends DrawableObject {
     this.world.level.items.splice(index, 1);
   }
 
+  /**
+   * Checks if the object is hurt based on the time passed since the last hit.
+   * @returns {boolean} True if the object was hit within the last second, otherwise false.
+   */
   isHurt() {
     let timepassed = new Date().getTime() - this.lastHit;
     timepassed = timepassed / 1000;
     return timepassed < 1;
   }
 
+  /**
+   * Checks if the object is dead (energy is 0).
+   * @returns {boolean} True if the object is dead (energy is 0), otherwise false.
+   */
   isDead() {
     return this.energy == 0;
   }
 
+  /**
+   * Plays an animation by cycling through a set of images.
+   * @param {Array<string>} images - The list of image paths to cycle through for the animation.
+   */
   playAnimation(images) {
     let i = this.currentImage % images.length;
     let path = images[i];
@@ -74,27 +116,34 @@ class MovableObject extends DrawableObject {
     this.currentImage++;
   }
 
-  playAnimationReverse(images) {
-    let i = images.length - 1 - (this.currentImage % images.length);
-    let path = images[i];
-    this.img = this.imageCache[path];
-    this.currentImage++;
-  }
-
+  /**
+   * Moves the object to the right by its speed value.
+   */
   moveRight() {
     this.x += this.speed;
     this.otherDirection = false;
   }
 
+  /**
+   * Moves the object to the left by its speed value.
+   */
   moveLeft() {
     this.x -= this.speed;
   }
 
+  /**
+   * Makes the object jump by setting its vertical speed (`speedY`).
+   * Plays a jump sound if enabled.
+   */
   jump() {
     if (soundEnabled) world.JUMP_SOUND.play();
     this.speedY = 30;
   }
 
+  /**
+   * Causes the object to fall to its death at a given speed value.
+   * @param {number} speedValue - The speed at which the object falls.
+   */
   fallToDeath(speedValue) {
     setStoppableInterval(() => {
       if (this.y < 1000) {
@@ -103,12 +152,19 @@ class MovableObject extends DrawableObject {
     }, 1000 / 20);
   }
 
+  /**
+   * Starts an animation that moves the object to the left continuously.
+   */
   animateMoveLeft() {
     this.movingLeftIntervallId = setStoppableInterval(() => {
       this.moveLeft();
     }, 1000 / 60);
   }
 
+  /**
+   * Starts an animation that plays the given images in sequence.
+   * @param {Array<string>} img - The list of image paths for the animation.
+   */
   animatePlayAnimation(img) {
     this.playAnimationId = setStoppableInterval(() => {
       this.playAnimation(img);
