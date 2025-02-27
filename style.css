@@ -143,8 +143,6 @@ html {
   width: 100%;
   height: 480px;
   /*TODO hier 100vh wenn querkant mobile version */
-  /* display: block; */
-  /* margin: 0 auto; */
 }
 
 .start-container img {

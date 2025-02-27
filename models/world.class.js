@@ -65,7 +65,7 @@ class World {
         this.healthStatusBar.setPercentage(this.character.energy);
 
         if (this.character.energy === 0) {
-          this.character.fallToDeath(3);
+          this.character.fallToDeath(4);
           document.getElementById('startContainer').style.backgroundImage = 'url(./img/9_intro_outro_screens/game_over/game_over.png)';
           setTimeout(() => {
             togglePlayPauseBtn();

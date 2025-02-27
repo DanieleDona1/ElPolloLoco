@@ -7,8 +7,7 @@ gameSound.loop = true; // Der Sound wird wiederholt abgespielt
 
 function onload() {
   loadStartScreen();
-  checkSoundStatus(); //TODO entkommentiere und lösche playGame() Zeile 4
-  // playGame();
+  checkSoundStatus();
 }
 
 // Funktion zum Startbildschirm laden
@@ -21,6 +20,7 @@ function loadStartScreen() {
 function playGame() {
   let startScreen = document.getElementById('userInteraction');
   startScreen.innerHTML = /*html*/ `<canvas id="canvas" width="720" height="480"></canvas>`;
+  // document.getElementById('canvas').classList.remove = 'd-none';
   startScreen.innerHTML += getInGameNavigation();
   checkSoundStatus();
   initLevel();
@@ -57,16 +57,15 @@ function togglePlayPauseBtn() {
   let playPauseIcon = document.getElementById('playPauseIcon');
 
   if (isGamePaused) {
-    // Spiel fortsetzen
-    playPauseIcon.src = './img/start_end_screen/pause.svg'; // Ändere Bild zu Pause
-    resumeGame(); // Fortsetzen der Intervalle
+    playPauseIcon.src = './img/start_end_screen/pause.svg';
+    resumeGame();
+    // document.getElementById('restartBtn').classList.add('d-none');
   } else {
     // Spiel pausieren
-    playPauseIcon.src = './img/start_end_screen/play.svg'; // Ändere Bild zu Play
-    pauseGame(); // Pausieren der Intervalle
+    playPauseIcon.src = './img/start_end_screen/play.svg';
+    pauseGame();
+    // document.getElementById('restartBtn').classList.remove('d-none');
   }
-
-  // Den Zustand umschalten
   isGamePaused = !isGamePaused;
 }
 

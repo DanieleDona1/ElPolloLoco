@@ -68,6 +68,7 @@ class MovableObject extends DrawableObject {
     }
     this.world.level.items.splice(index, 1);
   }
+  
   isHurt() {
     let timepassed = new Date().getTime() - this.lastHit; //Differenz ms
     timepassed = timepassed / 1000; //Differenz sec
