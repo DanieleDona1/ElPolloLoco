@@ -1,8 +1,22 @@
+let gameSound = new Audio('./audio/game_sound.mp3');
+let soundEnabled;
+
+gameSound.volume = 0.2;
+gameSound.loop = true;
+
+function getSoundEnabled() {
+  const soundEnabled = JSON.parse(localStorage.getItem('soundEnabled'));
+  return soundEnabled;
+}
+
 function checkSoundStatus() {
   if (!localStorage.getItem('soundEnabled')) {
     localStorage.setItem('soundEnabled', 'false');
   }
-  let soundEnabled = JSON.parse(localStorage.getItem('soundEnabled'));
+
+  soundEnabled = getSoundEnabled();
+  console.log('soundEnabled', soundEnabled);
+
 
   if (soundEnabled) {
     backgroundSoundOn();

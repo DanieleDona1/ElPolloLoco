@@ -4,19 +4,14 @@ class Character extends MovableObject {
   speed = 7;
   IMAGES_IDL = [
     './img/2_character_pepe/1_idle/idle/I-1.png',
-    './img/2_character_pepe/1_idle/idle/I-1.png',
-    './img/2_character_pepe/1_idle/idle/I-1.png',
     './img/2_character_pepe/1_idle/idle/I-2.png',
     './img/2_character_pepe/1_idle/idle/I-3.png',
     './img/2_character_pepe/1_idle/idle/I-4.png',
     './img/2_character_pepe/1_idle/idle/I-5.png',
-    './img/2_character_pepe/1_idle/idle/I-5.png',
-    './img/2_character_pepe/1_idle/idle/I-5.png',
     './img/2_character_pepe/1_idle/idle/I-6.png',
+    './img/2_character_pepe/1_idle/idle/I-7.png',
     './img/2_character_pepe/1_idle/idle/I-8.png',
     './img/2_character_pepe/1_idle/idle/I-9.png',
-    './img/2_character_pepe/1_idle/idle/I-10.png',
-    './img/2_character_pepe/1_idle/idle/I-10.png',
     './img/2_character_pepe/1_idle/idle/I-10.png',
   ];
 
@@ -74,11 +69,17 @@ class Character extends MovableObject {
     setStoppableInterval(() => {
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
         this.moveRight();
+        if (soundEnabled) world.WALKING_SOUND.play();
+
         this.otherDirection = false;
-      } else if (this.world.keyboard.LEFT && this.x > -600) {
+      }
+      if (this.world.keyboard.LEFT && this.x > -600) {
+        if (soundEnabled) world.WALKING_SOUND.play();
+
         this.moveLeft();
         this.otherDirection = true;
-      } else if (this.world.keyboard.UP && !this.isAboveGround()) {
+      }
+      if (this.world.keyboard.UP && !this.isAboveGround()) {
         this.jump();
       }
       this.world.camera_x = -this.x + 100;
@@ -95,14 +96,12 @@ class Character extends MovableObject {
       } else {
         if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
           this.playAnimation(this.IMAGES_WALKING);
-        } else {
+        } else if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.isAboveGround()) {
+          // setTimeout(() => {
           this.playAnimation(this.IMAGES_IDL);
+          // }, 1000);
         }
       }
     }, 50);
-  }
-
-  jump() {
-    this.speedY = 30;
   }
 }

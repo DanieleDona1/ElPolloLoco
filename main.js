@@ -2,8 +2,7 @@ let intervalIds = [];
 let intervalDetails = []; // Hier werden die Funktionen und Zeitintervalle gespeichert
 let isGamePaused = false;
 
-let gameSound = new Audio('audio/game_sound.mp3'); // Lade die Audiodatei
-gameSound.loop = true; // Der Sound wird wiederholt abgespielt
+
 
 function onload() {
   loadStartScreen();

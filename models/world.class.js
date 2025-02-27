@@ -1,5 +1,15 @@
 class World {
-  //Game logic
+  ALERT_SOUND = new Audio('./audio/alert_endboss.mp3');
+  ATTACK_SCREAM_SOUND = new Audio('./audio/attack-scream.wav');
+  COIN_SOUND = new Audio('./audio/coin.mp3');
+  GAME_OVER_SOUND = new Audio('./audio/game_over.wav');
+  JUMP_SOUND = new Audio('./audio/jump.wav');
+  STOMP_SOUND = new Audio('./audio/stomp.wav');
+  WALKING_SOUND = new Audio('./audio/walking.wav');
+  WIN_SOUND = new Audio('./audio/win.wav');
+  COLLECT_BOTTLE_SOUND = new Audio('./audio/bottle.wav');
+  COLLIDING_BOTTLE = new Audio('./audio/colliding_bottle.wav');
+
   character = new Character();
   level = level1;
   canvas;
@@ -22,6 +32,7 @@ class World {
     this.draw();
     this.setWorld();
     this.run();
+    this.initializeSoundSettings();
   }
 
   setWorld() {
@@ -35,6 +46,18 @@ class World {
       this.checkThrowObjects();
       this.checkCollisionsItems();
     }, 100);
+  }
+
+  initializeSoundSettings() {
+    this.ALERT_SOUND.volume = 0.3;
+    this.ATTACK_SCREAM_SOUND.volume = 0.5;
+    this.COIN_SOUND.volume = 0.5;
+    this.GAME_OVER_SOUND.volume = 0.2;
+    this.JUMP_SOUND.volume = 0.7;
+    this.STOMP_SOUND.volume = 0.5;
+    this.WALKING_SOUND.volume = 0.5;
+    this.WIN_SOUND.volume = 0.5;
+    this.COLLIDING_BOTTLE.volume = 0.5;
   }
 
   checkThrowObjects() {
@@ -67,6 +90,7 @@ class World {
         if (this.character.energy === 0) {
           this.character.fallToDeath(4);
           document.getElementById('startContainer').style.backgroundImage = 'url(./img/9_intro_outro_screens/game_over/game_over.png)';
+          if (soundEnabled) this.GAME_OVER_SOUND.play();
           setTimeout(() => {
             togglePlayPauseBtn();
             document.getElementById('playPauseIcon').style.display = 'none';
@@ -82,7 +106,9 @@ class World {
     clearInterval(enemy.movingLeftIntervallId);
     clearInterval(enemy.playAnimationId);
     enemy.playAnimation(enemy.IMAGES_DEAD);
-    enemy.fallToDeath(5);
+    if (soundEnabled) this.STOMP_SOUND.play();
+
+    enemy.fallToDeath(8);
     setTimeout(() => {
       this.level.enemies.splice(index, 1);
     }, 1000);
@@ -96,12 +122,14 @@ class World {
       this.throwableObjects.forEach((bottle) => {
         if (bottle.isColliding(enemy)) {
           if (enemy instanceof Endboss) {
+            if (soundEnabled) this.COLLIDING_BOTTLE.play();
             this.level.enemies[0].hit();
             this.endbossHealthStatusBar.setPercentage(this.level.enemies[0].energy);
             if (this.level.enemies[0].energy > 0) {
               this.level.enemies[0].hitEndbossAnimation();
             } else {
               this.level.enemies[0].endbossDead();
+              if (soundEnabled) this.WIN_SOUND.play();
               setTimeout(() => {
                 document.getElementById('startContainer').style.backgroundImage = 'url(./img/start_end_screen/win.png)';
                 document.getElementById('playPauseIcon').click();
@@ -114,6 +142,7 @@ class World {
             }
           } else {
             this.stompEnemy(enemy, index);
+            if (soundEnabled) this.COLLIDING_BOTTLE.play();
           }
         }
       });
@@ -125,11 +154,13 @@ class World {
       if (this.character.isColliding(item)) {
         if (item instanceof Coin) {
           this.character.collectItem(index);
+          if (soundEnabled) this.COIN_SOUND.play();
           this.coinStatusBar.setPercentage(this.character.wallet * 20);
 
           this.healthStatusBar.setPercentage(this.character.energy);
         } else if (item instanceof Bottle) {
           this.character.collectBottle(index);
+          if (soundEnabled) this.COLLECT_BOTTLE_SOUND.play();
           this.bottleStatusBar.setPercentage(this.character.collectedBottle * 20);
         }
       }

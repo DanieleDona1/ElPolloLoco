@@ -68,7 +68,7 @@ class MovableObject extends DrawableObject {
     }
     this.world.level.items.splice(index, 1);
   }
-  
+
   isHurt() {
     let timepassed = new Date().getTime() - this.lastHit; //Differenz ms
     timepassed = timepassed / 1000; //Differenz sec
@@ -94,6 +94,7 @@ class MovableObject extends DrawableObject {
   }
 
   moveRight() {
+
     this.x += this.speed;
     this.otherDirection = false;
   }
@@ -101,9 +102,12 @@ class MovableObject extends DrawableObject {
   moveLeft() {
     this.x -= this.speed;
   }
+
   jump() {
+    if (soundEnabled) world.JUMP_SOUND.play();
     this.speedY = 30;
   }
+
   fallToDeath(speedValue) {
     setStoppableInterval(() => {
       if (this.y < 1000) {

@@ -8,6 +8,8 @@ class Endboss extends MovableObject {
   hadFirstContact = false;
   walkedForward = false;
   endbossAttackRange = 2300;
+  ATTACK_SCREAM_SOUND = new Audio("./audio/attack-scream.wav");
+
 
   IMAGES_WALKING = ['./img/4_enemie_boss_chicken/1_walk/G1.png', './img/4_enemie_boss_chicken/1_walk/G2.png', './img/4_enemie_boss_chicken/1_walk/G3.png', './img/4_enemie_boss_chicken/1_walk/G4.png'];
 
@@ -62,8 +64,11 @@ class Endboss extends MovableObject {
         this.playAnimation(this.IMAGES_ATTACK);
       } else if (i >= alertLength + attackLength && i < alertLength + attackLength + walkingLength) {
         this.playAnimation(this.IMAGES_WALKING);
+        if (soundEnabled) world.ALERT_SOUND.play();
+
         this.x -= 30;
       } else if (i >= alertLength + attackLength + walkingLength && i < alertLength + 2 * attackLength + walkingLength) {
+        // if (soundEnabled) world.ALERT_SOUND.play();
         this.playAnimation(this.IMAGES_ATTACK);
       } else if (i >= alertLength + 2 * attackLength + walkingLength && i < 2 * (alertLength + attackLength + walkingLength)) {
         this.playAnimation(this.IMAGES_WALKING);
@@ -86,6 +91,7 @@ class Endboss extends MovableObject {
     this.hitEndbossAnimationId = setStoppableInterval(() => {
       clearInterval(this.introEndbossAnimationId);
       if (world.level.enemies[0].x > this.endbossAttackRange && !this.walkedForward) {
+        if (soundEnabled) world.ATTACK_SCREAM_SOUND.play();
         this.playAnimation(this.IMAGES_HURT);
         this.x -= 30;
         this.endbossAttackRange -= 2;
@@ -93,7 +99,6 @@ class Endboss extends MovableObject {
         this.walkedForward = true;
         if (world.level.enemies[0].x < 2600) {
           this.playAnimation(this.IMAGES_ATTACK);
-
           this.x += 50;
         } else {
           clearInterval(this.hitEndbossAnimationId);
