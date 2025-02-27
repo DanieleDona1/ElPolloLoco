@@ -1,8 +1,3 @@
-let intervalIds = [];
-let intervalDetails = []; // Hier werden die Funktionen und Zeitintervalle gespeichert
-let isGamePaused = false;
-
-
 
 function onload() {
   loadStartScreen();
@@ -28,28 +23,6 @@ function playGame() {
   init();
 
   //TODO später wieder display flex document.getElementById('startContainer').style.backgroundImage = 'url("./img/9_intro_outro_screens/start/startscreen_1.png")';
-}
-
-// Funktion zum Setzen eines stoppbaren Intervalls
-function setStoppableInterval(fn, time) {
-  let id = setInterval(fn, time);
-  intervalIds.push(id);
-  intervalDetails.push({ fn: fn, time: time }); // Speichere die Details des Intervalls
-  return id;
-}
-
-// Funktion zum Pausieren aller Intervalle
-function pauseGame() {
-  intervalIds.forEach(clearInterval);
-  // console.log('Pause/Clear', intervalIds);
-}
-
-// Funktion zum Fortsetzen der Intervalle
-function resumeGame() {
-  intervalDetails.forEach((detail) => {
-    let id = setInterval(detail.fn, detail.time);
-    intervalIds.push(id);
-  });
 }
 
 function togglePlayPauseBtn() {
