@@ -51,7 +51,6 @@ class Endboss extends MovableObject {
   }
 
   introEndbossAnimation() {
-
     let i = 0;
     const walkingLength = this.IMAGES_WALKING.length;
     const alertLength = this.IMAGES_ALERT.length;

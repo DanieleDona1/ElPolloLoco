@@ -8,7 +8,9 @@ class World {
   WALKING_SOUND = new Audio('./audio/walking.wav');
   WIN_SOUND = new Audio('./audio/win.wav');
   COLLECT_BOTTLE_SOUND = new Audio('./audio/bottle.wav');
-  COLLIDING_BOTTLE = new Audio('./audio/colliding_bottle.wav');
+  COLLIDING_BOTTLE_SOUND = new Audio('./audio/colliding_bottle.wav');
+  SLEEP_SOUND = new Audio('./audio/sleep.wav');
+  HURT_SOUND = new Audio('./audio/hurt.wav');
 
   character = new Character();
   level = level1;
@@ -57,7 +59,9 @@ class World {
     this.STOMP_SOUND.volume = 0.5;
     this.WALKING_SOUND.volume = 0.5;
     this.WIN_SOUND.volume = 0.5;
-    this.COLLIDING_BOTTLE.volume = 0.5;
+    this.COLLIDING_BOTTLE_SOUND.volume = 0.5;
+    this.SLEEP_SOUND.volume = 0.5;
+    this.HURT_SOUND.volume = 0.5;
   }
 
   checkThrowObjects() {
@@ -122,7 +126,7 @@ class World {
       this.throwableObjects.forEach((bottle) => {
         if (bottle.isColliding(enemy)) {
           if (enemy instanceof Endboss) {
-            if (soundEnabled) this.COLLIDING_BOTTLE.play();
+            if (soundEnabled) this.COLLIDING_BOTTLE_SOUND.play();
             this.level.enemies[0].hit();
             this.endbossHealthStatusBar.setPercentage(this.level.enemies[0].energy);
             if (this.level.enemies[0].energy > 0) {
@@ -142,7 +146,7 @@ class World {
             }
           } else {
             this.stompEnemy(enemy, index);
-            if (soundEnabled) this.COLLIDING_BOTTLE.play();
+            if (soundEnabled) this.COLLIDING_BOTTLE_SOUND.play();
           }
         }
       });

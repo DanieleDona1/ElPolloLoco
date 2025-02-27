@@ -1,7 +1,7 @@
 let gameSound = new Audio('./audio/game_sound.mp3');
 let soundEnabled;
 
-gameSound.volume = 0.2;
+gameSound.volume = 0.1;
 gameSound.loop = true;
 
 function getSoundEnabled() {

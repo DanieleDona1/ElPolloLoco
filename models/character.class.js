@@ -2,6 +2,7 @@ class Character extends MovableObject {
   y = 77;
   height = 265;
   speed = 7;
+
   IMAGES_IDL = [
     './img/2_character_pepe/1_idle/idle/I-1.png',
     './img/2_character_pepe/1_idle/idle/I-2.png',
@@ -13,6 +14,19 @@ class Character extends MovableObject {
     './img/2_character_pepe/1_idle/idle/I-8.png',
     './img/2_character_pepe/1_idle/idle/I-9.png',
     './img/2_character_pepe/1_idle/idle/I-10.png',
+  ];
+
+  IMAGES_IDL_SLEEP = [
+    './img/2_character_pepe/1_idle/long_idle/I-11.png',
+    './img/2_character_pepe/1_idle/long_idle/I-12.png',
+    './img/2_character_pepe/1_idle/long_idle/I-13.png',
+    './img/2_character_pepe/1_idle/long_idle/I-14.png',
+    './img/2_character_pepe/1_idle/long_idle/I-15.png',
+    './img/2_character_pepe/1_idle/long_idle/I-16.png',
+    './img/2_character_pepe/1_idle/long_idle/I-17.png',
+    './img/2_character_pepe/1_idle/long_idle/I-18.png',
+    './img/2_character_pepe/1_idle/long_idle/I-19.png',
+    './img/2_character_pepe/1_idle/long_idle/I-20.png',
   ];
 
   IMAGES_WALKING = [
@@ -55,6 +69,7 @@ class Character extends MovableObject {
   constructor() {
     super().loadImage('./img/2_character_pepe/2_walk/W-21.png');
     this.loadImages(this.IMAGES_IDL);
+    this.loadImages(this.IMAGES_IDL_SLEEP);
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_JUMPING);
     this.loadImages(this.IMAGES_DEAD);
@@ -85,21 +100,29 @@ class Character extends MovableObject {
       this.world.camera_x = -this.x + 100;
     }, 1000 / 60);
 
-    // Animationsintervall für das Abspielen von Bildern
     setStoppableInterval(() => {
       if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
       } else if (this.isHurt()) {
+        if (soundEnabled) world.HURT_SOUND.play();
         this.playAnimation(this.IMAGES_HURT);
       } else if (this.isAboveGround()) {
         this.playAnimation(this.IMAGES_JUMPING);
       } else {
         if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
           this.playAnimation(this.IMAGES_WALKING);
+          this.idleStartTime = 0;
         } else if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.isAboveGround()) {
-          // setTimeout(() => {
-          this.playAnimation(this.IMAGES_IDL);
-          // }, 1000);
+          if (this.idleStartTime === 0) {
+            this.idleStartTime = Date.now();
+          }
+          if (Date.now() - this.idleStartTime >= 3000) {
+            if (soundEnabled) world.SLEEP_SOUND.play();
+            this.playAnimation(this.IMAGES_IDL_SLEEP);
+          } else {
+            if (soundEnabled) world.SLEEP_SOUND.pause();
+            this.playAnimation(this.IMAGES_IDL);
+          }
         }
       }
     }, 50);
