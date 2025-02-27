@@ -78,53 +78,138 @@ class Character extends MovableObject {
     this.applyGravity();
     this.animate();
   }
-
+  /**
+   * Starts the animation for the character, calling moveCharacter and playCharacter methods at intervals.
+   * @returns {void}
+   */
   animate() {
-    // Animationsintervall für Bewegung
-    setStoppableInterval(() => {
-      if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-        this.moveRight();
-        if (soundEnabled) world.WALKING_SOUND.play();
+    setStoppableInterval(() => this.moveCharacter(), 1000 / 60);
+    setStoppableInterval(() => this.playCharacter(), 50);
+  }
 
-        this.otherDirection = false;
-      }
-      if (this.world.keyboard.LEFT && this.x > -600) {
-        if (soundEnabled) world.WALKING_SOUND.play();
+  /**
+   * Moves the character based on keyboard input and camera position.
+   * @returns {void}
+   */
+  moveCharacter() {
+    if (this.canMoveRight()) this.moveRight();
+    if (this.canMoveLeft()) this.moveLeft();
+    if (this.canJump()) this.jump();
+    this.world.camera_x = -this.x + 100;
+  }
 
-        this.moveLeft();
-        this.otherDirection = true;
-      }
-      if (this.world.keyboard.UP && !this.isAboveGround()) {
-        this.jump();
-      }
-      this.world.camera_x = -this.x + 100;
-    }, 1000 / 60);
+  /**
+   * Checks if the character can move right.
+   * @returns {boolean} True if the character can move right, false otherwise.
+   */
+  canMoveRight() {
+    return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
+  }
 
-    setStoppableInterval(() => {
-      if (this.isDead()) {
-        this.playAnimation(this.IMAGES_DEAD);
-      } else if (this.isHurt()) {
-        if (soundEnabled) world.HURT_SOUND.play();
-        this.playAnimation(this.IMAGES_HURT);
-      } else if (this.isAboveGround()) {
-        this.playAnimation(this.IMAGES_JUMPING);
-      } else {
-        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-          this.playAnimation(this.IMAGES_WALKING);
-          this.idleStartTime = 0;
-        } else if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.isAboveGround()) {
-          if (this.idleStartTime === 0) {
-            this.idleStartTime = Date.now();
-          }
-          if (Date.now() - this.idleStartTime >= 3000) {
-            if (soundEnabled) world.SLEEP_SOUND.play();
-            this.playAnimation(this.IMAGES_IDL_SLEEP);
-          } else {
-            if (soundEnabled) world.SLEEP_SOUND.pause();
-            this.playAnimation(this.IMAGES_IDL);
-          }
-        }
-      }
-    }, 50);
+  /**
+   * Moves the character to the right and plays walking sound.
+   * @returns {void}
+   */
+  moveRight() {
+    super.moveRight();
+    if (soundEnabled) world.WALKING_SOUND.play();
+    this.otherDirection = false;
+  }
+
+  /**
+   * Checks if the character can move left.
+   * @returns {boolean} True if the character can move left, false otherwise.
+   */
+  canMoveLeft() {
+    return this.world.keyboard.LEFT && this.x > -600;
+  }
+
+  /**
+   * Moves the character to the left and plays walking sound.
+   * @returns {void}
+   */
+  moveLeft() {
+    if (soundEnabled) world.WALKING_SOUND.play();
+    super.moveLeft();
+    this.otherDirection = true;
+  }
+
+  /**
+   * Checks if the character can jump.
+   * @returns {boolean} True if the character can jump, false otherwise.
+   */
+  canJump() {
+    return this.world.keyboard.UP && !this.isAboveGround();
+  }
+
+  /**
+   * Updates the character's animation based on its state (dead, hurt, jumping, idle).
+   * @returns {void}
+   */
+  playCharacter() {
+    if (this.isDead()) {
+      this.playAnimation(this.IMAGES_DEAD);
+    } else if (this.isHurt()) {
+      this.playAnimation(this.IMAGES_HURT);
+      if (soundEnabled) world.HURT_SOUND.play();
+    } else if (this.isAboveGround()) {
+      this.playAnimation(this.IMAGES_JUMPING);
+    } else {
+      this.handleState();
+    }
+  }
+
+  /**
+   * Handles the state of the character, including idle or walking animations.
+   * @returns {void}
+   */
+  handleState() {
+    if (this.canMoveLeftRight()) {
+      this.playAnimation(this.IMAGES_WALKING);
+      this.idleStartTime = 0;
+    } else if (this.isIdle()) {
+      this.sleepOrIdle();
+    }
+  }
+
+  /**
+   * Checks if the character can move left or right based on keyboard input.
+   * @returns {boolean} True if the character can move left or right, false otherwise.
+   */
+  canMoveLeftRight() {
+    return this.world.keyboard.RIGHT || this.world.keyboard.LEFT;
+  }
+
+  /**
+   * Decides if the character should play an idle or sleep animation.
+   * @returns {void}
+   */
+  sleepOrIdle() {
+    if (this.idleStartTime === 0) {
+      this.idleStartTime = Date.now();
+    }
+    if (this.canSleep()) {
+      this.playAnimation(this.IMAGES_IDL_SLEEP);
+      if (soundEnabled) world.SLEEP_SOUND.play();
+    } else {
+      this.playAnimation(this.IMAGES_IDL);
+      if (soundEnabled) world.SLEEP_SOUND.pause();
+    }
+  }
+
+  /**
+   * Checks if the character is idle (not moving and not in the air).
+   * @returns {boolean} True if the character is idle, false otherwise.
+   */
+  isIdle() {
+    return !this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.isAboveGround();
+  }
+
+  /**
+   * Checks if the character has been idle for at least 3 seconds and can sleep.
+   * @returns {boolean} True if the character can sleep, false otherwise.
+   */
+  canSleep() {
+    return Date.now() - this.idleStartTime >= 3000;
   }
 }

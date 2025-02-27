@@ -57,7 +57,7 @@ class World {
     this.GAME_OVER_SOUND.volume = 0.2;
     this.JUMP_SOUND.volume = 0.7;
     this.STOMP_SOUND.volume = 0.5;
-    this.WALKING_SOUND.volume = 0.5;
+    this.WALKING_SOUND.volume = 0.1;
     this.WIN_SOUND.volume = 0.5;
     this.COLLIDING_BOTTLE_SOUND.volume = 0.5;
     this.SLEEP_SOUND.volume = 0.5;
