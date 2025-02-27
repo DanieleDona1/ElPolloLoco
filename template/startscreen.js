@@ -1,3 +1,9 @@
+/**
+ * Returns the HTML template for the start screen of the game.
+ * The template includes icons for settings, sound, and a play button,
+ * as well as links to privacy and impressum pages.
+ * @returns {string} The HTML string representing the start screen layout.
+ */
 function getStartScreenTemplate() {
   return /*html*/ `
     <div class='start-container'>
@@ -14,6 +20,12 @@ function getStartScreenTemplate() {
   `;
 }
 
+/**
+ * Returns the HTML template for the settings popup.
+ * The template contains game control instructions and gameplay instructions
+ * to guide the player on how to play the game.
+ * @returns {string} The HTML string representing the settings popup content.
+ */
 function getSettingsPopupTemplate() {
   return /*html*/ `
     <div id="settingsPopup" class="settings-popup">
@@ -40,6 +52,11 @@ function getSettingsPopupTemplate() {
   `;
 }
 
+/**
+ * Returns the HTML template for in-game navigation.
+ * This template includes icons for sound, info, play/pause, and mobile navigation controls.
+ * @returns {string} The HTML string representing the in-game navigation layout.
+ */
 function getInGameNavigation() {
   return /*html*/ `
     <div  id="startContainer" class='start-container'>

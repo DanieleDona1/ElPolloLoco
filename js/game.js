@@ -3,6 +3,9 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 
+/**
+ * Initializes the game by setting up the canvas, world, and event listeners.
+ */
 function init() {
   canvas = document.getElementById('canvas');
   world = new World(canvas, keyboard);
@@ -10,6 +13,9 @@ function init() {
   bindBtsPressEvents();
 }
 
+/**
+ * Binds touch event listeners to the on-screen buttons to control the player's movements and actions.
+ */
 function bindBtsPressEvents() {
   document.getElementById('btnLeft').addEventListener('touchstart', (e) => {
     e.preventDefault();
@@ -52,6 +58,10 @@ function bindBtsPressEvents() {
   });
 }
 
+/**
+ * Binds keyboard event listeners to the arrow keys and spacebar for player control.
+ * Updates the keyboard object to reflect which keys are being pressed.
+ */
 function bindKeyPressEvents() {
   window.addEventListener('keydown', (event) => {
     if (event.keyCode == 39) {

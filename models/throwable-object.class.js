@@ -10,6 +10,11 @@ class ThrowableObject extends MovableObject {
     this.throw();
   }
 
+  /**
+   * Initiates a throwing action for the object.
+   * Sets the vertical speed (`speedY`) to simulate upward motion,
+   * applies gravity, and moves the object horizontally while rotating it.
+   */
   throw() {
     this.speedY = 30;
     this.applyGravity();
@@ -20,6 +25,10 @@ class ThrowableObject extends MovableObject {
     }, 25);
   }
 
+  /**
+   * Draws the object on the canvas with rotation and position adjustments.
+   * @param {CanvasRenderingContext2D} ctx - The 2D rendering context of the canvas to draw on.
+   */
   draw(ctx) {
     ctx.save();
     ctx.translate(this.x + this.width / 2, this.y + this.height / 2);

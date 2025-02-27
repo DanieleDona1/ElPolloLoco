@@ -85,7 +85,7 @@ class Endboss extends MovableObject {
     } else if (i >= alertLength + attackLength + walkingLength && i < alertLength + 2 * attackLength + walkingLength) {
       this.playAnimation(this.IMAGES_ATTACK);
     } else if (i >= alertLength + 2 * attackLength + walkingLength && i < 2 * (alertLength + attackLength + walkingLength)) {
-      this.handleWalkingPhase(true);
+      // this.handleWalkingPhase(true);
     } else {
       this.playAnimation(this.IMAGES_ALERT);
     }
@@ -99,7 +99,7 @@ class Endboss extends MovableObject {
   handleWalkingPhase(isReversing = false) {
     this.playAnimation(this.IMAGES_WALKING);
     if (soundEnabled) world.ALERT_SOUND.play();
-    this.x += isReversing ? 15 : -30;
+    // this.x += isReversing ? 15 : -30;
   }
 
   /**
