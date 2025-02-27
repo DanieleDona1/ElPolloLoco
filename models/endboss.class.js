@@ -49,6 +49,10 @@ class Endboss extends MovableObject {
     this.introEndbossAnimation();
   }
 
+  /**
+   * Starts the intro animation for the endboss, including the phases for alert, attack, and walking.
+   * The animation will loop through different phases based on a set interval.
+   */
   introEndbossAnimation() {
     let i = 0;
     const walkingLength = this.IMAGES_WALKING.length;
@@ -56,62 +60,141 @@ class Endboss extends MovableObject {
     const attackLength = this.IMAGES_ATTACK.length;
 
     this.introEndbossAnimationId = setStoppableIntervalEndboss(() => {
-      if (i < alertLength) {
-        this.playAnimation(this.IMAGES_ALERT);
-      } else if (i >= alertLength && i < alertLength + attackLength) {
-        this.playAnimation(this.IMAGES_ATTACK);
-      } else if (i >= alertLength + attackLength && i < alertLength + attackLength + walkingLength) {
-        this.playAnimation(this.IMAGES_WALKING);
-        if (soundEnabled) world.ALERT_SOUND.play();
-
-        this.x -= 30;
-      } else if (i >= alertLength + attackLength + walkingLength && i < alertLength + 2 * attackLength + walkingLength) {
-        this.playAnimation(this.IMAGES_ATTACK);
-      } else if (i >= alertLength + 2 * attackLength + walkingLength && i < 2 * (alertLength + attackLength + walkingLength)) {
-        this.playAnimation(this.IMAGES_WALKING);
-        this.x += 15;
-      } else {
-        this.playAnimation(this.IMAGES_ALERT);
-      }
-
-      if (world.character.x > 1950 && !this.hadFirstContact) {
-        i = 0;
-        this.hadFirstContact = true;
-      }
+      this.handlePhaseTransition(i, alertLength, attackLength, walkingLength);
+      this.handleFirstContact(i, alertLength, attackLength, walkingLength);
       i++;
     }, 200);
   }
 
+  /**
+   * Handles the transition between animation phases based on the current index.
+   * It changes the endboss's behavior between alert, attack, and walking phases.
+   *
+   * @param {number} i - The current index for determining the phase transition.
+   * @param {number} alertLength - The length of the alert animation sequence.
+   * @param {number} attackLength - The length of the attack animation sequence.
+   * @param {number} walkingLength - The length of the walking animation sequence.
+   */
+  handlePhaseTransition(i, alertLength, attackLength, walkingLength) {
+    if (i < alertLength) {
+      this.playAnimation(this.IMAGES_ALERT);
+    } else if (i >= alertLength && i < alertLength + attackLength) {
+      this.playAnimation(this.IMAGES_ATTACK);
+    } else if (i >= alertLength + attackLength && i < alertLength + attackLength + walkingLength) {
+      this.handleWalkingPhase();
+    } else if (i >= alertLength + attackLength + walkingLength && i < alertLength + 2 * attackLength + walkingLength) {
+      this.playAnimation(this.IMAGES_ATTACK);
+    } else if (i >= alertLength + 2 * attackLength + walkingLength && i < 2 * (alertLength + attackLength + walkingLength)) {
+      this.handleWalkingPhase(true);
+    } else {
+      this.playAnimation(this.IMAGES_ALERT);
+    }
+  }
+
+  /**
+   * Handles the walking phase of the endboss, updating its position and playing the walking animation.
+   *
+   * @param {boolean} [isReversing=false] - Whether the endboss should reverse its walking direction.
+   */
+  handleWalkingPhase(isReversing = false) {
+    this.playAnimation(this.IMAGES_WALKING);
+    if (soundEnabled) world.ALERT_SOUND.play();
+    this.x += isReversing ? 15 : -30;
+  }
+
+  /**
+   * Handles the first contact with the player character, resetting the animation index if necessary.
+   *
+   * @param {number} i - The current index for determining the phase transition.
+   * @param {number} alertLength - The length of the alert animation sequence.
+   * @param {number} attackLength - The length of the attack animation sequence.
+   * @param {number} walkingLength - The length of the walking animation sequence.
+   */
+  handleFirstContact(i, alertLength, attackLength, walkingLength) {
+    if (world.character.x > 1950 && !this.hadFirstContact) {
+      i = 0;
+      this.hadFirstContact = true;
+    }
+  }
+
+  /**
+   * Starts the hit animation for the endboss when it gets hit, transitioning through attack and movement.
+   */
   hitEndbossAnimation() {
     clearInterval(this.hitEndbossAnimationId);
     this.hitEndbossAnimationId = setStoppableIntervalEndboss(() => {
       clearInterval(this.introEndbossAnimationId);
-      if (world.level.enemies[0].x > this.endbossAttackRange && !this.walkedForward) {
-        if (soundEnabled) world.ATTACK_SCREAM_SOUND.play();
-        this.playAnimation(this.IMAGES_HURT);
-        this.x -= 30;
-        this.endbossAttackRange -= 2;
+      if (this.isInAttackRange() && !this.walkedForward) {
+        this.handleAttackAnimation();
       } else {
         this.walkedForward = true;
-        if (world.level.enemies[0].x < 2600) {
-          this.playAnimation(this.IMAGES_ATTACK);
-          this.x += 50;
+        if (this.shouldMoveForward()) {
+          this.handleMoveForward();
         } else {
-          clearInterval(this.hitEndbossAnimationId);
-          clearInterval(this.alertEndbossAfterHitId);
-          this.alertEndbossAfterHit();
-          this.walkedForward = false;
+          this.endEndbossAnimation();
         }
       }
     }, 200);
   }
 
+  /**
+   * Checks if the endboss is within the attack range of the player.
+   *
+   * @returns {boolean} - True if the endboss is in range for an attack, false otherwise.
+   */
+  isInAttackRange() {
+    return world.level.enemies[0].x > this.endbossAttackRange;
+  }
+
+  /**
+   * Plays the attack animation for the endboss when it is in range, and moves its position.
+   */
+  handleAttackAnimation() {
+    if (soundEnabled) world.ATTACK_SCREAM_SOUND.play();
+    this.playAnimation(this.IMAGES_HURT);
+    this.x -= 30;
+    this.endbossAttackRange -= 2;
+  }
+
+  /**
+   * Determines whether the endboss should move forward.
+   *
+   * @returns {boolean} - True if the endboss should move forward, false otherwise.
+   */
+  shouldMoveForward() {
+    return world.level.enemies[0].x < 2600;
+  }
+
+  /**
+   * Moves the endboss forward and plays the attack animation.
+   */
+  handleMoveForward() {
+    this.playAnimation(this.IMAGES_ATTACK);
+    this.x += 50;
+  }
+
+  /**
+   * Ends the endboss animation and clears the associated intervals.
+   */
+  endEndbossAnimation() {
+    clearInterval(this.hitEndbossAnimationId);
+    clearInterval(this.alertEndbossAfterHitId);
+    this.alertEndbossAfterHit();
+    this.walkedForward = false;
+  }
+
+  /**
+   * Starts the alert animation after the endboss has been hit.
+   */
   alertEndbossAfterHit() {
     this.alertEndbossAfterHitId = setStoppableIntervalEndboss(() => {
       this.playAnimation(this.IMAGES_ALERT);
     }, 400);
   }
 
+  /**
+   * Plays the dead animation for the endboss when it is defeated.
+   */
   endbossDead() {
     clearInterval(this.hitEndbossAnimationId);
     clearInterval(this.alertEndbossAfterHitId);

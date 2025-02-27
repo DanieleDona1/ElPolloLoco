@@ -1,7 +1,7 @@
 let gameSound = new Audio('./audio/game_sound.mp3');
 let soundEnabled;
 
-gameSound.volume = 0.05;
+gameSound.volume = 0.15;
 gameSound.loop = true;
 
 function getSoundEnabled() {
@@ -29,9 +29,15 @@ function toggleSound() {
 
 function backgroundSoundOn() {
   let soundIcon = document.getElementById('sound-icon');
-  gameSound.play();
+  try {
+    gameSound.play();
+  } catch (error) {
+    console.warn('NotAllowedError: play() failed because the user didn t interact with the document');
+
+  }
   soundIcon.src = './img/start_end_screen/sound-on.svg';
 }
+
 function backgroundSoundOff() {
   let soundIcon = document.getElementById('sound-icon');
   gameSound.pause();

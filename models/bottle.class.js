@@ -4,13 +4,8 @@ class Bottle extends MovableObject {
   width = 80;
 
   constructor() {
-    super()
+    super();
     this.loadImage('./img/6_salsa_bottle/1_salsa_bottle_on_ground.png');
     this.x = 300 + Math.random() * 2000;
-    this.animate();
-  }
-
-  animate() {
-    this.moveLeft();
   }
 }

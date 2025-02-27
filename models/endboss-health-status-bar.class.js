@@ -20,6 +20,12 @@ class EndbossHealthStatusBar extends DrawableObject {
     this.setPercentage(100);
   }
 
+  /**
+   * Flips the image horizontally and draws it on the canvas.
+   * This method saves the current canvas state, translates the context to the
+   * image's position, scales the context to flip the image, draws the flipped image,
+   * and then restores the canvas state.
+   */
   flipImage() {
     this.ctx.save();
     this.ctx.translate(this.x + this.width, this.y);

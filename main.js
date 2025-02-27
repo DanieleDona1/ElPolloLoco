@@ -29,6 +29,8 @@ function togglePlayPauseBtn() {
   } else {
     playPauseIcon.src = './img/start_end_screen/play.svg';
     pauseGame();
+    world.SLEEP_SOUND.pause();
+
   }
   isGamePaused = !isGamePaused;
 }
