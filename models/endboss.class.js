@@ -8,8 +8,7 @@ class Endboss extends MovableObject {
   hadFirstContact = false;
   walkedForward = false;
   endbossAttackRange = 2300;
-  ATTACK_SCREAM_SOUND = new Audio("./audio/attack-scream.wav");
-
+  ATTACK_SCREAM_SOUND = new Audio('./audio/attack-scream.wav');
 
   IMAGES_WALKING = ['./img/4_enemie_boss_chicken/1_walk/G1.png', './img/4_enemie_boss_chicken/1_walk/G2.png', './img/4_enemie_boss_chicken/1_walk/G3.png', './img/4_enemie_boss_chicken/1_walk/G4.png'];
 
@@ -56,7 +55,7 @@ class Endboss extends MovableObject {
     const alertLength = this.IMAGES_ALERT.length;
     const attackLength = this.IMAGES_ATTACK.length;
 
-    this.introEndbossAnimationId = setStoppableInterval(() => {
+    this.introEndbossAnimationId = setStoppableIntervalEndboss(() => {
       if (i < alertLength) {
         this.playAnimation(this.IMAGES_ALERT);
       } else if (i >= alertLength && i < alertLength + attackLength) {
@@ -67,7 +66,6 @@ class Endboss extends MovableObject {
 
         this.x -= 30;
       } else if (i >= alertLength + attackLength + walkingLength && i < alertLength + 2 * attackLength + walkingLength) {
-        // if (soundEnabled) world.ALERT_SOUND.play();
         this.playAnimation(this.IMAGES_ATTACK);
       } else if (i >= alertLength + 2 * attackLength + walkingLength && i < 2 * (alertLength + attackLength + walkingLength)) {
         this.playAnimation(this.IMAGES_WALKING);
@@ -81,13 +79,12 @@ class Endboss extends MovableObject {
         this.hadFirstContact = true;
       }
       i++;
-
     }, 200);
   }
 
   hitEndbossAnimation() {
     clearInterval(this.hitEndbossAnimationId);
-    this.hitEndbossAnimationId = setStoppableInterval(() => {
+    this.hitEndbossAnimationId = setStoppableIntervalEndboss(() => {
       clearInterval(this.introEndbossAnimationId);
       if (world.level.enemies[0].x > this.endbossAttackRange && !this.walkedForward) {
         if (soundEnabled) world.ATTACK_SCREAM_SOUND.play();
@@ -110,7 +107,7 @@ class Endboss extends MovableObject {
   }
 
   alertEndbossAfterHit() {
-    this.alertEndbossAfterHitId = setStoppableInterval(() => {
+    this.alertEndbossAfterHitId = setStoppableIntervalEndboss(() => {
       this.playAnimation(this.IMAGES_ALERT);
     }, 400);
   }

@@ -13,6 +13,8 @@ class World {
   HURT_SOUND = new Audio('./audio/hurt.wav');
 
   character = new Character();
+  isCharacterDead = false;
+  isEndbossDead = false;
   level = level1;
   canvas;
   ctx; //der Stift
@@ -27,8 +29,7 @@ class World {
   reloadBottle = true;
 
   constructor(canvas, keyboard) {
-    //Hier werden function regelmäßig wiederholt
-    this.ctx = canvas.getContext('2d'); //Werkzeug Stift-2D
+    this.ctx = canvas.getContext('2d');
     this.canvas = canvas;
     this.keyboard = keyboard;
     this.draw();
@@ -42,7 +43,6 @@ class World {
   }
 
   run() {
-    // Intervall für das Überprüfen von Kollisionen und anderen Funktionen
     setStoppableInterval(() => {
       this.checkCollision();
       this.checkThrowObjects();
@@ -91,8 +91,8 @@ class World {
         this.character.hit();
         this.healthStatusBar.setPercentage(this.character.energy);
 
-        if (this.character.energy === 0) {
-          this.character.fallToDeath(4);
+        if (this.character.energy === 0 && !this.isCharacterDead) {
+          this.character.fallToDeath(40);
           document.getElementById('startContainer').style.backgroundImage = 'url(./img/9_intro_outro_screens/game_over/game_over.png)';
           if (soundEnabled) this.GAME_OVER_SOUND.play();
           setTimeout(() => {
@@ -100,6 +100,7 @@ class World {
             document.getElementById('playPauseIcon').style.display = 'none';
             document.getElementById('restartBtn').classList.remove('d-none');
           }, 350);
+          this.isCharacterDead = true;
         }
       }
     }
@@ -131,18 +132,20 @@ class World {
             this.endbossHealthStatusBar.setPercentage(this.level.enemies[0].energy);
             if (this.level.enemies[0].energy > 0) {
               this.level.enemies[0].hitEndbossAnimation();
-            } else {
+            } else if (this.level.enemies[0].energy == 0 && !this.isEndbossDead) {
               this.level.enemies[0].endbossDead();
               if (soundEnabled) this.WIN_SOUND.play();
               setTimeout(() => {
                 document.getElementById('startContainer').style.backgroundImage = 'url(./img/start_end_screen/win.png)';
-                document.getElementById('playPauseIcon').click();
+                isGamePaused = false;
+                togglePlayPauseBtn();
                 this.character.playAnimation(this.character.IMAGES_WON);
               }, 500);
               setTimeout(() => {
                 document.getElementById('restartBtn').classList.remove('d-none');
                 document.getElementById('playPauseIcon').style.display = 'none';
-              }, 500);
+              }, 550);
+              this.isEndbossDead = true;
             }
           } else {
             this.stompEnemy(enemy, index);
@@ -160,24 +163,12 @@ class World {
           this.character.collectItem(index);
           if (soundEnabled) this.COIN_SOUND.play();
           this.coinStatusBar.setPercentage(this.character.wallet * 20);
-
           this.healthStatusBar.setPercentage(this.character.energy);
         } else if (item instanceof Bottle) {
           this.character.collectBottle(index);
           if (soundEnabled) this.COLLECT_BOTTLE_SOUND.play();
           this.bottleStatusBar.setPercentage(this.character.collectedBottle * 20);
         }
-      }
-    });
-  }
-  //TODO
-  checkCollisionsBottle() {
-    this.throwableObjects.forEach((bottle) => {
-      this.level.enemies.forEach((enemy) => {
-        if (bottle.isColliding(enemy)) {
-        }
-      });
-      if (bottle.isColliding(this.level.endboss)) {
       }
     });
   }
@@ -206,7 +197,7 @@ class World {
 
     this.ctx.translate(-this.camera_x, 0);
 
-    let self = this; //aktuelle Welt hier drinne nicht mehr kennt
+    let self = this;
     requestAnimationFrame(function () {
       self.draw();
     });

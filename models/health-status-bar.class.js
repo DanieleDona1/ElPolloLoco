@@ -10,7 +10,7 @@ class HealthStatusBar extends DrawableObject {
 
   percentage = 100;
 
-  constructor(){
+  constructor() {
     super();
     this.loadImages(this.IMAGES);
     this.x = 20;
@@ -18,6 +18,5 @@ class HealthStatusBar extends DrawableObject {
     this.width = 200;
     this.height = 60;
     this.setPercentage(100);
-
   }
 }

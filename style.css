@@ -10,7 +10,7 @@
 }
 
 html {
-  background-color: rgb(234, 95, 0);
+  background-color: rgba(234, 95, 0, 0.9);
 }
 
 .body {
@@ -45,8 +45,8 @@ html {
   position: relative;
 }
 .settings-popup-content h2 {
-    padding-top: 20px;
-    margin-bottom: 8px;
+  padding-top: 20px;
+  margin-bottom: 8px;
 }
 
 .close-btn {
@@ -166,15 +166,15 @@ html {
 }
 
 .legal-info-container {
-    position: absolute;
-    bottom: 10px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 16px;
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
 }
 
-.legal-info-container a{
+.legal-info-container a {
   text-decoration: none;
   color: rgb(58, 58, 58);
   font-size: 20px;
@@ -224,8 +224,6 @@ canvas {
   height: 240px;
 }
 
-
-
 /* inGame css start  */
 .in-game-nav {
   /* position: absolute; */
@@ -262,7 +260,6 @@ canvas {
   animation: pulse 2s infinite;
 }
 
-
 .settings-btn {
   display: flex;
   flex-direction: column;
@@ -297,7 +294,7 @@ canvas {
   font-family: 'Times New Roman', Times, serif;
 }
 
-.body-legal-info button{
+.body-legal-info button {
   background-color: rgb(223, 222, 221);
   padding: 8px 16px;
 }
@@ -316,7 +313,6 @@ canvas {
   canvas {
     width: 100%;
   }
-
 }
 
 @media only screen and (max-width: 510px) {

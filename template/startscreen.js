@@ -40,7 +40,6 @@ function getSettingsPopupTemplate() {
   `;
 }
 
-// musik beenden, spiel stoppen und spielanleitung
 function getInGameNavigation() {
   return /*html*/ `
     <div  id="startContainer" class='start-container'>

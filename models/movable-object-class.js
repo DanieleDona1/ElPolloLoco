@@ -3,7 +3,7 @@ class MovableObject extends DrawableObject {
   speed = 0.15;
   otherDirection = false;
   speedY = 0;
-  acceleration = 2.5;
+  acceleration = 3;
   energy = 100;
   lastHit = 0;
   wallet = 0;
@@ -12,19 +12,16 @@ class MovableObject extends DrawableObject {
   playAnimationId;
 
   applyGravity() {
-    // Intervall für die Schwerkraftanwendung
     setStoppableInterval(() => {
-      // nur wenn wir uns über dem Boden befinden oder die Geschwindigkeit positiv ist (nach oben fliegen)
       if (this.isAboveGround() || this.speedY > 0) {
-        this.y -= this.speedY; // Y-Position ändern
-        this.speedY -= this.acceleration; // Geschwindigkeit verringern
+        this.y -= this.speedY;
+        this.speedY -= this.acceleration;
       }
     }, 1000 / 25);
   }
 
   isAboveGround() {
     if (this instanceof ThrowableObject) {
-      //always fall
       return true;
     } else {
       return this.y < 150;
@@ -32,20 +29,11 @@ class MovableObject extends DrawableObject {
   }
 
   isColliding(mo) {
-    return (
-      this.x + this.width > mo.x &&
-      this.y + this.height > mo.y && //R > L
-      this.x < mo.x &&
-      this.y < mo.y + mo.height
-    );
+    return this.x + this.width > mo.x && this.y + this.height > mo.y && this.x < mo.x && this.y < mo.y + mo.height;
   }
 
   hit() {
     this.energy -= 20;
-    // if (this.energy === 10) {
-    //   this.energy = 0;
-    // }
-    // else
     if (this.energy < 0) {
       this.energy = 0;
     } else {
@@ -70,8 +58,8 @@ class MovableObject extends DrawableObject {
   }
 
   isHurt() {
-    let timepassed = new Date().getTime() - this.lastHit; //Differenz ms
-    timepassed = timepassed / 1000; //Differenz sec
+    let timepassed = new Date().getTime() - this.lastHit;
+    timepassed = timepassed / 1000;
     return timepassed < 1;
   }
 
@@ -94,7 +82,6 @@ class MovableObject extends DrawableObject {
   }
 
   moveRight() {
-
     this.x += this.speed;
     this.otherDirection = false;
   }
@@ -121,6 +108,7 @@ class MovableObject extends DrawableObject {
       this.moveLeft();
     }, 1000 / 60);
   }
+
   animatePlayAnimation(img) {
     this.playAnimationId = setStoppableInterval(() => {
       this.playAnimation(img);

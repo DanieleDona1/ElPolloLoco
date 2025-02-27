@@ -1,7 +1,7 @@
 let gameSound = new Audio('./audio/game_sound.mp3');
 let soundEnabled;
 
-gameSound.volume = 0.1;
+gameSound.volume = 0.15;
 gameSound.loop = true;
 
 function getSoundEnabled() {
@@ -13,11 +13,7 @@ function checkSoundStatus() {
   if (!localStorage.getItem('soundEnabled')) {
     localStorage.setItem('soundEnabled', 'false');
   }
-
   soundEnabled = getSoundEnabled();
-  console.log('soundEnabled', soundEnabled);
-
-
   if (soundEnabled) {
     backgroundSoundOn();
   } else {

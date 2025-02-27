@@ -7,7 +7,6 @@ class DrawableObject {
   height = 150;
   width = 100;
 
-
   loadImage(path) {
     this.img = new Image();
     this.img.src = path;
@@ -16,16 +15,12 @@ class DrawableObject {
   draw(ctx) {
     try {
       ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-    } catch(e) {
-      console.log('Error hier:', e);
-      console.log('Error not load this img:', this.img);
-    //   console.warn('Error src:', this.img.src);
-    }
+    } catch (e) {}
   }
 
-
   drawFrame(ctx) {
-    if (this instanceof Character || this instanceof Chicken || this instanceof ChickenSmall || this instanceof Endboss || this instanceof Coin || this instanceof Bottle) { //Nur border bei bestimmten Instanzen
+    if (this instanceof Character || this instanceof Chicken || this instanceof ChickenSmall || this instanceof Endboss || this instanceof Coin || this instanceof Bottle) {
+      //Nur border bei bestimmten Instanzen
       ctx.beginPath();
       ctx.lineWidth = '5';
       ctx.strokeStyle = 'blue';
@@ -47,19 +42,19 @@ class DrawableObject {
     let path = this.IMAGES[this.resolveImageIndex()];
     this.img = this.imageCache[path];
   }
-    resolveImageIndex(){
-      if (this.percentage == 100) {
-          return 5;
-      } else if(this.percentage >= 80) {
-          return 4;
-      } else if(this.percentage >= 60) {
-          return 3;
-      } else if(this.percentage >= 40) {
-          return 2;
-      } else if(this.percentage >= 20) {
-          return 1;
-      } else if(this.percentage >= 0) {
-          return 0;
-      }
+  resolveImageIndex() {
+    if (this.percentage == 100) {
+      return 5;
+    } else if (this.percentage >= 80) {
+      return 4;
+    } else if (this.percentage >= 60) {
+      return 3;
+    } else if (this.percentage >= 40) {
+      return 2;
+    } else if (this.percentage >= 20) {
+      return 1;
+    } else if (this.percentage >= 0) {
+      return 0;
+    }
   }
 }
