@@ -9,7 +9,7 @@ function getStartScreenTemplate() {
     <div class='start-container'>
       <div class='start-screen-container'>
         <img src="./img/start_end_screen/info.svg" alt="settings" onclick="toggleSettings()">
-        <img id="sound-icon" src="./img/start_end_screen/sound-off.svg" alt="sound-on" onclick="toggleSound()">
+        <img id="sound-icon" src="./img/start_end_screen/info.svg" alt="sound-on" onclick="toggleSound()">
       </div>
       <img onclick="playGame();" class="play-icon" src="./img/start_end_screen/play-btn.svg" alt="play-button">
       <div class="legal-info-container">
@@ -70,7 +70,7 @@ function getInGameNavigation() {
       <div class="panel-mobile">
         <div class="panel-group">
           <img id="btnLeft" src="./img/in_game_navigation/arrow-left-move.svg" alt="move-left">
-          <img id="btnRight" src="./img/in_game_navigation/arrow-right-move.svg" alt="">
+          <img id="btnRight" src="./img/in_game_navigation/arrow-right-move.svg" alt="move-right">
         </div>
 
         <div class="panel-group">
