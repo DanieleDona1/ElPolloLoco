@@ -25,25 +25,36 @@ html {
   font-family: 'zabras', Arial, 'Helvetica Neue', Helvetica;
 }
 
-/* Settings Popup START */
+.user-interaction {
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 480px;
+}
+
 .settings-popup {
+  height: 100%;
   position: absolute;
   top: -10%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.95);
   color: #fff;
   padding: 20px;
-  border-radius: 8px;
   display: none;
   z-index: 2;
   transition: top 0.5s ease;
 }
 
+
 .settings-popup-content {
   position: relative;
 }
+
 .settings-popup-content h2 {
   padding-top: 20px;
   margin-bottom: 8px;
@@ -123,15 +134,6 @@ html {
   text-align: center;
   margin-bottom: 16px;
   width: 100%;
-}
-
-.user-interaction {
-  position: relative;
-  width: 100%;
-  max-width: 720px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .start-container {
