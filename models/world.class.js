@@ -27,12 +27,14 @@ class World {
   endbossHealthStatusBar = new EndbossHealthStatusBar();
   throwableObjects = [];
   reloadBottle = true;
+  drawer;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext('2d');
     this.canvas = canvas;
     this.keyboard = keyboard;
-    this.draw();
+    this.drawer = new Drawer(this);
+    this.drawer.draw();
     this.setWorld();
     this.run();
     this.initializeSoundSettings();
@@ -377,124 +379,5 @@ class World {
         }
       }
     });
-  }
-
-  /**
-   * The main drawing method for the game.
-   * This method clears the canvas, translates the camera position, and recursively calls the drawing process.
-   *
-   * @param {number} camera_x - The current camera position on the x-axis.
-   */
-  draw() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.ctx.translate(this.camera_x, 0);
-    this.drawBackgroundbjects();
-    this.drawStatic();
-    let self = this;
-    requestAnimationFrame(function () {
-      self.draw();
-    });
-  }
-
-  /**
-   * Draws the background objects and clouds.
-   * This method adds the background objects and clouds to the map for rendering.
-   */
-  drawBackgroundbjects() {
-    this.addObjectsToMap(this.level.backgroundObjects);
-    this.addObjectsToMap(this.level.clouds);
-  }
-
-  /**
-   * Draws static elements on the screen such as status bars, enemies, and the player.
-   * This method first restores the camera translation, draws the status bars, and then draws enemies and the player.
-   */
-  drawStatic() {
-    this.ctx.translate(-this.camera_x, 0);
-    this.drawStatusBars();
-    this.ctx.translate(this.camera_x, 0);
-    this.drawEnemiesAndItems();
-    this.addToMap(this.character);
-    this.ctx.translate(-this.camera_x, 0);
-  }
-
-  /**
-   * Draws the status bars for the health, coins, and bottles.
-   * Additionally, it handles the drawing of the Endboss health status bar, flipping it if required.
-   */
-  drawStatusBars() {
-    this.addToMap(this.healthStatusBar);
-    this.addToMap(this.coinStatusBar);
-    this.addToMap(this.bottleStatusBar);
-
-    if (this.endbossHealthStatusBar.otherDirection) {
-      this.endbossHealthStatusBar.flipImage();
-    } else {
-      this.addToMap(this.endbossHealthStatusBar);
-    }
-  }
-
-  /**
-   * Draws the enemies, items, and throwable objects on the canvas.
-   * This method adds the level's items, enemies, and throwable objects to the map for rendering.
-   */
-  drawEnemiesAndItems() {
-    this.addObjectsToMap(this.level.items);
-    this.addObjectsToMap(this.level.enemies);
-    this.addObjectsToMap(this.throwableObjects);
-  }
-
-  /**
-   * Adds a list of objects to the map.
-   * This method iterates over the provided list of objects and calls the `addToMap` method for each object.
-   *
-   * @param {Array} objects - The array of objects to be added to the map.
-   */
-  addObjectsToMap(objects) {
-    objects.forEach((o) => {
-      this.addToMap(o);
-    });
-  }
-
-  /**
-   * Adds a single object to the map and handles its direction and drawing.
-   * If the object requires flipping (based on `otherDirection`), it will be flipped before drawing.
-   * The object's image and frame are drawn to the canvas.
-   *
-   * @param {Object} mo - The object to be drawn (e.g., character, enemy, item).
-   */
-  addToMap(mo) {
-    if (mo.otherDirection) {
-      this.flipImage(mo);
-    }
-    mo.draw(this.ctx);
-    mo.drawFrame(this.ctx);
-    if (mo.otherDirection) {
-      this.flipImageBack(mo);
-    }
-  }
-
-  /**
-   * Flips an object's image horizontally.
-   * This method saves the current canvas state, scales the image by -1 on the x-axis, and translates it accordingly.
-   *
-   * @param {Object} mo - The object whose image should be flipped.
-   */
-  flipImage(mo) {
-    this.ctx.save();
-    this.ctx.translate(mo.width, 0);
-    this.ctx.scale(-1, 1);
-    mo.x = mo.x * -1;
-  }
-
-  /**
-   * Restores the flipped object's image back to its original direction.
-   * This method reverts the canvas transformation by restoring the canvas state and flipping the object back.
-   *
-   * @param {Object} mo - The object whose image should be restored to its original direction.
-   */
-  flipImageBack(mo) {
-    mo.x = mo.x * -1;
-    this.ctx.restore();
   }
 }
