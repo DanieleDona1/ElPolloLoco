@@ -113,9 +113,7 @@ class World {
    * Updates the bottle status display.
    * This method updates the bottle status bar based on the current number of collected bottles.
    */
-  updateBottleStatus() {
-    this.bottleStatusBar.setPercentage(this.character.collectedBottle * 20);
-  }
+  updateBottleStatus = () => this.bottleStatusBar.setPercentage(this.character.collectedBottle * 20);
 
   /**
    * Checks for collisions between the character and enemies or bottles.
@@ -139,9 +137,7 @@ class World {
     if (this.character.isColliding(enemy)) {
       if (this.character.isAboveGround() && !(enemy instanceof Endboss)) {
         this.handleStomp(enemy, index);
-      } else {
-        this.handleCharacterHit();
-      }
+      } else this.handleCharacterHit();
     }
   }
 
@@ -152,9 +148,7 @@ class World {
    * @param {Object} enemy - The enemy object to stomp.
    * @param {number} index - The index of the enemy in the enemies array.
    */
-  handleStomp(enemy, index) {
-    this.stompEnemy(enemy, index);
-  }
+  handleStomp = (enemy, index) => this.stompEnemy(enemy, index);
 
   /**
    * Handles the situation when the character is hit by an enemy.
@@ -164,7 +158,6 @@ class World {
     if (!this.enemyIsDead) {
       this.character.hit();
       this.updateHealthBar();
-
       if (this.character.energy === 0 && !this.isCharacterDead) {
         this.handleCharacterDeath();
       }
@@ -187,9 +180,7 @@ class World {
     this.character.fallToDeath(40);
     this.showGameOverScreen();
     if (soundEnabled) this.GAME_OVER_SOUND.play();
-    setTimeout(() => {
-      this.showRestartOptions();
-    }, 350);
+    setTimeout(() => this.showRestartOptions(), 350);
     this.isCharacterDead = true;
   }
 
@@ -246,17 +237,14 @@ class World {
    *
    * @param {Object} enemy - The enemy whose death animation should be played.
    */
-  playEnemyDeathAnimation(enemy) {
-    enemy.playAnimation(enemy.IMAGES_DEAD);
-  }
+  playEnemyDeathAnimation = (enemy) => enemy.playAnimation(enemy.IMAGES_DEAD);
 
   /**
    * Plays the sound effect associated with stomping an enemy.
    * This method plays the stomp sound if sound is enabled in the game.
    */
-  handleSound() {
-    if (soundEnabled) this.STOMP_SOUND.play();
-  }
+  handleSound = () => soundEnabled && this.STOMP_SOUND.play();
+
 
   /**
    * Causes the enemy to fall to its death.
@@ -264,9 +252,8 @@ class World {
    *
    * @param {Object} enemy - The enemy that should fall to death.
    */
-  enemyFallToDeath(enemy) {
-    enemy.fallToDeath(8);
-  }
+  enemyFallToDeath = (enemy) => enemy.fallToDeath(8);
+
 
   /**
    * Removes an enemy from the level after a short delay.
@@ -276,9 +263,7 @@ class World {
    * @param {number} index - The index of the enemy in the enemies array.
    */
   removeEnemyFromLevel(enemy, index) {
-    setTimeout(() => {
-      this.level.enemies.splice(index, 1);
-    }, 1000);
+    setTimeout(() => this.level.enemies.splice(index, 1), 1000);
   }
 
   /**
@@ -286,9 +271,7 @@ class World {
    * This method ensures that the enemy death flag is reset after the death animation is complete.
    */
   resetEnemyDeathFlag() {
-    setTimeout(() => {
-      this.enemyIsDead = false;
-    }, 500);
+    setTimeout(() => (this.enemyIsDead = false), 500);
   }
 
   /**
@@ -304,9 +287,7 @@ class World {
         if (bottle.isColliding(enemy)) {
           if (enemy instanceof Endboss) {
             this.handleEndbossCollision();
-          } else {
-            this.handleRegularEnemyCollision(enemy, index);
-          }
+          } else this.handleRegularEnemyCollision(enemy, index);
         }
       });
     }
@@ -323,9 +304,7 @@ class World {
 
     if (this.level.enemies[0].energy > 0) {
       this.level.enemies[0].hitEndbossAnimation();
-    } else if (this.level.enemies[0].energy === 0 && !this.isEndbossDead) {
-      this.handleEndbossDeath();
-    }
+    } else if (this.level.enemies[0].energy === 0 && !this.isEndbossDead) this.handleEndbossDeath();
   }
 
   /**
@@ -342,16 +321,8 @@ class World {
    */
   handleEndbossDeath() {
     this.level.enemies[0].endbossDead();
-    if (soundEnabled) this.WIN_SOUND.play();
-
-    setTimeout(() => {
-      this.showEndbossVictoryScreen();
-    }, 500);
-
-    setTimeout(() => {
-      this.showRestartOptions();
-    }, 550);
-
+    soundEnabled && this.WIN_SOUND.play();
+    setTimeout(() => (this.showEndbossVictoryScreen(), this.showRestartOptions()), 500);
     this.isEndbossDead = true;
   }
 
@@ -496,10 +467,8 @@ class World {
     if (mo.otherDirection) {
       this.flipImage(mo);
     }
-
     mo.draw(this.ctx);
     mo.drawFrame(this.ctx);
-
     if (mo.otherDirection) {
       this.flipImageBack(mo);
     }
