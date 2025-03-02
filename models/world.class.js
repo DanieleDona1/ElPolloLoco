@@ -309,9 +309,7 @@ class World {
     this.updateEndbossHealthBar();
 
     if (this.level.enemies[0].energy > 0) {
-      console.log('handleCollision');
-
-      this.level.enemies[0].newStartPositionRange -= 150;
+      this.level.enemies[0].newStartPositionRange -= 250;
       this.level.enemies[0].hitEndbossAnimation();
     } else if (this.level.enemies[0].energy === 0 && !this.isEndbossDead) this.handleEndbossDeath();
   }

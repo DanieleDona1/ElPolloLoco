@@ -147,7 +147,7 @@ class Endboss extends MovableObject {
    * @returns {boolean} - True if the endboss is in range for an attack, false otherwise.
    */
   isInAttackRange() {
-    return world.level.enemies[0].x > (this.newStartPositionRange - 300);
+    return world.level.enemies[0].x > (this.newStartPositionRange - 250);
   }
 
   /**
@@ -156,7 +156,7 @@ class Endboss extends MovableObject {
   handleAttackAnimation() {
     if (soundEnabled) world.ATTACK_SCREAM_SOUND.play();
     this.playAnimation(this.IMAGES_HURT);
-    this.x -= 50;
+    this.x -= 60;
   }
 
   /**
