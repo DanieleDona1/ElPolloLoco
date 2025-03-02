@@ -17,7 +17,7 @@ class World {
   isEndbossDead = false;
   level = level1;
   canvas;
-  ctx; //der Stift
+  ctx;
   keyboard;
   camera_x = 0;
   enemyIsDead = false;
@@ -57,7 +57,7 @@ class World {
       this.checkCollision();
       this.checkThrowObjects();
       this.checkCollisionsItems();
-    }, 100);
+    }, 40);
   }
 
   /**
@@ -105,7 +105,7 @@ class World {
    */
   throwBottle() {
     this.reloadBottle = false;
-    setTimeout(() => (this.reloadBottle = true), 500);
+    setTimeout(() => (this.reloadBottle = true), 1000);
     let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
     this.throwableObjects.push(bottle);
     this.character.collectedBottle -= 1;
@@ -137,7 +137,7 @@ class World {
    */
   characterCollision(enemy, index) {
     if (this.character.isColliding(enemy)) {
-      if (this.character.isAboveGround() && !(enemy instanceof Endboss)) {
+      if (this.character.isAboveGround() && !(enemy instanceof Endboss) && this.character.speedY <= 0) {
         this.handleStomp(enemy, index);
       } else this.handleCharacterHit();
     }
@@ -285,15 +285,19 @@ class World {
    */
   bottleCollision(enemy, index) {
     if (this.throwableObjects.length > 0) {
-      this.throwableObjects.forEach((bottle) => {
+      this.throwableObjects.forEach((bottle, bottleIndex) => {
         if (bottle.isColliding(enemy)) {
           if (enemy instanceof Endboss) {
             this.handleEndbossCollision();
-          } else this.handleRegularEnemyCollision(enemy, index);
+            this.throwableObjects.splice(bottleIndex, 1);
+          } else {
+            this.handleRegularEnemyCollision(enemy, index);
+          }
         }
       });
     }
   }
+
 
   /**
    * Handles the collision between a throwable object and the Endboss.

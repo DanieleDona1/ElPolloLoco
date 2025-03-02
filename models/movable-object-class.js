@@ -136,7 +136,6 @@ class MovableObject extends DrawableObject {
    */
   playAnimationOnce(images) {
     if (this.currentImage < images.length) {
-      // Check if there are still images to show
       let path = images[this.currentImage];
       this.img = this.imageCache[path];
       this.currentImage++;

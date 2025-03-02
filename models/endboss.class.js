@@ -3,10 +3,10 @@ class Endboss extends MovableObject {
   width = 250;
   y = 55;
   offset = {
-    top: 60,
+    top: 70,
     right: 10,
     bottom: 0,
-    left: 10,
+    left: 30,
   };
   introEndbossAnimationId;
   hitEndbossAnimationId;
@@ -67,7 +67,7 @@ class Endboss extends MovableObject {
 
     this.introEndbossAnimationId = setStoppableIntervalEndboss(() => {
       this.handlePhaseTransition(i, alertLength, attackLength, walkingLength);
-      this.handleFirstContact(i, alertLength, attackLength, walkingLength);
+      this.handleFirstContact();
       i++;
     }, 200);
   }
@@ -91,32 +91,29 @@ class Endboss extends MovableObject {
     } else if (i >= alertLength + attackLength + walkingLength && i < alertLength + 2 * attackLength + walkingLength) {
       this.playAnimation(this.IMAGES_ATTACK);
     } else if (i >= alertLength + 2 * attackLength + walkingLength && i < 2 * (alertLength + attackLength + walkingLength)) {
-      // this.handleWalkingPhase(true);
+      this.handleWalkingPhase(true);
     } else {
       this.playAnimation(this.IMAGES_ALERT);
     }
   }
 
-  /**
-   * Handles the walking phase of the endboss, updating its position and playing the walking animation.
-   *
-   * @param {boolean} [isReversing=false] - Whether the endboss should reverse its walking direction.
-   */
-  handleWalkingPhase(isReversing = false) {
+/**
+ * Starts the walking animation and plays an alert sound if sound is enabled.
+ *
+ * @function
+ */
+  handleWalkingPhase() {
     this.playAnimation(this.IMAGES_WALKING);
     if (soundEnabled) world.ALERT_SOUND.play();
-    // this.x += isReversing ? 15 : -30;
   }
 
   /**
-   * Handles the first contact with the player character, resetting the animation index if necessary.
-   *
-   * @param {number} i - The current index for determining the phase transition.
-   * @param {number} alertLength - The length of the alert animation sequence.
-   * @param {number} attackLength - The length of the attack animation sequence.
-   * @param {number} walkingLength - The length of the walking animation sequence.
-   */
-  handleFirstContact(i, alertLength, attackLength, walkingLength) {
+ * Handles the first contact event when the character's x position exceeds 1950.
+ * Sets the `hadFirstContact` flag to true.
+ *
+ * @function
+ */
+  handleFirstContact() {
     if (world.character.x > 1950 && !this.hadFirstContact) {
       i = 0;
       this.hadFirstContact = true;
