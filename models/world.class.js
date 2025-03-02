@@ -265,7 +265,7 @@ class World {
    * @param {number} index - The index of the enemy in the enemies array.
    */
   removeEnemyFromLevel(enemy, index) {
-    setTimeout(() => this.level.enemies.splice(index, 1), 1000);
+    setTimeout(() => this.level.enemies.slice(index, 1), 1000);
   }
 
   /**
@@ -309,6 +309,9 @@ class World {
     this.updateEndbossHealthBar();
 
     if (this.level.enemies[0].energy > 0) {
+      console.log('handleCollision');
+
+      this.level.enemies[0].newStartPositionRange -= 150;
       this.level.enemies[0].hitEndbossAnimation();
     } else if (this.level.enemies[0].energy === 0 && !this.isEndbossDead) this.handleEndbossDeath();
   }

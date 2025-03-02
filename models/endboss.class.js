@@ -3,8 +3,8 @@ class Endboss extends MovableObject {
   width = 250;
   y = 55;
   offset = {
-    top: 70,
-    right: 10,
+    top: 110,
+    right: 50,
     bottom: 0,
     left: 30,
   };
@@ -14,7 +14,7 @@ class Endboss extends MovableObject {
   alertEndbossAfterHitId;
   hadFirstContact = false;
   walkedForward = false;
-  endbossStartposition = 2300;
+  newStartPositionRange = 2300
   ATTACK_SCREAM_SOUND = new Audio('./audio/attack-scream.wav');
 
   IMAGES_WALKING = ['./img/4_enemie_boss_chicken/1_walk/G1.png', './img/4_enemie_boss_chicken/1_walk/G2.png', './img/4_enemie_boss_chicken/1_walk/G3.png', './img/4_enemie_boss_chicken/1_walk/G4.png'];
@@ -147,7 +147,7 @@ class Endboss extends MovableObject {
    * @returns {boolean} - True if the endboss is in range for an attack, false otherwise.
    */
   isInAttackRange() {
-    return world.level.enemies[0].x > this.endbossStartposition;
+    return world.level.enemies[0].x > (this.newStartPositionRange - 300);
   }
 
   /**
@@ -156,8 +156,7 @@ class Endboss extends MovableObject {
   handleAttackAnimation() {
     if (soundEnabled) world.ATTACK_SCREAM_SOUND.play();
     this.playAnimation(this.IMAGES_HURT);
-    this.x -= 40; //Attack speed
-    this.endbossStartposition -= 2; //Startposition nach vorne verschieben
+    this.x -= 50;
   }
 
   /**
@@ -166,9 +165,7 @@ class Endboss extends MovableObject {
    * @returns {boolean} - True if the endboss should move forward, false otherwise.
    */
   canMoveBackwards() {
-    // console.log('world.level.enemies[0].x < 2600', world.level.enemies[0].x < 2600);
-
-    return world.level.enemies[0].x < 2600;
+    return world.level.enemies[0].x < this.newStartPositionRange;
   }
 
   /**
@@ -176,7 +173,6 @@ class Endboss extends MovableObject {
    */
   handlemoveBackwards() {
     this.playAnimation(this.IMAGES_ATTACK);
-    // console.log('back');
     this.x += 50;
   }
 

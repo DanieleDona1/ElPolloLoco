@@ -36,8 +36,8 @@ class DrawableObject {
       const offsetY = this.y + this.offset.top;
 
       ctx.beginPath();
-      ctx.lineWidth = '5';
-      ctx.strokeStyle = 'blue';
+      ctx.lineWidth = '1';
+      ctx.strokeStyle = 'transparent';
       ctx.rect(offsetX, offsetY, this.width - this.offset.left - this.offset.right, this.height - this.offset.top - this.offset.bottom);
       ctx.stroke();
     }
