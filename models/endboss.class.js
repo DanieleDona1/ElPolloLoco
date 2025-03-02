@@ -8,12 +8,13 @@ class Endboss extends MovableObject {
     bottom: 0,
     left: 30,
   };
+
   introEndbossAnimationId;
   hitEndbossAnimationId;
   alertEndbossAfterHitId;
   hadFirstContact = false;
   walkedForward = false;
-  endbossAttackRange = 2300;
+  endbossStartposition = 2300;
   ATTACK_SCREAM_SOUND = new Audio('./audio/attack-scream.wav');
 
   IMAGES_WALKING = ['./img/4_enemie_boss_chicken/1_walk/G1.png', './img/4_enemie_boss_chicken/1_walk/G2.png', './img/4_enemie_boss_chicken/1_walk/G3.png', './img/4_enemie_boss_chicken/1_walk/G4.png'];
@@ -131,8 +132,8 @@ class Endboss extends MovableObject {
         this.handleAttackAnimation();
       } else {
         this.walkedForward = true;
-        if (this.shouldMoveForward()) {
-          this.handleMoveForward();
+        if (this.canMoveBackwards()) {
+          this.handlemoveBackwards();
         } else {
           this.endEndbossAnimation();
         }
@@ -146,7 +147,7 @@ class Endboss extends MovableObject {
    * @returns {boolean} - True if the endboss is in range for an attack, false otherwise.
    */
   isInAttackRange() {
-    return world.level.enemies[0].x > this.endbossAttackRange;
+    return world.level.enemies[0].x > this.endbossStartposition;
   }
 
   /**
@@ -155,8 +156,8 @@ class Endboss extends MovableObject {
   handleAttackAnimation() {
     if (soundEnabled) world.ATTACK_SCREAM_SOUND.play();
     this.playAnimation(this.IMAGES_HURT);
-    this.x -= 30;
-    this.endbossAttackRange -= 2;
+    this.x -= 40; //Attack speed
+    this.endbossStartposition -= 2; //Startposition nach vorne verschieben
   }
 
   /**
@@ -164,15 +165,18 @@ class Endboss extends MovableObject {
    *
    * @returns {boolean} - True if the endboss should move forward, false otherwise.
    */
-  shouldMoveForward() {
+  canMoveBackwards() {
+    // console.log('world.level.enemies[0].x < 2600', world.level.enemies[0].x < 2600);
+
     return world.level.enemies[0].x < 2600;
   }
 
   /**
    * Moves the endboss forward and plays the attack animation.
    */
-  handleMoveForward() {
+  handlemoveBackwards() {
     this.playAnimation(this.IMAGES_ATTACK);
+    // console.log('back');
     this.x += 50;
   }
 
