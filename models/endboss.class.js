@@ -67,7 +67,7 @@ class Endboss extends MovableObject {
 
     this.introEndbossAnimationId = setStoppableIntervalEndboss(() => {
       this.handlePhaseTransition(i, alertLength, attackLength, walkingLength);
-      this.handleFirstContact();
+      this.handleFirstContact(i);
       i++;
     }, 200);
   }
@@ -113,7 +113,7 @@ class Endboss extends MovableObject {
  *
  * @function
  */
-  handleFirstContact() {
+  handleFirstContact(i) {
     if (world.character.x > 1950 && !this.hadFirstContact) {
       i = 0;
       this.hadFirstContact = true;

@@ -33,6 +33,7 @@ html {
   justify-content: center;
   align-items: center;
   height: 480px;
+  /* TODO wird verändert!! */
 }
 
 .settings-popup {
@@ -226,19 +227,13 @@ canvas {
   height: 240px;
 }
 
-/* inGame css start  */
 .in-game-nav {
-  /* position: absolute; */
   top: 70px;
   right: 20px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
 }
-
-/* .start-container img {
-  width: 33px;
-} */
 
 .in-game-nav .info-img {
   width: 36px;
@@ -255,7 +250,6 @@ canvas {
 .restart-button {
   position: absolute;
   width: 72px;
-  /* height: 72px; */
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -291,7 +285,6 @@ canvas {
 
 .body-legal-info {
   padding: 24px clamp(16px, 10vw + 16px, 200px);
-  /* background-color: rgba(255, 255, 255, 0.3); */
   font-size: 20px;
   font-family: 'Times New Roman', Times, serif;
 }
@@ -305,7 +298,7 @@ canvas {
   display: none;
 }
 
-@media only screen and (max-width: 1024px) {
+@media only screen and (max-width: 1025px) {
   .panel-mobile {
     display: flex;
   }
@@ -314,6 +307,16 @@ canvas {
 @media only screen and (max-width: 720px) {
   canvas {
     width: 100%;
+    aspect-ratio: 3 / 2;
+    height: auto;
+    /* max-height: 480px; */
+  }
+
+  .start-container {
+    aspect-ratio: 3 / 2;
+    height: auto;
+
+
   }
 }
 
@@ -333,6 +336,9 @@ canvas {
   .start-container {
     height: 100vh;
     max-width: 720px;
+  }
+  .user-interaction {
+    height: auto;
   }
 }
 
