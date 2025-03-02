@@ -2,8 +2,14 @@ class ChickenSmall extends MovableObject {
   y = 345;
   height = 80;
   width = 60;
-  IMAGES_WALKING = ['./img/3_enemies_chicken/chicken_small/1_walk/1_w.png', './img/3_enemies_chicken/chicken_small/1_walk/2_w.png', './img/3_enemies_chicken/chicken_small/1_walk/3_w.png'];
+  offset = {
+    top: 15,
+    right: 0,
+    bottom: 0,
+    left: 0,
+  };
 
+  IMAGES_WALKING = ['./img/3_enemies_chicken/chicken_small/1_walk/1_w.png', './img/3_enemies_chicken/chicken_small/1_walk/2_w.png', './img/3_enemies_chicken/chicken_small/1_walk/3_w.png'];
   IMAGES_DEAD = ['./img/3_enemies_chicken/chicken_small/2_dead/dead.png'];
 
   constructor() {

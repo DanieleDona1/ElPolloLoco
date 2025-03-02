@@ -1,7 +1,13 @@
 class Character extends MovableObject {
-  y = 77;
+  y = 100;
   height = 265;
-  speed = 5.5;
+  speed = 4;
+  offset = {
+    top: 110,
+    right: 30,
+    bottom: 10,
+    left: 20,
+  };
 
   IMAGES_IDL = [
     './img/2_character_pepe/1_idle/idle/I-1.png',
@@ -38,16 +44,15 @@ class Character extends MovableObject {
     './img/2_character_pepe/2_walk/W-26.png',
   ];
 
-  IMAGES_JUMPING = [
-    './img/2_character_pepe/3_jump/J-31.png',
-    './img/2_character_pepe/3_jump/J-32.png',
-    './img/2_character_pepe/3_jump/J-33.png',
+  IMAGES_JUMPING_UP = [
     './img/2_character_pepe/3_jump/J-34.png',
+  ];
+
+  IMAGES_JUMPING_DOWN = [
     './img/2_character_pepe/3_jump/J-35.png',
     './img/2_character_pepe/3_jump/J-36.png',
     './img/2_character_pepe/3_jump/J-37.png',
     './img/2_character_pepe/3_jump/J-38.png',
-    './img/2_character_pepe/3_jump/J-39.png',
   ];
 
   IMAGES_DEAD = [
@@ -71,7 +76,8 @@ class Character extends MovableObject {
     this.loadImages(this.IMAGES_IDL);
     this.loadImages(this.IMAGES_IDL_SLEEP);
     this.loadImages(this.IMAGES_WALKING);
-    this.loadImages(this.IMAGES_JUMPING);
+    this.loadImages(this.IMAGES_JUMPING_UP);
+    this.loadImages(this.IMAGES_JUMPING_DOWN);
     this.loadImages(this.IMAGES_DEAD);
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_WON);
@@ -84,7 +90,7 @@ class Character extends MovableObject {
    */
   animate() {
     setStoppableInterval(() => this.moveCharacter(), 1000 / 60);
-    setStoppableInterval(() => this.playCharacter(), 50);
+    setStoppableInterval(() => this.playCharacter(), 100);
   }
 
   /**
@@ -152,9 +158,12 @@ class Character extends MovableObject {
     } else if (this.isHurt()) {
       this.playAnimation(this.IMAGES_HURT);
       if (soundEnabled) world.HURT_SOUND.play();
-    } else if (this.isAboveGround()) {
-      this.playAnimation(this.IMAGES_JUMPING);
-    } else {
+    } else if (this.isAboveGround() && this.speedY > 0) {
+      this.playAnimationOnce(this.IMAGES_JUMPING_UP);
+    } else if (this.isAboveGround() && this.speedY <= 0) {
+      this.playAnimationOnce(this.IMAGES_JUMPING_DOWN);
+    }
+    else {
       this.handleState();
     }
   }

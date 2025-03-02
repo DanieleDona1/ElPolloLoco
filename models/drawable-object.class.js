@@ -32,13 +32,17 @@ class DrawableObject {
    */
   drawFrame(ctx) {
     if (this instanceof Character || this instanceof Chicken || this instanceof ChickenSmall || this instanceof Endboss || this instanceof Coin || this instanceof Bottle) {
+      const offsetX = this.x + this.offset.left;
+      const offsetY = this.y + this.offset.top;
+
       ctx.beginPath();
       ctx.lineWidth = '5';
-      ctx.strokeStyle = 'transparent';
-      ctx.rect(this.x, this.y, this.width, this.height);
+      ctx.strokeStyle = 'blue';
+      ctx.rect(offsetX, offsetY, this.width - this.offset.left - this.offset.right, this.height - this.offset.top - this.offset.bottom);
       ctx.stroke();
     }
   }
+
 
   /**
    * Loads multiple images and stores them in the image cache.

@@ -10,6 +10,12 @@ class MovableObject extends DrawableObject {
   collectedBottle = 0;
   movingLeftIntervallId;
   playAnimationId;
+  offset = {
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+  };
 
   /**
    * Applies gravity to the object by updating its position and speed over time.
@@ -42,7 +48,12 @@ class MovableObject extends DrawableObject {
    * @returns {boolean} True if the objects are colliding, otherwise false.
    */
   isColliding(mo) {
-    return this.x + this.width > mo.x && this.y + this.height > mo.y && this.x < mo.x && this.y < mo.y + mo.height;
+    return (
+      this.x + this.width - this.offset.right >= mo.x + mo.offset.left && // R -->
+      this.x + this.offset.left <= mo.x + mo.width - mo.offset.right && // T --> B
+      this.y + this.height - this.offset.bottom >= mo.y + mo.offset.top && // L --> B
+      this.y + this.offset.top <= mo.y + mo.height - mo.offset.bottom //B --> T
+    );
   }
 
   /**
@@ -117,6 +128,24 @@ class MovableObject extends DrawableObject {
   }
 
   /**
+   * Plays the animation once by cycling through the provided images array.
+   * It displays each image in sequence, but only once. After reaching the end of the array, it resets the animation.
+   *
+   * @param {Array<string>} images - An array of image paths to display in the animation.
+   * @returns {void}
+   */
+  playAnimationOnce(images) {
+    if (this.currentImage < images.length) {
+      // Check if there are still images to show
+      let path = images[this.currentImage];
+      this.img = this.imageCache[path];
+      this.currentImage++;
+    } else {
+      this.currentImage = 0; // Reset the image index after the animation finishes
+    }
+  }
+
+  /**
    * Moves the object to the right by its speed value.
    */
   moveRight() {
@@ -137,7 +166,7 @@ class MovableObject extends DrawableObject {
    */
   jump() {
     if (soundEnabled) world.JUMP_SOUND.play();
-    this.speedY = 30;
+    this.speedY = 33;
   }
 
   /**

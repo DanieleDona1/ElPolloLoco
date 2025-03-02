@@ -2,6 +2,12 @@ class Endboss extends MovableObject {
   height = 400;
   width = 250;
   y = 55;
+  offset = {
+    top: 60,
+    right: 10,
+    bottom: 0,
+    left: 10,
+  };
   introEndbossAnimationId;
   hitEndbossAnimationId;
   alertEndbossAfterHitId;
