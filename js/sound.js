@@ -49,7 +49,6 @@ function backgroundSoundOn() {
     gameSound.play();
   } catch (error) {
     console.warn('NotAllowedError: play() failed because the user didn t interact with the document');
-
   }
   soundIcon.src = './img/start_end_screen/sound-on.svg';
 }
@@ -62,4 +61,9 @@ function backgroundSoundOff() {
   gameSound.pause();
   gameSound.currentTime = 0;
   soundIcon.src = './img/start_end_screen/sound-off.svg';
+  if (world) {
+    world.SLEEP_SOUND.pause();
+    world.ALERT_SOUND.pause();
+    world.ATTACK_SCREAM_SOUND.pause();
+  }
 }

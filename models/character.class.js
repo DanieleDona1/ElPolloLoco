@@ -201,8 +201,8 @@ class Character extends MovableObject {
       this.playAnimation(this.IMAGES_IDL_SLEEP);
       if (soundEnabled) world.SLEEP_SOUND.play();
     } else {
-      this.playAnimation(this.IMAGES_IDL);
       if (soundEnabled) world.SLEEP_SOUND.pause();
+      this.playAnimation(this.IMAGES_IDL);
     }
   }
 
