@@ -20,7 +20,7 @@ class ThrowableObject extends MovableObject {
     this.applyGravity();
 
     setStoppableInterval(() => {
-      this.x += 10;
+      this.x += (this.bottleSpeedX);
       this.angle += 10;
     }, 25);
   }

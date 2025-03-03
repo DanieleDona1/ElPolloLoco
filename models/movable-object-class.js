@@ -8,6 +8,7 @@ class MovableObject extends DrawableObject {
   lastHit = 0;
   wallet = 0;
   collectedBottle = 0;
+  bottleSpeedX = 40;
   movingLeftIntervallId;
   playAnimationId;
   offset = {
@@ -109,7 +110,7 @@ class MovableObject extends DrawableObject {
   isHurt() {
     let timepassed = new Date().getTime() - this.lastHit;
     timepassed = timepassed / 1000;
-    return timepassed < 3;
+    return timepassed < 1;
   }
 
   /**

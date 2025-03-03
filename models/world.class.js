@@ -106,10 +106,23 @@ class World {
   throwBottle() {
     this.reloadBottle = false;
     setTimeout(() => (this.reloadBottle = true), 1000);
-    let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+    let bottle = this.createBottle();
     this.throwableObjects.push(bottle);
     this.character.collectedBottle -= 1;
   }
+
+  /**
+   * Erstellt eine neue ThrowableObject-Instanz basierend auf der Richtung des Charakters.
+   * @returns {ThrowableObject} Die erzeugte Flasche.
+   */
+  createBottle() {
+    let bottleX = this.character.x + (this.character.otherDirection ? 0 : 100);
+    let bottleSpeedX = this.character.otherDirection ? -10 : 10;
+    let bottle = new ThrowableObject(bottleX, this.character.y + 100);
+    bottle.bottleSpeedX = bottleSpeedX;
+    return bottle;
+  }
+
 
   /**
    * Updates the bottle status display.
