@@ -4,9 +4,9 @@ class Bottle extends MovableObject {
   width = 80;
   offset = {
     top: 5,
-    right: 10,
+    right: 20,
     bottom: 0,
-    left: 30,
+    left: 40,
   };
 
   constructor() {

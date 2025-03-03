@@ -4,9 +4,9 @@ class Character extends MovableObject {
   speed = 4;
   offset = {
     top: 110,
-    right: 30,
+    right: 35,
     bottom: 10,
-    left: 20,
+    left: 25,
   };
 
   IMAGES_IDL = [
