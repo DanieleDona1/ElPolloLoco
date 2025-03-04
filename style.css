@@ -198,13 +198,25 @@ html {
 
 @keyframes pulse {
   0% {
-    width: 72px;
+    width: 63px;
   }
   50% {
-    width: 96px;
+    width: 80px;
   }
   100% {
-    width: 72px;
+    width: 63px;
+  }
+}
+
+@keyframes pulseExit {
+  0% {
+    width: 40px;
+  }
+  50% {
+    width: 56px;
+  }
+  100% {
+    width: 40px;
   }
 }
 
@@ -247,13 +259,26 @@ canvas {
   width: 32px;
 }
 
-.restart-button {
+.center-endscreen-btn {
   position: absolute;
   width: 72px;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   animation: pulse 2s infinite;
+}
+
+.restart-button{
+  width: 72px;
+  animation: pulse 2s infinite;
+}
+
+.menu-button.menu-button {
+  width: 48px;
+  animation: pulseExit 2s infinite;
 }
 
 .settings-btn {

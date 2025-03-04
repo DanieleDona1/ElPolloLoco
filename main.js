@@ -39,9 +39,7 @@ function togglePlayPauseBtn() {
   if (isGamePaused) {
     playPauseIcon.src = './img/start_end_screen/pause.svg';
     resumeGame();
-    // if (soundEnabled) {
-    //   backgroundSoundOn();
-    // }
+    if (soundEnabled) backgroundSoundOn();
   } else {
     playPauseIcon.src = './img/start_end_screen/play.svg';
     pauseGame();

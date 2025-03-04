@@ -215,6 +215,7 @@ class World {
     togglePlayPauseBtn();
     document.getElementById('playPauseIcon').style.display = 'none';
     document.getElementById('restartBtn').classList.remove('d-none');
+    document.getElementById('menuBtn').classList.remove('d-none');
   }
 
   /**
@@ -363,6 +364,7 @@ class World {
    */
   showRestartOptions() {
     document.getElementById('restartBtn').classList.remove('d-none');
+    document.getElementById('menuBtn').classList.remove('d-none');
     document.getElementById('playPauseIcon').style.display = 'none';
   }
 

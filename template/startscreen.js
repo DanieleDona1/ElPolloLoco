@@ -9,7 +9,7 @@ function getStartScreenTemplate() {
     <div class='start-container'>
       <div class='start-screen-container'>
         <img src="./img/start_end_screen/info.svg" alt="settings" onclick="toggleSettings()">
-        <img id="sound-icon" src="./img/start_end_screen/info.svg" alt="sound-on" onclick="toggleSound()">
+        <img id="sound-icon" src="./img/start_end_screen/sound-off.svg" alt="sound-on" onclick="toggleSound()">
       </div>
       <img onclick="playGame();" class="play-icon" src="./img/start_end_screen/play-btn.svg" alt="play-button">
       <div class="legal-info-container">
@@ -60,7 +60,10 @@ function getSettingsPopupTemplate() {
 function getInGameNavigation() {
   return /*html*/ `
     <div  id="startContainer" class='start-container'>
-      <img id="restartBtn" class="restart-button d-none" onclick="restartGame();" src="./img/start_end_screen/restart.svg" alt="restart">
+      <div class="center-endscreen-btn">
+        <img id="restartBtn" class="restart-button d-none" onclick="restartGame();" src="./img/start_end_screen/restart.svg" alt="restart">
+        <img id="menuBtn" class="menu-button d-none" onclick="loadStartScreen();" src="./img/start_end_screen/exit.svg" alt="menu">
+      </div>
       <div id="inGameNav" class='start-screen-container in-game-nav'>
           <img class="info-img" src="./img/start_end_screen/info.svg" alt="info" onclick="toggleSettings()">
           <img class="sound-img" id="sound-icon" src="./img/start_end_screen/sound-off.svg" alt="sound-on" onclick="toggleSound()">

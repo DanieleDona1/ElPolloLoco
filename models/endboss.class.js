@@ -147,7 +147,7 @@ class Endboss extends MovableObject {
    * @returns {boolean} - True if the endboss is in range for an attack, false otherwise.
    */
   isInAttackRange() {
-    return world.level.enemies[0].x > (this.newStartPositionRange - 250);
+    return world.level.enemies[0].x > (this.newStartPositionRange - 220);
   }
 
   /**
