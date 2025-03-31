@@ -116,7 +116,6 @@ html {
     top: 30%;
   }
 }
-/* setting pop up END  */
 
 .wrapper {
   width: 100%;
@@ -220,7 +219,6 @@ html {
   }
 }
 
-/* canvas css */
 canvas {
   background-color: black;
   display: block;
@@ -308,17 +306,6 @@ canvas {
   width: 40px;
 }
 
-.body-legal-info {
-  padding: 24px clamp(16px, 10vw + 16px, 200px);
-  font-size: 20px;
-  font-family: 'Times New Roman', Times, serif;
-}
-
-.body-legal-info button {
-  background-color: rgb(223, 222, 221);
-  padding: 8px 16px;
-}
-
 .d-none {
   display: none;
 }
@@ -334,7 +321,6 @@ canvas {
     width: 100%;
     aspect-ratio: 3 / 2;
     height: auto;
-    /* max-height: 480px; */
   }
 
   .start-container {
