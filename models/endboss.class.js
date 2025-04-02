@@ -9,18 +9,16 @@ class Endboss extends MovableObject {
     left: 30,
   };
 
+  hitEndbossAnimationId;
   bottleTouchedEndboss = false;
   introEndbossAnimationId;
   currentPosition = 2500;
   attackRange = this.currentPosition;
+  addAttackRange = 600;
   attackSpeed = 40;
   walkingSpeed = 15;
   isAltertTime = true;
 
-  hitEndbossAnimationId;
-  alertEndbossAfterHitId;
-  hadFirstContact = false;
-  walkedForward = false;
   ATTACK_SCREAM_SOUND = new Audio('./audio/attack-scream.wav');
 
   IMAGES_WALKING = ['./img/4_enemie_boss_chicken/1_walk/G1.png', './img/4_enemie_boss_chicken/1_walk/G2.png', './img/4_enemie_boss_chicken/1_walk/G3.png', './img/4_enemie_boss_chicken/1_walk/G4.png'];
@@ -53,30 +51,38 @@ class Endboss extends MovableObject {
     this.introEndbossAnimation();
   }
 
-  // Intervall das immer wieder startet,stoppt
-  // introEndbossAnimationId weil es standard animation ist
+  /**
+   * Starts the intro animation for the endboss.
+   * Plays different animations based on the game state.
+   */
   introEndbossAnimation() {
     this.introEndbossAnimationId = setStopOnlyInterval(() => {
       if (!this.bottleTouchedEndboss) {
         this.playAnimation(this.IMAGES_ALERT);
-        console.log('IMAGES_ALERT');
       } else if (this.bottleTouchedEndboss && this.isAlertTime) {
         this.handleAlertPhase();
       } else {
         this.handleWalkingPhase();
-        console.log('IMAGES_WALKING');
       }
     }, 200);
   }
 
+  /**
+   * Handles the alert phase of the endboss.
+   * The boss plays an attack animation and exits alert mode after 6 seconds.
+   */
   handleAlertPhase() {
     this.playAnimation(this.IMAGES_ATTACK);
-    console.log('IMAGES_ATTACK');
     setTimeout(() => {
       this.isAlertTime = false;
     }, 6000);
   }
 
+  /**
+   * Handles the walking phase of the endboss.
+   * Plays a walking animation and moves the boss.
+   * Triggers an alert phase after 1 second.
+   */
   handleWalkingPhase() {
     this.playAnimation(this.IMAGES_WALKING);
     if (soundEnabled) world.ALERT_SOUND.play();
@@ -86,30 +92,26 @@ class Endboss extends MovableObject {
     }, 1000);
   }
 
+  /**
+   * Stops the intro animation of the endboss.
+   */
   stopIntroEndbossAnimation() {
     clearInterval(this.introEndbossAnimationId);
-    console.log('aufgerufen');
   }
 
+  /**
+   * Triggers the hit animation when the endboss is attacked.
+   * Adjusts the attack range and switches between animations.
+   */
   hitEndbossAnimation() {
     this.stopIntroEndbossAnimation();
-    this.attackRange -= 500;
-    console.log('change');
-
+    clearInterval(this.hitEndbossAnimationId);
+    this.attackRange -= this.addAttackRange;
     this.hitEndbossAnimationId = setStopOnlyInterval(() => {
-      this.stopIntroEndbossAnimation();
       if (this.x >= this.attackRange) {
-        this.playAnimation(this.IMAGES_HURT);
-        if (soundEnabled) world.ATTACK_SCREAM_SOUND.play();
-
-        console.log('IMAGES_HURT');
-        this.x -= this.attackSpeed;
+        this.handleHurtAnimation();
       } else if (this.isAttackAnimation) {
-        this.playAnimation(this.IMAGES_ATTACK);
-        console.log('IMAGES_ATTACK');
-        setTimeout(() => {
-          this.isAttackAnimation = false;
-        }, 2000);
+        this.handleAttackAnimation;
       } else {
         this.introEndbossAnimation();
         clearInterval(this.hitEndbossAnimationId);
@@ -117,6 +119,31 @@ class Endboss extends MovableObject {
     }, 200);
   }
 
+  /**
+   * Handles the hurt animation when the endboss takes damage.
+   * Moves the boss backward and plays a sound effect.
+   */
+  handleHurtAnimation() {
+    this.playAnimation(this.IMAGES_HURT);
+    if (soundEnabled) world.ATTACK_SCREAM_SOUND.play();
+    this.x -= this.attackSpeed;
+  }
+
+  /**
+   * Handles the attack animation of the endboss.
+   * Plays an attack animation and resets attack mode after 2 seconds.
+   */
+  handleAttackAnimation() {
+    this.playAnimation(this.IMAGES_ATTACK);
+    setTimeout(() => {
+      this.isAttackAnimation = false;
+    }, 2000);
+  }
+
+  /**
+   * Handles the death of the endboss.
+   * Stops all animations and plays the death animation.
+   */
   endbossDead() {
     this.stopIntroEndbossAnimation();
     clearInterval(this.hitEndbossAnimationId);
