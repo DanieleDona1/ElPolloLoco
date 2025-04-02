@@ -323,8 +323,8 @@ class World {
     this.updateEndbossHealthBar();
 
     if (this.level.enemies[0].energy > 0) {
-      this.level.enemies[0].newStartPositionRange -= 250;
       this.level.enemies[0].hitEndbossAnimation();
+      this.level.enemies[0].bottleTouchedEndboss = true;
     } else if (this.level.enemies[0].energy === 0 && !this.isEndbossDead) this.handleEndbossDeath();
   }
 

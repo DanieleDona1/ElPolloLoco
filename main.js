@@ -5,6 +5,8 @@
 function onload() {
   loadStartScreen();
   checkSoundStatus();
+  // TODO entferne playGame 
+  playGame();
 }
 
 /**
