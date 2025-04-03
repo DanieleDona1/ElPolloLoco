@@ -67,7 +67,7 @@ class World {
   initializeSoundSettings() {
     this.ALERT_SOUND.volume = 0.3;
     this.ATTACK_SCREAM_SOUND.volume = 0.5;
-    this.COIN_SOUND.volume = 0.5;
+    this.COIN_SOUND.volume = 0.2;
     this.GAME_OVER_SOUND.volume = 0.2;
     this.JUMP_SOUND.volume = 0.7;
     this.STOMP_SOUND.volume = 0.5;
