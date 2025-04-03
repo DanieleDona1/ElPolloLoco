@@ -5,8 +5,6 @@
 function onload() {
   loadStartScreen();
   checkSoundStatus();
-  // TODO entferne playGame 
-  playGame();
 }
 
 /**
@@ -31,6 +29,31 @@ function playGame() {
   startScreen.innerHTML += getSettingsPopupTemplate();
   document.getElementById('startContainer').style.backgroundImage = 'none';
   init();
+  if (window.innerHeight <= 510) {
+    goFullscreen();
+  }
+}
+
+/**
+ * Attempts to enable fullscreen mode across different browsers.
+ * - Standard: `requestFullscreen()`
+ * - Firefox: `mozRequestFullScreen()`
+ * - WebKit (Chrome, Safari, Opera): `webkitRequestFullscreen()`
+ * - IE/Edge: `msRequestFullscreen()`
+ *
+ * @example
+ * goFullscreen();
+ */
+function goFullscreen() {
+  if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen();
+  } else if (document.documentElement.mozRequestFullScreen) {
+      document.documentElement.mozRequestFullScreen();
+  } else if (document.documentElement.webkitRequestFullscreen) {
+      document.documentElement.webkitRequestFullscreen();
+  } else if (document.documentElement.msRequestFullscreen) {
+      document.documentElement.msRequestFullscreen();
+  }
 }
 
 /**

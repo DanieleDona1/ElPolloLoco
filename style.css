@@ -290,20 +290,20 @@ canvas {
   justify-content: space-between;
   bottom: 0;
   width: 100%;
-  padding: 8px 16px;
+  padding: 4px 16px;
 }
 
 .panel-group {
   display: flex;
-  gap: 10px;
-}
-
-.panel-group:nth-of-type(2) {
   gap: 16px;
 }
 
+.panel-group:nth-of-type(2) {
+  gap: 20px;
+}
+
 .panel-mobile img {
-  width: 40px;
+  width: 43px;
 }
 
 .d-none {
